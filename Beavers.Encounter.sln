@@ -1,0 +1,113 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beavers.Encounter.Core", "app\Beavers.Encounter.Core\Beavers.Encounter.Core.csproj", "{BD0DF4EC-1D1D-42AF-8615-265F7B3820B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beavers.Encounter.ApplicationServices", "app\Beavers.Encounter.ApplicationServices\Beavers.Encounter.ApplicationServices.csproj", "{C29027A1-57B3-4243-8AE4-59683C154473}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beavers.Encounter.Data", "app\Beavers.Encounter.Data\Beavers.Encounter.Data.csproj", "{63372057-C24D-4F11-BFDC-68B57B55B984}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beavers.Encounter.Web.Controllers", "app\Beavers.Encounter.Web.Controllers\Beavers.Encounter.Web.Controllers.csproj", "{A354F29F-3BE3-4968-BC52-CCAC7DD8DD67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beavers.Encounter.Tests", "tests\Beavers.Encounter.Tests\Beavers.Encounter.Tests.csproj", "{9BD01DDA-1F71-4A54-989B-91FF2D479B81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beavers.Encounter.Web", "app\Beavers.Encounter.Web\Beavers.Encounter.Web.csproj", "{0270E8A8-2781-4F36-9062-F5FA3D596D70}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code Generation", "Code Generation", "{53144171-91D0-4792-BFCD-9CFB4B15C2AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudScaffolding", "tools\CrudScaffolding\CrudScaffolding.csproj", "{66981BBF-C60F-43E3-A2C7-1AC70FA7B30E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{11B849C6-F2C4-4B14-A388-B0AED4284A98}"
+	ProjectSection(SolutionItems) = preProject
+		lib\Antlr3.Runtime.dll = lib\Antlr3.Runtime.dll
+		lib\Castle.Core.dll = lib\Castle.Core.dll
+		lib\Castle.DynamicProxy2.dll = lib\Castle.DynamicProxy2.dll
+		lib\Castle.MicroKernel.dll = lib\Castle.MicroKernel.dll
+		lib\Castle.Services.Logging.Log4netIntegration.dll = lib\Castle.Services.Logging.Log4netIntegration.dll
+		lib\Castle.Windsor.dll = lib\Castle.Windsor.dll
+		lib\CommonServiceLocator.WindsorAdapter.dll = lib\CommonServiceLocator.WindsorAdapter.dll
+		lib\FluentNHibernate.dll = lib\FluentNHibernate.dll
+		lib\Gallio.dll = lib\Gallio.dll
+		lib\ICSharpCode.SharpZipLib.dll = lib\ICSharpCode.SharpZipLib.dll
+		lib\Iesi.Collections.dll = lib\Iesi.Collections.dll
+		lib\Inflector.Net.dll = lib\Inflector.Net.dll
+		lib\log4net.dll = lib\log4net.dll
+		lib\MbUnit.dll = lib\MbUnit.dll
+		lib\Microsoft.Practices.ServiceLocation.dll = lib\Microsoft.Practices.ServiceLocation.dll
+		lib\Microsoft.Web.Mvc.dll = lib\Microsoft.Web.Mvc.dll
+		lib\MvcContrib.Castle.dll = lib\MvcContrib.Castle.dll
+		lib\MvcContrib.dll = lib\MvcContrib.dll
+		lib\MvcContrib.FluentHtml.dll = lib\MvcContrib.FluentHtml.dll
+		lib\MvcContrib.ModelAttributes.dll = lib\MvcContrib.ModelAttributes.dll
+		lib\MvcContrib.TestHelper.dll = lib\MvcContrib.TestHelper.dll
+		lib\Newtonsoft.Json.dll = lib\Newtonsoft.Json.dll
+		lib\NHibernate.ByteCode.Castle.dll = lib\NHibernate.ByteCode.Castle.dll
+		lib\NHibernate.dll = lib\NHibernate.dll
+		lib\NHibernate.Linq.dll = lib\NHibernate.Linq.dll
+		lib\NHibernate.Validator.dll = lib\NHibernate.Validator.dll
+		lib\nunit.framework.dll = lib\nunit.framework.dll
+		lib\Rhino.Mocks.dll = lib\Rhino.Mocks.dll
+		lib\SharpArch.Core.dll = lib\SharpArch.Core.dll
+		lib\SharpArch.Core.NHibernateValidator.dll = lib\SharpArch.Core.NHibernateValidator.dll
+		lib\SharpArch.Data.dll = lib\SharpArch.Data.dll
+		lib\SharpArch.Testing.dll = lib\SharpArch.Testing.dll
+		lib\SharpArch.Testing.MbUnit.dll = lib\SharpArch.Testing.MbUnit.dll
+		lib\SharpArch.Testing.NUnit.dll = lib\SharpArch.Testing.NUnit.dll
+		lib\SharpArch.Wcf.dll = lib\SharpArch.Wcf.dll
+		lib\SharpArch.WcfClient.Castle.dll = lib\SharpArch.WcfClient.Castle.dll
+		lib\SharpArch.Web.Castle.dll = lib\SharpArch.Web.Castle.dll
+		lib\SharpArch.Web.dll = lib\SharpArch.Web.dll
+		lib\System.Data.SQLite.DLL = lib\System.Data.SQLite.DLL
+		lib\System.Web.Abstractions.dll = lib\System.Web.Abstractions.dll
+		lib\System.Web.Mvc.dll = lib\System.Web.Mvc.dll
+		lib\System.Web.Routing.dll = lib\System.Web.Routing.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beavers.Encounter.Common", "app\Beavers.Encounter.Common\Beavers.Encounter.Common.csproj", "{557BD006-CE4C-408A-9C40-9B8452D8472A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{2CB3CE7F-68FB-4568-9662-100966BADE93}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD0DF4EC-1D1D-42AF-8615-265F7B3820B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD0DF4EC-1D1D-42AF-8615-265F7B3820B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD0DF4EC-1D1D-42AF-8615-265F7B3820B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD0DF4EC-1D1D-42AF-8615-265F7B3820B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C29027A1-57B3-4243-8AE4-59683C154473}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C29027A1-57B3-4243-8AE4-59683C154473}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C29027A1-57B3-4243-8AE4-59683C154473}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C29027A1-57B3-4243-8AE4-59683C154473}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63372057-C24D-4F11-BFDC-68B57B55B984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63372057-C24D-4F11-BFDC-68B57B55B984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63372057-C24D-4F11-BFDC-68B57B55B984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63372057-C24D-4F11-BFDC-68B57B55B984}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A354F29F-3BE3-4968-BC52-CCAC7DD8DD67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A354F29F-3BE3-4968-BC52-CCAC7DD8DD67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A354F29F-3BE3-4968-BC52-CCAC7DD8DD67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A354F29F-3BE3-4968-BC52-CCAC7DD8DD67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BD01DDA-1F71-4A54-989B-91FF2D479B81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BD01DDA-1F71-4A54-989B-91FF2D479B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BD01DDA-1F71-4A54-989B-91FF2D479B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BD01DDA-1F71-4A54-989B-91FF2D479B81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0270E8A8-2781-4F36-9062-F5FA3D596D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0270E8A8-2781-4F36-9062-F5FA3D596D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0270E8A8-2781-4F36-9062-F5FA3D596D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0270E8A8-2781-4F36-9062-F5FA3D596D70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66981BBF-C60F-43E3-A2C7-1AC70FA7B30E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66981BBF-C60F-43E3-A2C7-1AC70FA7B30E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{557BD006-CE4C-408A-9C40-9B8452D8472A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{557BD006-CE4C-408A-9C40-9B8452D8472A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{557BD006-CE4C-408A-9C40-9B8452D8472A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{557BD006-CE4C-408A-9C40-9B8452D8472A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{66981BBF-C60F-43E3-A2C7-1AC70FA7B30E} = {53144171-91D0-4792-BFCD-9CFB4B15C2AC}
+	EndGlobalSection
+EndGlobal

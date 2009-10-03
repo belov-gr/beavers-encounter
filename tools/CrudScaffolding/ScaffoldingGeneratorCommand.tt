@@ -1,0 +1,88 @@
+﻿<#@ template language="C#" hostspecific="True" debug="True" #>
+<#@ import namespace="System.Collections.Specialized" #>
+<#@ output extension="txt" #>
+<#@ include file="T4Toolbox.tt" #>
+<#@ include file="./Templates/ScaffoldingGenerator.tt" #> 
+<#@ include file="EntityScaffoldingDetails.tt" #> 
+
+<#
+///////////////////////////////////////////////////
+// Set your domain object details below and simply uncomment the last line (".Run()") and save this file to auto-generate the scaffolding
+
+/*
+ * Domain name should be PascalCaseSingular with no spaces.
+ * You may qualify the domain object with a namespace; a folder structure reflecting the namespace structure will be created (or verified).
+ * A log of created artifacts may be found in /Beavers.Encounter/logs/CrudScaffolding.log
+ * Examples:  Product, Organization.Employee, Financial.Costs.LedgerEntry
+ */
+EntityScaffoldingDetails entityScaffoldingDetails =
+	new EntityScaffoldingDetails("BonusTask");
+ 
+/*
+ * Property names should be PascalCase.
+ * Do not include a property for Id as it will be included automatically.
+ */
+entityScaffoldingDetails.EntityProperties.Add(
+	new EntityProperty("Name", "string", "New Code", "[NotNull, NotEmpty]", true) 
+);
+entityScaffoldingDetails.EntityProperties.Add(
+	new EntityProperty("TaskText", "string", "Task description", "[NotNull, NotEmpty]", false) 
+); 
+entityScaffoldingDetails.EntityProperties.Add(
+	new EntityProperty("StartTime", "DateTime", DateTime.Parse("1/1/1975"))
+);
+entityScaffoldingDetails.EntityProperties.Add(
+	new EntityProperty("FinishTime", "DateTime", DateTime.Parse("1/1/1975"))
+);
+entityScaffoldingDetails.EntityProperties.Add(
+	new EntityProperty("Game", "Game", null, "[NotNull]", false)
+);
+
+//entityScaffoldingDetails.EntityProperties.Add(
+//	new EntityProperty("GameDate", "DateTime", DateTime.Parse("1/1/1975"))
+//);
+//entityScaffoldingDetails.EntityProperties.Add(
+//	new EntityProperty("Description", "string", "Game Description", "[NotNull, NotEmpty]", false) 
+//); 
+//entityScaffoldingDetails.EntityProperties.Add(
+//	new EntityProperty("TotalTime", "TimeSpan", TimeSpan.FromMinutes(9))
+//);
+//entityScaffoldingDetails.EntityProperties.Add(
+//	new EntityProperty("TimePerTask", "TimeSpan", TimeSpan.FromMinutes(90))
+//);
+//entityScaffoldingDetails.EntityProperties.Add(
+//	new EntityProperty("TimePerTip", "TimeSpan", TimeSpan.FromMinutes(30))
+//);
+
+
+//entityScaffoldingDetails.EntityProperties.Add(
+//	new EntityProperty("Login", "string", "Beaver", "[NotNull, NotEmpty]", false) 
+//); 
+//entityScaffoldingDetails.EntityProperties.Add(
+//	new EntityProperty("Password", "string", "Encounter", "[NotNull, NotEmpty]", false)
+//);
+//entityScaffoldingDetails.EntityProperties.Add(
+//	new EntityProperty("Nick", "string", "Beaver", "", false)
+//);
+//entityScaffoldingDetails.EntityProperties.Add(
+//	new EntityProperty("Phone", "string", "123456789", "", false)
+//);
+//entityScaffoldingDetails.EntityProperties.Add(
+//	new EntityProperty("Icq", "string", "123456789", "", false)
+//);
+//entityScaffoldingDetails.EntityProperties.Add(
+//	new EntityProperty("BirthDate", "DateTime", DateTime.Parse("1/1/1975"))
+//);
+//entityScaffoldingDetails.EntityProperties.Add(
+//	new EntityProperty("Team", "Team", null, "")
+//);
+
+///////////////////////////////////////////////////
+
+// The first parameter should reflect the root directory of your solution
+ScaffoldingGenerator generator = new ScaffoldingGenerator(
+	@"D:\Projects\Beavers.Encounter.Prototype\Beavers.Encounter\", "Beavers.Encounter", entityScaffoldingDetails); 
+
+// Uncomment this line when you're ready for the scaffolding generator to fire...be sure to recomment after it completes to avoid accidental generating!
+//generator.Run();
+#>

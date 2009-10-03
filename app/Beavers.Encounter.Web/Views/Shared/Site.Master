@@ -1,0 +1,64 @@
+<%@ Master Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<%@ Import Namespace="Beavers.Encounter.Web.HtmlHelpers"%>
+<%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head id="Head1" runat="server">
+    <meta http-equiv="Content-Type" content="text/html; windows-1251" />
+
+    <link href="<%= ResolveUrl("~") %>Content/Site.css" rel="stylesheet" type="text/css" />
+
+    <% // At bottom to facilitate other JS files to be loaded before page-by-page JS is loaded %>
+    <asp:ContentPlaceHolder ID="HeadContentPlaceHolder" runat="server">
+        <title>ДОЗОР.Рыбинск.ru (Beavers.Encounter)</title>
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+    <!--<script type='text/javascript' language='JavaScript' src='http://dozor.rybinsk.ru/stat/stats_js.asp?login=<%= HttpContext.Current.User.Identity.Name %>'></script>-->
+    <div class="page">
+
+        <div id="header">
+              
+            <div id="logindisplay">
+                <% Html.RenderPartial("LogOnUserControl"); %>
+            </div> 
+            
+            <div id="menucontainer">
+            
+                <ul id="menu">              
+                    <li><%= Html.ActionLinkForAreas<HomeController>(c => c.Index(), "Главная") %></li>
+
+                        <%
+                            if (Request.IsAuthenticated)
+                            {
+                        %>
+                                <li><%= Html.ActionLinkForAreas<TeamsController>(c => c.Index(), "Команды")%></li>
+                                <li><%= Html.ActionLinkForAreas<GamesController>(c => c.Index(), "Игры")%></li>
+                        <%
+                            }
+                        %>
+                </ul>
+            
+            </div>
+
+        </div>
+
+        <div id="mainContent">
+
+                <div>
+                    <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server" />
+                </div><!--/rightColumn-->
+
+                <div class="clear">
+                </div>
+
+            <!--<div id="sharpArchLogo"><%= Html.Image("~/Content/Images/sharp_arch_small.gif")%></div>-->
+
+        </div><!--/mainContent-->
+
+    </div><!--/page-->
+</body>
+</html>
