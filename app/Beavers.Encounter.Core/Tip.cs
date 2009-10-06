@@ -1,7 +1,5 @@
 using NHibernate.Validator.Constraints;
-using SharpArch.Core.PersistenceSupport;
 using SharpArch.Core.DomainModel;
-using System;
 
 namespace Beavers.Encounter.Core
 {

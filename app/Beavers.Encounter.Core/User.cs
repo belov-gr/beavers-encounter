@@ -1,7 +1,5 @@
 using System.Security.Principal;
 using NHibernate.Validator.Constraints;
-using SharpArch.Core.NHibernateValidator.CommonValidatorAdapter;
-using SharpArch.Core.PersistenceSupport;
 using SharpArch.Core.DomainModel;
 using System;
 
@@ -86,7 +84,7 @@ namespace Beavers.Encounter.Core
         {
             get
             {
-                return new User() { Login = "Guest", Role = Role.Guest };
+                return new User { Login = "Guest", Role = Role.Guest };
             }
         }
 
@@ -99,13 +97,13 @@ namespace Beavers.Encounter.Core
             get
             {
                 bool isAuthenticated = !(Role.Name == Role.Guest.Name);
-                return new Identity(isAuthenticated, this.Login);
+                return new Identity(isAuthenticated, Login);
             }
         }
 
         public virtual bool IsInRole(string role)
         {
-            return this.Role.Name.Equals(role);
+            return Role.Name.Equals(role);
         }
     }
 
@@ -114,8 +112,8 @@ namespace Beavers.Encounter.Core
     /// </summary>
     public class Identity : IIdentity
     {
-        private bool isAuthenticated;
-        private string name;
+        private readonly bool isAuthenticated;
+        private readonly string name;
 
         public Identity(bool isAuthenticated, string name)
         {

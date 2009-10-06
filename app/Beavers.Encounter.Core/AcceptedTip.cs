@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NHibernate.Validator.Constraints;
 using SharpArch.Core.DomainModel;
 
@@ -9,9 +6,7 @@ namespace Beavers.Encounter.Core
 {
     public class AcceptedTip : Entity
     {
-        public AcceptedTip()
-        {
-        }
+        public AcceptedTip() { }
 
         [DomainSignature]
         [NotNull]

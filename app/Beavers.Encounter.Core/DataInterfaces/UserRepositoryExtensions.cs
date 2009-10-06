@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Beavers.Encounter.Core;
 
 namespace Beavers.Encounter.Core.DataInterfaces
 {
@@ -24,13 +21,8 @@ namespace Beavers.Encounter.Core.DataInterfaces
                 user =>
                     user.Login.ToUpper() == login.ToUpper() &&
                     user.Password == password /*&&
-                    user.IsEnabled*/
+                    user.IsEnabled*/ //TODO: Блокировка пользователей
                 );
         }
-
-        /*public static IList<User> Editable(this IList<User> users)
-        {
-            return users.Where(user => !(user.RoleId == Role.CustomerId));
-        }*/
     }
 }

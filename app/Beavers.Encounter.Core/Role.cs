@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NHibernate.Validator.Constraints;
+﻿using NHibernate.Validator.Constraints;
 using SharpArch.Core.DomainModel;
 
 namespace Beavers.Encounter.Core
@@ -35,11 +31,11 @@ namespace Beavers.Encounter.Core
         public const int TeamLeaderId = 5;
 
         // allowed roles. These must match the data in table Role
-        public static Role Administrator { get { return new Role() { Id = AdministratorId, Name = "Administrator" }; } }
-        public static Role Author { get { return new Role() { Id = AuthorId, Name = "Author" }; } }
-        public static Role Player { get { return new Role() { Id = PlayerId, Name = "Player" }; } }
-        public static Role Guest { get { return new Role() { Id = GuestId, Name = "Guest" }; } }
-        public static Role TeamLeader { get { return new Role() { Id = TeamLeaderId, Name = "TeamLeader" }; } }
+        public static Role Administrator { get { return new Role { Id = AdministratorId, Name = "Administrator" }; } }
+        public static Role Author { get { return new Role { Id = AuthorId, Name = "Author" }; } }
+        public static Role Player { get { return new Role { Id = PlayerId, Name = "Player" }; } }
+        public static Role Guest { get { return new Role { Id = GuestId, Name = "Guest" }; } }
+        public static Role TeamLeader { get { return new Role { Id = TeamLeaderId, Name = "TeamLeader" }; } }
 
         public virtual bool IsAdministrator { get { return Name == Administrator.Name; } }
         public virtual bool IsAuthor { get { return Name == Author.Name; } }

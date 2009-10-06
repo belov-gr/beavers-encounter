@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using NHibernate.Validator.Constraints;
-using SharpArch.Core.PersistenceSupport;
 using SharpArch.Core.DomainModel;
 using System;
 
@@ -53,7 +52,7 @@ namespace Beavers.Encounter.Core
         public virtual IList<BonusTask> BonusTasks { get; protected set; }
     }
 
-    public enum GameStates : int
+    public enum GameStates
     {
         Planned,
         Startup,

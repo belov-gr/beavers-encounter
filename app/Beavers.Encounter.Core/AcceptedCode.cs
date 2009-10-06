@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using SharpArch.Core.DomainModel;
 using NHibernate.Validator.Constraints;
 
@@ -9,9 +6,7 @@ namespace Beavers.Encounter.Core
 {
     public class AcceptedCode : Entity
     {
-        public AcceptedCode()
-        {
-        }
+        public AcceptedCode() { }
 
         [DomainSignature]
         [NotNull]
