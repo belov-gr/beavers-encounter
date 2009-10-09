@@ -12,6 +12,7 @@ using Beavers.Encounter.Common.MvcContrib;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Core.DataInterfaces;
 using Beavers.Encounter.Web.Controllers.Filters;
+using Beavers.Encounter.Web.Controllers.Binders;
 
 namespace Beavers.Encounter.Web.Controllers
 {
@@ -61,7 +62,7 @@ namespace Beavers.Encounter.Web.Controllers
         [ValidateAntiForgeryToken]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Create(Team team)
+        public ActionResult Create([TeamBinder(Fetch = false)]Team team)
         {
             if (ViewData.ModelState.IsValid && team.IsValid()) 
             {
@@ -101,7 +102,8 @@ namespace Beavers.Encounter.Web.Controllers
         [ValidateAntiForgeryToken]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(Team team) {
+        public ActionResult Edit([TeamBinder(Fetch = true)]Team team)
+        {
             Team teamToUpdate = teamRepository.Get(team.Id);
             TransferFormValuesTo(teamToUpdate, team);
 

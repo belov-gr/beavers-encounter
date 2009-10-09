@@ -1,5 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true"
-	Inherits="System.Web.Mvc.ViewUserControl<Beavers.Encounter.Web.Controllers.TeamsController.TeamFormViewModel>" %>
+	Inherits="System.Web.Mvc.ViewUserControl<TeamsController.TeamFormViewModel>" %>
 <%@ Import Namespace="Beavers.Encounter.Core" %>
 <%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
  
@@ -12,14 +12,14 @@
 
 <% using (Html.BeginForm()) { %>
     <%= Html.AntiForgeryToken() %>
-    <%= Html.Hidden("Team.Id", (ViewData.Model.Team != null) ? ViewData.Model.Team.Id : 0)%>
+    <%= Html.Hidden("Team.Id", (Model.Team != null) ? Model.Team.Id : 0)%>
 
     <ul>
 		<li>
 			<label for="Team_Name">Название:</label>
 			<div>
 				<%= Html.TextBox("Team.Name", 
-					(ViewData.Model.Team != null) ? ViewData.Model.Team.Name.ToString() : "")%>
+					(Model.Team != null) ? Model.Team.Name : "")%>
 			</div>
 			<%= Html.ValidationMessage("Team.Name")%>
 		</li>
@@ -32,9 +32,44 @@
 			</div>
 			<div>
 				<%= Html.TextBox("Team.AccessKey", 
-					(ViewData.Model.Team != null) ? ViewData.Model.Team.AccessKey.ToString() : "")%>
+					(Model.Team != null) ? Model.Team.AccessKey : "")%>
 			</div>
 			<%= Html.ValidationMessage("Team.AccessKey")%>
+		</li>
+		<li>
+			<label for="Team_PreventTasksAfterTeams">Анти-слив:</label>
+			<div class="note">
+			Данная опция помогает предотвратить сливы заданий, направляя текущую команду 
+			по маршруту отличному от маршрута указанных здесь команд.
+			</div>
+			<div>
+    <%
+    int i = 0;
+    foreach (var notAfterTeam in Model.Team.PreventTasksAfterTeams)
+    {
+        var empty = new Team { Name = "<Не указано>" };
+        var list = new List<Team> { empty };
+        var selected = new List<Team> { notAfterTeam };
+        var sl = new SelectList(
+            selected
+            .Union(Model.Team.Game.Teams.Where(x => x.Id != Model.Team.Id).Except(Model.Team.PreventTasksAfterTeams))
+            .Union(list),
+            "Id", "Name", notAfterTeam);
+        %>
+        <%=Html.DropDownList(String.Format("Team.PreventTasksAfterTeams{0}", i), sl)%>
+        <%
+        i++;
+    }
+    var emptyTeam = new Team { Name = "<Не указано>" };
+    var tasksList = new List<Team> { emptyTeam };
+    var slTeam = new SelectList(
+        tasksList
+        .Union(Model.Team.Game.Teams.Where(x => x.Id != Model.Team.Id)),
+        "Id", "Name", emptyTeam);
+    %>
+    <%=Html.DropDownList(String.Format("Team.PreventTasksAfterTeams{0}", i), slTeam)%>
+			</div>
+			<%= Html.ValidationMessage("Team.PreventTasksAfterTeams")%>
 		</li>
 		<li>
 			<label for="Team_FinalTask">Индивидуальное задание:</label>

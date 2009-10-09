@@ -19,6 +19,11 @@ namespace Beavers.Encounter.Data.NHibernateMaps
 
             mapping.HasMany(x => x.TeamGameStates);
             mapping.HasMany(x => x.Users);
+
+            mapping.HasManyToMany(x => x.PreventTasksAfterTeams)
+                .WithTableName("PreventTeams")
+                .WithChildKeyColumn("TeamFk")
+                .WithParentKeyColumn("TeamRefFk");
         }
     }
 }

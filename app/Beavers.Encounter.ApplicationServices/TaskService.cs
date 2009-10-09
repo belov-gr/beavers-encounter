@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
 using Beavers.Encounter.Core;
 using SharpArch.Core;
 using SharpArch.Core.PersistenceSupport;
@@ -148,6 +147,17 @@ namespace Beavers.Encounter.ApplicationServices
                 }
             }
 
+            // Получаем задания выполненные командами, которые помечены опцией "Анти-слив"
+            var excludeExecutedTasks = new List<Task>();
+            foreach (Team team in teamGameState.Team.PreventTasksAfterTeams)
+            {
+                foreach (var task in team.TeamGameState.AcceptedTasks)
+                {
+                    if (!excludeExecutedTasks.Contains(task.Task))
+                        excludeExecutedTasks.Add(task.Task);
+                }
+            }
+
             List<Task> tasksWithMaxPoints = new List<Task>();
             int maxPoints = 0;
 
@@ -155,7 +165,7 @@ namespace Beavers.Encounter.ApplicationServices
             // и отбираем задания с максимальным приоритетом
             foreach (Task task in accessibleTasks)
             {
-                int taskPoints = GetTaskPoints(task, oldTask, executingTasks);
+                int taskPoints = GetTaskPoints(task, oldTask, executingTasks, excludeExecutedTasks);
                 if (taskPoints > maxPoints)
                 {
                     maxPoints = taskPoints;
@@ -195,8 +205,9 @@ namespace Beavers.Encounter.ApplicationServices
         /// <param name="task">Задание для которого нужно вычислить приоритет.</param>
         /// <param name="oldTask">Предыдущее задание выполненное командой.</param>
         /// <param name="executingTasks">Задания выполняемые в данных момент другими командами.</param>
+        /// <param name="excludeExecutedTasks">Задания выполненные командами, которые помечены опцией "Анти-слив".</param>
         /// <returns>Приоритет задания.</returns>
-        private static int GetTaskPoints(Task task, Task oldTask, Dictionary<Task, int> executingTasks)
+        private static int GetTaskPoints(Task task, Task oldTask, Dictionary<Task, int> executingTasks, List<Task> excludeExecutedTasks)
         {
             int taskPoints = 1000;
             
@@ -213,6 +224,11 @@ namespace Beavers.Encounter.ApplicationServices
             // Задание с агентами одновременно может выполняться только одной командой
             if (task.Agents == 1 && executingTasks.ContainsKey(task))
                 taskPoints -= 500;
+
+            //--------------------------------------------------------------------
+            // Если задание выполнено командами, которые помечены опцией "Анти-слив", то -700
+            if (excludeExecutedTasks.Contains(task))
+                taskPoints -= 700;
 
             //--------------------------------------------------------------------
             // Если задание выполняет другая команда, то -50

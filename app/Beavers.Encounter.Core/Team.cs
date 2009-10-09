@@ -18,6 +18,7 @@ namespace Beavers.Encounter.Core
         {
             TeamGameStates = new List<TeamGameState>();
             Users = new List<User>();
+            PreventTasksAfterTeams = new List<Team>();
         }
 
         [DomainSignature]
@@ -38,6 +39,8 @@ namespace Beavers.Encounter.Core
         public virtual IList<TeamGameState> TeamGameStates { get; protected set; }
 
         public virtual IList<User> Users { get; protected set; }
+
+        public virtual IList<Team> PreventTasksAfterTeams { get; protected set; }
 
         public override string ToString()
         {
