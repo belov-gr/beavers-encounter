@@ -307,7 +307,11 @@ namespace Beavers.Encounter.ApplicationServices
                 bonusCodes += code.IsBonus;
             }
             taskPoints += bonusCodes * 10;
-            
+
+            //--------------------------------------------------------------------
+            // Применяем собственный приоритет задачи
+            taskPoints += task.Priority;
+
             return taskPoints;
         }
 

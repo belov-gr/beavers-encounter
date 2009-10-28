@@ -17,6 +17,10 @@
                     <span id="Task_Name" style="font-weight:bold"><%= Html.Encode(ViewData.Model.Name) %></span>
 		        </li>
 		        <li>
+			        <label for="Task_Priority">Приоритет задания:</label>
+                    <span id="Task_Priority"><%= ViewData.Model.Priority %></span>
+		        </li>
+		        <li>
 			        <label for="Task_StreetChallendge">Street Challenge:</label>
                     <span id="Task_StreetChallendge"><%= ViewData.Model.StreetChallendge == 1 ? "Да" : "Нет" %></span>
 		        </li>

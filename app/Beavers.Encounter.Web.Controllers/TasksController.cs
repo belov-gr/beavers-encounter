@@ -110,6 +110,7 @@ namespace Beavers.Encounter.Web.Controllers
             taskToUpdate.Agents = taskFromForm.Agents;
             taskToUpdate.Locked = taskFromForm.Locked;
             taskToUpdate.TaskType = taskFromForm.TaskType;
+            taskToUpdate.Priority = taskFromForm.Priority;
         }
 
         [ValidateAntiForgeryToken]

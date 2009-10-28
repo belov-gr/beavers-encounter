@@ -39,6 +39,9 @@ namespace Beavers.Encounter.Core
         [NotNull]
         public virtual int TaskType { get; set; }
 
+        [NotNull]
+        public virtual int Priority { get; set; }
+
         public virtual Game Game { get; set; }
 
         public virtual IList<Tip> Tips { get; protected set; }

@@ -28,13 +28,28 @@
 			<div class="note">В процессе игры команды не увидят это название, кодовое название задания доступно только авторам игры. Например, Якуники.</div>
 		</li>
 		<li>
-			<span>
+			<label for="Task_TaskType">Тип задания</label>
+			<div>
 				<%= Html.TextBox("Task.TaskType", 
 					(ViewData.Model.Task != null) ? ViewData.Model.Task.TaskType : 0)%>
-			</span>
+			</div>
 			<%= Html.ValidationMessage("Task.TaskType")%>
-			<label for="Task_TaskType">Тип задания</label>
 			<div class="note">0 - классическое задание, 1 - задание с ускорением, 2 - задание с выбором подсказки.</div>
+		</li>
+		<li>
+			<label for="Task_TaskType">Приоритет задания</label>
+			<div>
+				<%= Html.TextBox("Task.Priority", 
+					(ViewData.Model.Task != null) ? ViewData.Model.Task.Priority : 0)%>
+			</div>
+			<%= Html.ValidationMessage("Task.Priority")%>
+			<div class="note">
+			Приоритет может быть положительным или отрицательным. 
+			Приоритет равный 100 позволяет быстрее получить командам это задание, 
+			при этом одновременно данное задание потенциально с могут выполнять 2-3 команды.
+			При приоритете 150 одновременно задание потенциально могут выполнять 3-4 команды.
+			Отрицательный приоритет уменьшает вероятность выдачи задания командам.
+			</div>
 		</li>
 		<li>
 			<span>
