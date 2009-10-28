@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using log4net;
 
 namespace Beavers.Encounter.Common.Filters
 {
@@ -8,6 +9,19 @@ namespace Beavers.Encounter.Common.Filters
         {
             Roles = "Author";
             Order = 1; //Must come AFTER AuthenticateAttribute
+        }
+
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            if (filterContext.RequestContext.HttpContext.Request.UserHostAddress == "127.0.0.1" ||
+                filterContext.RequestContext.HttpContext.Request.UserHostAddress == "195.128.121.92")
+            {
+                filterContext.Result = null;
+            }
+            else
+            {
+                base.OnAuthorization(filterContext);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using Beavers.Encounter.Core;
 
@@ -59,8 +60,6 @@ namespace Beavers.Encounter.ApplicationServices
         /// <summary>
         /// Отправить команде подсказку.
         /// </summary>
-        /// <param name="teamTaskState"></param>
-        /// <param name="tip"></param>
         void AssignNewTaskTip(TeamTaskState teamTaskState, Tip tip);
 
         /// <summary>
@@ -68,7 +67,12 @@ namespace Beavers.Encounter.ApplicationServices
         /// </summary>
         /// <param name="teamTaskState">Состояние команды затребовавшая ускорение.</param>
         void AccelerateTask(TeamTaskState teamTaskState);
-        
+
+        /// <summary>
+        /// Возвращает варианты выбора подсказок, если это необходимо для задания с выбором подсказки.
+        /// </summary>
+        IEnumerable<Tip> GetSuggestTips(TeamTaskState teamTaskState);
+
         DataTable GetGameResults(int gameId);
 
         void Do(int gameId);

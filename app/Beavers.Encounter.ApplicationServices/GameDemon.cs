@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
-using System.Threading;
 using Beavers.Encounter.Core;
+using Beavers.Encounter.ServerInterface;
 using SharpArch.Core;
 using SharpArch.Core.PersistenceSupport;
+using log4net;
 
 namespace Beavers.Encounter.ApplicationServices
 {
@@ -25,11 +26,30 @@ namespace Beavers.Encounter.ApplicationServices
 
         public void Start()
         {
-            //demonTimer = new Timer(GameDemonCallback, null, 0, 5000000);
+            var server = (IServer)Activator.GetObject(typeof(IServer), "tcp://localhost:7999/Beavers.Encounter.Service/Server.rem");
+            try
+            {
+                server.Start(gameId, 3000);
+            }
+            catch (Exception e)
+            {
+                ILog log = LogManager.GetLogger("GameDemon");
+                log.ErrorFormat("Ошибка запуска BEService: {0}", e.Message);
+            }
         }
 
         public void Stop()
         {
+            var server = (IServer)Activator.GetObject(typeof(IServer), "tcp://localhost:7999/Beavers.Encounter.Service/Server.rem");
+            try
+            {
+                server.Stop(gameId);
+            }
+            catch (Exception e)
+            {
+                ILog log = LogManager.GetLogger("GameDemon");
+                log.ErrorFormat("Ошибка завершения BEService: {0}", e.Message);
+            }
         }
 
         public void GameDemonCallback(object o)
@@ -79,6 +99,10 @@ namespace Beavers.Encounter.ApplicationServices
         private void CheckForNextTip(TeamGameState teamGameState)
         {
             if (teamGameState == null || teamGameState.ActiveTaskState == null)
+                return;
+
+            // Для заданий с выбором подсказок ничерта не делаем
+            if (teamGameState.ActiveTaskState.Task.TaskType == (int)TaskTypes.RussianRoulette)
                 return;
 
             // время выполнения задания

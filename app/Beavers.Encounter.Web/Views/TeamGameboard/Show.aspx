@@ -13,6 +13,8 @@
   <div class="teamGameboardPage">
     <h1><%= Html.Encode(ViewData.Model.TeamName) %></h1>
     
+    <div><%= Html.Encode(Model.Message) %></div>
+    
     <% if (ViewData.Model.TeamGameState != null && ViewData.Model.ActiveTaskState != null) { %>
     
         <h2>Задание №: <%= ViewData.Model.TeamGameState.AcceptedTasks.Count %></h2>
@@ -59,6 +61,41 @@
             <% 
             } 
         } %>
+
+
+        <%
+        // Кнопки для выбора подсказки.
+        if (Model.SuggestTips != null) 
+        { %>
+            <p/>
+            <div style="color:Yellow"><%= Model.SuggestMessage %></div>
+            <%
+            foreach(Tip tip in Model.SuggestTips)
+            { %>
+                <span>
+                <%
+                string colorText = String.Empty;
+                int tipPos = Model.ActiveTaskState.Task.Tips.TipPosition(tip);
+                switch (tipPos)
+                {
+                    case 1: { colorText = "50x50"; break; }
+                    case 2: { colorText = "Звонок другу"; break; }
+                    case 3: { colorText = "Подсказка зала"; break; }
+                }
+                
+                using (Html.BeginForm<TeamGameboardController>(c => c.SelectTip(Model.ActiveTaskState.Id, tip.Id), FormMethod.Post)) 
+                { %>
+                    <%= Html.AntiForgeryToken() %>
+                    <%= Html.SubmitButton(String.Format("btnSelectTip{0}", tipPos), colorText)%>
+                <% 
+                } %> 
+                </span>
+            <%
+            } %> 
+            
+        <% 
+        } %>
+
 
         <p> КО: 
         <% 

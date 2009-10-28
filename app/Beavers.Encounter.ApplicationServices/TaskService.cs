@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using Beavers.Encounter.Core;
+using Beavers.Encounter.Core.DataInterfaces;
 using SharpArch.Core;
 using SharpArch.Core.PersistenceSupport;
 
@@ -126,6 +127,33 @@ namespace Beavers.Encounter.ApplicationServices
             teamTaskState.AccelerationTaskStartTime = DateTime.Now;
             AssignNewTaskTip(teamTaskState, teamTaskState.Task.Tips.Last(tip => tip.SuspendTime > 0));
             teamTaskStateRepository.SaveOrUpdate(teamTaskState);
+        }
+
+        /// <summary>
+        /// Возвращает варианты выбора подсказок, если это необходимо для задания с выбором подсказки.
+        /// </summary>
+        public IEnumerable<Tip> GetSuggestTips(TeamTaskState teamTaskState)
+        {
+            // Время от начала задания
+            double taskTimeSpend = (DateTime.Now - teamTaskState.TaskStartTime).TotalMinutes;
+            double lastAcceptTipTime = (teamTaskState.AcceptedTips.Last().AcceptTime - teamTaskState.TaskStartTime).TotalMinutes;
+
+            // Подсказки, 
+            // которые дожны быть выданы на данный момент, 
+            // исключая уже выданные
+            var tips = new List<Tip>(teamTaskState.Task.Tips
+                .Where(tip => tip.SuspendTime > lastAcceptTipTime && tip.SuspendTime <= taskTimeSpend && tip.SuspendTime < teamTaskState.TeamGameState.Game.TimePerTask));
+
+            // Если пришло время предложить коменде выбрать подсказку
+            if (tips.Count() > 0)
+            {
+                // Все подсказки, исключая уже выданные
+                return teamTaskState.Task.Tips
+                    .Where(tip => tip.SuspendTime > 0)
+                    .Except(teamTaskState.AcceptedTips.Tips());
+            }
+         
+            return null;
         }
 
         private Task GetNextTaskForTeam(TeamGameState teamGameState, Task oldTask)

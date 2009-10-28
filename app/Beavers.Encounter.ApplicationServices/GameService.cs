@@ -251,7 +251,7 @@ namespace Beavers.Encounter.ApplicationServices
             gameRepository.SaveOrUpdate(game);
 
             // Запускаем демона
-            //GetGameDemon(game).Start();
+            GetGameDemon(game.Id).Start();
         }
 
         public void StopGame(Game game)
@@ -275,7 +275,7 @@ namespace Beavers.Encounter.ApplicationServices
             // Для каждой команды устанавливаем время окончания игры
             foreach (Team team in game.Teams)
             {
-                if (team.TeamGameState.GameDoneTime == null)
+                if (team.TeamGameState != null && team.TeamGameState.GameDoneTime == null)
                 {
                     if (team.TeamGameState.ActiveTaskState != null)
                     {
@@ -392,6 +392,14 @@ namespace Beavers.Encounter.ApplicationServices
         public void AccelerateTask(TeamTaskState teamTaskState)
         {
             taskService.AccelerateTask(teamTaskState);
+        }
+
+        /// <summary>
+        /// Возвращает варианты выбора подсказок, если это необходимо для задания с выбором подсказки.
+        /// </summary>
+        public IEnumerable<Tip> GetSuggestTips(TeamTaskState teamTaskState)
+        {
+            return taskService.GetSuggestTips(teamTaskState);
         }
 
         #endregion Управление заданиями

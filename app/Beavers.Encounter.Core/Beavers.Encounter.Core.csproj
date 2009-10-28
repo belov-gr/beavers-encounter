@@ -74,6 +74,7 @@
     <Compile Include="DataInterfaces\ITaskRepository.cs" />
     <Compile Include="DataInterfaces\IUserRepository.cs" />
     <Compile Include="DataInterfaces\TeamTaskStateExtensions.cs" />
+    <Compile Include="DataInterfaces\TipsRepositoryExtensions.cs" />
     <Compile Include="DataInterfaces\UserRepositoryExtensions.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

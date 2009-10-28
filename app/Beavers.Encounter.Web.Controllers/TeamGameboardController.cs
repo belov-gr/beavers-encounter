@@ -88,6 +88,19 @@ namespace Beavers.Encounter.Web.Controllers
                 viewModel.TaskNo = team.TeamGameState.AcceptedTasks.Count;
                 viewModel.TeamGameState = team.TeamGameState;
                 viewModel.ActiveTaskState = team.TeamGameState.ActiveTaskState;
+
+                if (viewModel.ActiveTaskState != null &&
+                    viewModel.ActiveTaskState.Task.TaskType == (int)TaskTypes.RussianRoulette)
+                {
+                    viewModel.SuggestTips = gameService.GetSuggestTips(viewModel.ActiveTaskState);
+
+                    if (viewModel.SuggestTips != null)
+                    {
+                        viewModel.SuggestMessage = viewModel.SuggestTips.Count() == 3
+                            ? "У вас есть две подсказки из трёх, какую вы выберите:"
+                            : "У вас осталась последняя подсказка, какую вы выберите:";
+                    }
+                }
             }
 
             viewModel.TeamName = team.Name;
@@ -183,6 +196,27 @@ namespace Beavers.Encounter.Web.Controllers
         }
 
         //
+        // POST: /TeamGameboard/SelectTip
+        [ValidateAntiForgeryToken]
+        [Transaction]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult SelectTip(int activeTaskStateId, int tipId)
+        {
+            Team team = teamRepository.Get(User.Team.Id);
+            if (team.TeamGameState != null &&
+                team.TeamGameState.ActiveTaskState != null &&
+                team.TeamGameState.ActiveTaskState.Id == activeTaskStateId &&
+                team.TeamGameState.ActiveTaskState.Task.TaskType == (int)TaskTypes.RussianRoulette)
+            {
+                gameService.AssignNewTaskTip(
+                    team.TeamGameState.ActiveTaskState,
+                    team.TeamGameState.ActiveTaskState.Task.Tips.Single(tip => tip.Id == tipId));
+            }
+
+            return this.RedirectToAction(c => c.Show());
+        }
+
+        //
         // GET: /TeamGameboard/Results
         [Transaction]
         public ActionResult Results()
@@ -211,6 +245,8 @@ namespace Beavers.Encounter.Web.Controllers
             public int TaskNo { get; internal set; }
             public TeamGameState TeamGameState { get; internal set; }
             public TeamTaskState ActiveTaskState { get; internal set; }
+            public IEnumerable<Tip> SuggestTips { get; internal set; }
+            public String SuggestMessage { get; internal set; }
             public DataRow[] GameResults { get; set; }
         }
     }

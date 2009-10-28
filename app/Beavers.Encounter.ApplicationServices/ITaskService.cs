@@ -39,5 +39,10 @@ namespace Beavers.Encounter.ApplicationServices
         /// </summary>
         /// <param name="teamTaskState">Состояние команды затребовавшая ускорение.</param>
         void AccelerateTask(TeamTaskState teamTaskState);
+
+        /// <summary>
+        /// Возвращает варианты выбора подсказок, если это необходимо для задания с выбором подсказки.
+        /// </summary>
+        IEnumerable<Tip> GetSuggestTips(TeamTaskState teamTaskState);
     }
 }

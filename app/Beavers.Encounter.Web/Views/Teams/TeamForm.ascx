@@ -36,6 +36,9 @@
 			</div>
 			<%= Html.ValidationMessage("Team.AccessKey")%>
 		</li>
+<%
+if (Model.Team != null && Model.Team.Game != null)       
+{ %>
 		<li>
 			<label for="Team_PreventTasksAfterTeams">Анти-слив:</label>
 			<div class="note">
@@ -71,6 +74,7 @@
 			</div>
 			<%= Html.ValidationMessage("Team.PreventTasksAfterTeams")%>
 		</li>
+<% } %>
 		<li>
 			<label for="Team_FinalTask">Индивидуальное задание:</label>
 			<div class="note">

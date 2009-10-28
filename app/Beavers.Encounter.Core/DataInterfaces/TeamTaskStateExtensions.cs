@@ -18,5 +18,16 @@ namespace Beavers.Encounter.Core.DataInterfaces
             }
             return count;
         }
+
+        /// <summary>
+        /// Возвращает колекцию подсказок задания, которые получила команда.
+        /// </summary>
+        public static IEnumerable<Tip> Tips(this IList<AcceptedTip> acceptedTips)
+        {
+            foreach(AcceptedTip tip in acceptedTips)
+            {
+                yield return tip.Tip;
+            }
+        }
     }
 }
