@@ -109,6 +109,7 @@ namespace Beavers.Encounter.Web.Controllers
             taskToUpdate.StreetChallendge = taskFromForm.StreetChallendge;
             taskToUpdate.Agents = taskFromForm.Agents;
             taskToUpdate.Locked = taskFromForm.Locked;
+            taskToUpdate.TaskType = taskFromForm.TaskType;
         }
 
         [ValidateAntiForgeryToken]

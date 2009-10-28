@@ -29,6 +29,15 @@
 		</li>
 		<li>
 			<span>
+				<%= Html.TextBox("Task.TaskType", 
+					(ViewData.Model.Task != null) ? ViewData.Model.Task.TaskType : 0)%>
+			</span>
+			<%= Html.ValidationMessage("Task.TaskType")%>
+			<label for="Task_TaskType">Тип задания</label>
+			<div class="note">0 - классическое задание, 1 - задание с ускорением, 2 - задание с выбором подсказки.</div>
+		</li>
+		<li>
+			<span>
 				<%= Html.CheckBox("Task.StreetChallendge", 
 					(ViewData.Model.Task != null) ? ViewData.Model.Task.StreetChallendge != 0 : false)%>
 			</span>

@@ -23,6 +23,8 @@ namespace Beavers.Encounter.Core
         [NotNull]
         public virtual DateTime TaskStartTime { get; set; }
 
+        public virtual DateTime? AccelerationTaskStartTime { get; set; }
+
         public virtual DateTime? TaskFinishTime { get; set; }
 
         [NotNull]

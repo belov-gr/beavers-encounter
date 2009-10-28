@@ -33,5 +33,11 @@ namespace Beavers.Encounter.ApplicationServices
         /// <param name="teamTaskState"></param>
         /// <param name="tip"></param>
         void AssignNewTaskTip(TeamTaskState teamTaskState, Tip tip);
+
+        /// <summary>
+        /// "Ускориться".
+        /// </summary>
+        /// <param name="teamTaskState">Состояние команды затребовавшая ускорение.</param>
+        void AccelerateTask(TeamTaskState teamTaskState);
     }
 }

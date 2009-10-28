@@ -61,6 +61,7 @@ namespace Beavers.Encounter.Web.Controllers.Binders
             task.StreetChallendge = Convert.ToBoolean(values["Task.StreetChallendge"].Split(new char[] {','})[0]) ? 1 : 0;
             task.Agents = Convert.ToBoolean(values["Task.Agents"].Split(new char[] { ',' })[0]) ? 1 : 0;
             task.Locked = Convert.ToBoolean(values["Task.Locked"].Split(new char[] { ',' })[0]) ? 1 : 0;
+            task.TaskType = Convert.ToInt32(values["Task.TaskType"]);
 
             // ----------------------------------
             // Не после

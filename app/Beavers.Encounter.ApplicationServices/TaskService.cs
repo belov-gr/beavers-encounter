@@ -114,6 +114,20 @@ namespace Beavers.Encounter.ApplicationServices
             teamGameStateRepository.DbContext.CommitChanges();
         }
 
+        /// <summary>
+        /// "Ускориться".
+        /// </summary>
+        /// <remarks>
+        /// Устанавливает время ускорения в текущее и назначает вторую подсказку.
+        /// </remarks>
+        /// <param name="teamTaskState">Состояние команды затребовавшая ускорение.</param>
+        public void AccelerateTask(TeamTaskState teamTaskState)
+        {
+            teamTaskState.AccelerationTaskStartTime = DateTime.Now;
+            AssignNewTaskTip(teamTaskState, teamTaskState.Task.Tips.Last(tip => tip.SuspendTime > 0));
+            teamTaskStateRepository.SaveOrUpdate(teamTaskState);
+        }
+
         private Task GetNextTaskForTeam(TeamGameState teamGameState, Task oldTask)
         {
             // Получаем все незаблокированные задания для текущей игры

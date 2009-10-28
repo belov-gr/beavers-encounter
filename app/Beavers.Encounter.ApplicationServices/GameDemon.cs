@@ -110,8 +110,17 @@ namespace Beavers.Encounter.ApplicationServices
 
             // время выполнения задания
             TimeSpan taskTime = DateTime.Now - teamGameState.ActiveTaskState.TaskStartTime;
+            int timePerTask = teamGameState.Game.TimePerTask;
 
-            if (taskTime.TotalMinutes > teamGameState.Game.TimePerTask)
+            // Если задание с "ускорением" и "ускорение" произошло
+            if (teamGameState.ActiveTaskState.Task.TaskType == (int)TaskTypes.NeedForSpeed &&
+                teamGameState.ActiveTaskState.AccelerationTaskStartTime != null)
+            {
+                taskTime = DateTime.Now - (DateTime)teamGameState.ActiveTaskState.AccelerationTaskStartTime;
+                timePerTask = teamGameState.Game.TimePerTask - teamGameState.ActiveTaskState.Task.Tips.Last(tip => tip.SuspendTime > 0).SuspendTime;
+            }
+
+            if (taskTime.TotalMinutes > timePerTask)
             {
                 // Если все основные коды приняты, то задание считаем выполненым успешно
                 TeamTaskStateFlag closeFlag =

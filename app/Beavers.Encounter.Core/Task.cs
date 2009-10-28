@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using NHibernate.Validator.Constraints;
 using SharpArch.Core.DomainModel;
 
@@ -35,6 +36,9 @@ namespace Beavers.Encounter.Core
         [NotNull]
         public virtual int Locked { get; set; }
 
+        [NotNull]
+        public virtual int TaskType { get; set; }
+
         public virtual Game Game { get; set; }
 
         public virtual IList<Tip> Tips { get; protected set; }
@@ -49,5 +53,32 @@ namespace Beavers.Encounter.Core
         {
             return Name;
         }
+    }
+
+    /// <summary>
+    /// Виды заданий.
+    /// </summary>
+    /// <remarks>
+    /// В зависимости от типа задания будет по разному задаваться, отображатся и выдаваться подсказки. 
+    /// </remarks>
+    public enum TaskTypes
+    {
+        /// <summary>
+        /// Обычное задание.
+        /// </summary>
+        [Description("Обычное задание")]
+        Classic,
+
+        /// <summary>
+        /// Задание с ускорением.
+        /// </summary>
+        [Description("Задание с ускорением")]
+        NeedForSpeed,
+
+        /// <summary>
+        /// Задание с выбором варианта подсказки.
+        /// </summary>
+        [Description("Задание с выбором варианта подсказки")]
+        RussianRoulette
     }
 }

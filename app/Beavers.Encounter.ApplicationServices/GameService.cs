@@ -385,6 +385,15 @@ namespace Beavers.Encounter.ApplicationServices
             taskService.AssignNewTaskTip(teamTaskState, tip);
         }
 
+        /// <summary>
+        /// "Ускориться".
+        /// </summary>
+        /// <param name="teamTaskState">Состояние команды затребовавшая ускорение.</param>
+        public void AccelerateTask(TeamTaskState teamTaskState)
+        {
+            taskService.AccelerateTask(teamTaskState);
+        }
+
         #endregion Управление заданиями
     }
 }

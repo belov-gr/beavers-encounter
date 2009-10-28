@@ -164,6 +164,25 @@ namespace Beavers.Encounter.Web.Controllers
         }
 
         //
+        // POST: /TeamGameboard/AccelerateTask
+        [ValidateAntiForgeryToken]
+        [Transaction]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult AccelerateTask(int activeTaskStateId)
+        {
+            Team team = teamRepository.Get(User.Team.Id);
+            if (team.TeamGameState != null &&
+                team.TeamGameState.ActiveTaskState != null &&
+                team.TeamGameState.ActiveTaskState.Id == activeTaskStateId &&
+                team.TeamGameState.ActiveTaskState.Task.TaskType == (int)TaskTypes.NeedForSpeed)
+            {
+                gameService.AccelerateTask(team.TeamGameState.ActiveTaskState);
+            }
+
+            return this.RedirectToAction(c => c.Show());
+        }
+
+        //
         // GET: /TeamGameboard/Results
         [Transaction]
         public ActionResult Results()

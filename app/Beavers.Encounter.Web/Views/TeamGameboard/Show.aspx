@@ -39,6 +39,27 @@
         } %>
         </ul>
 
+        <%
+        // Кнопка для "ускорения" задания. Доступна только для капитана команды.
+        if (((User)User).Role.IsTeamLeader && 
+            Model.TeamGameState.ActiveTaskState.Task.TaskType == (int)TaskTypes.NeedForSpeed &&
+            Model.TeamGameState.ActiveTaskState.AccelerationTaskStartTime == null) 
+        { %>
+            <p/>
+            <% 
+            using (Html.BeginForm<TeamGameboardController>(c => c.AccelerateTask(Model.ActiveTaskState.Id), FormMethod.Post)) 
+            { %>
+                <%= Html.AntiForgeryToken() %>
+                <div style="color:Yellow">
+                Внимание! После нажатия кнопки, время на выполнение задание останется <%= Model.TeamGameState.Game.TimePerTask - Model.ActiveTaskState.Task.Tips.Last(tip => tip.SuspendTime > 0).SuspendTime%> минут, вы уверены, что всё готово?
+                </div>
+                <div>
+                    <%= Html.SubmitButton("btnAccelerateTask", "Всё готово!", new Dictionary<string, object> { { "onclick", "return confirm('Are you sure?');" } })%>
+                </div>
+            <% 
+            } 
+        } %>
+
         <p> КО: 
         <% 
         
