@@ -27,8 +27,8 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             ServiceLocatorInitializer.Init();
             
             controller = new TasksController(
-                CreateMockTaskRepository(), 
-                UsersControllerTests.CreateMockUserRepository(), 
+                CreateMockTaskRepository(),
+                MockRepository.GenerateMock<IUserRepository>(), 
                 TipsControllerTests.CreateMockTipRepository(), 
                 CodesControllerTests.CreateMockCodeRepository());
             

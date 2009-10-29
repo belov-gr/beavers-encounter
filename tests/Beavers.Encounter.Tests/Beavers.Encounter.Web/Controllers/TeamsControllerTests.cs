@@ -27,8 +27,8 @@ namespace Tests.Beavers.Encounter.Web.Controllers
         {
             ServiceLocatorInitializer.Init();
             controller = new TeamsController(
-                CreateMockTeamRepository(), 
-                UsersControllerTests.CreateMockUserRepository(),
+                CreateMockTeamRepository(),
+                MockRepository.GenerateMock<IUserRepository>(),
                 GamesControllerTests.CreateMockGameRepository());
 
             testContext = new ControllerTestContext(controller);

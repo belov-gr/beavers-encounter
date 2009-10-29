@@ -2,6 +2,7 @@ using System;
 using System.Security.Principal;
 using System.Threading;
 using System.Web;
+using Beavers.Encounter.Core.DataInterfaces;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -23,23 +24,19 @@ namespace Tests.Beavers.Encounter.Web.Controllers
     {
         private User user;
         private ControllerTestContext testContext;
-        private IUserService userService;
 
         [SetUp]
         public void SetUp() 
         {
             ServiceLocatorInitializer.Init();
 
-            userService = MockRepository.GenerateStub<IUserService>();
-
             controller = new GamesController(
                 CreateMockGameRepository(), 
-                UsersControllerTests.CreateMockUserRepository(),
+                MockRepository.GenerateMock<IUserRepository>(),
                 MockRepository.GenerateMock<IGameService>());
             testContext = new ControllerTestContext(controller);
 
             user = new User {Game = new Game()};
-            userService.Expect(x => x.CurrentUser).Return(user);
         }
 
         /// <summary>

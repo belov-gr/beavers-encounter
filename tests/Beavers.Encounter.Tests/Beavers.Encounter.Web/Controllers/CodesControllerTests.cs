@@ -1,4 +1,5 @@
 using System;
+using Beavers.Encounter.Core.DataInterfaces;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -22,7 +23,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             controller = new CodesController(
                 CreateMockCodeRepository(),
                 TasksControllerTests.CreateMockTaskRepository(),
-                UsersControllerTests.CreateMockUserRepository());
+                MockRepository.GenerateMock<IUserRepository>());
         }
 
         /// <summary>

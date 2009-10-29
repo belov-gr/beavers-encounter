@@ -18,7 +18,7 @@ namespace Beavers.Encounter.Data
                 .Add(Expression.Eq("Login", login));
                         
             List<User> lu = criteria.List<User>() as List<User>;
-            User user = lu.Find(x => x.Login == login);
+            User user = lu.Find(x => x.Login.ToUpper() == login.ToUpper());
             return user;
         }
     }

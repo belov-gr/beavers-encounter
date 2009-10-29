@@ -1,4 +1,5 @@
 using System;
+using Beavers.Encounter.Core.DataInterfaces;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -19,7 +20,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
         [SetUp]
         public void SetUp() {
             ServiceLocatorInitializer.Init();
-            controller = new BonusTasksController(CreateMockBonusTaskRepository(), UsersControllerTests.CreateMockUserRepository());
+            controller = new BonusTasksController(CreateMockBonusTaskRepository(), MockRepository.GenerateMock<IUserRepository>());
         }
 
         [Test]
