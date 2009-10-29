@@ -7,11 +7,11 @@
     <thead>
         <tr>
 		    <th>Команда</th>
-		    <th>Текущее<br>задание</th>
-		    <th>Время<br>выполнения</th>
-		    <th>Получено<br>заданий</th>
-		    <th>Количество<br>подсказок</th>
-		    <th>Количество<br>принятых кодов</th>
+		    <th>Текущее<br />задание</th>
+		    <th>Время<br />выполнения</th>
+		    <th>Получено заданий \<br />Успешно заданий \<br />Просрочено заданий \<br />Слито заданий \<br />Дисквал-но заданий</th>
+		    <th>Количество<br />подсказок</th>
+		    <th>Количество<br />принятых кодов</th>
         </tr>
     </thead>
     
@@ -42,7 +42,8 @@
                 <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count) %> \
                 <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Success)) %> \
                 <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Overtime))%> \
-                <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Canceled))%>
+                <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Canceled))%> \
+                <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Cheat))%>
                 <% } %>
             </td>
 		    <td align="center">

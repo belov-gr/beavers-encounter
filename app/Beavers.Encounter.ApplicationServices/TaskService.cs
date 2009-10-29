@@ -317,7 +317,7 @@ namespace Beavers.Encounter.ApplicationServices
 
         public void SubmitCode(string codes, TeamGameState teamGameState, User user)
         {
-            if (teamGameState.ActiveTaskState.AcceptedBadCodes.Count >= 20)
+            if (teamGameState.ActiveTaskState.AcceptedBadCodes.Count >= Game.BadCodesLimit)
                 return;
 
             List<string> codesList = GetCodes(codes, teamGameState.Game.PrefixMainCode, teamGameState.Game.PrefixBonusCode);
@@ -380,16 +380,6 @@ namespace Beavers.Encounter.ApplicationServices
             // Игра для команды закончена
             if (teamGameState.ActiveTaskState == null)
                 return;
-
-            if ((teamGameState.ActiveTaskState.AcceptedBadCodes.Count >= 20)
-                && (((DateTime.Now - teamGameState.ActiveTaskState.TaskStartTime).TotalMinutes + 1) //+1 - чтобы сработало до того, как покажется первая подсказка.
-                     >= (teamGameState.ActiveTaskState.Task.Tips.First(x => x.SuspendTime > 0).SuspendTime)))
-            {
-                Task oldTask = teamGameState.ActiveTaskState.Task;
-                // TODO: Сделать еще один признак завершения задания: приевышен лимит попыток
-                CloseTaskForTeam(teamGameState.ActiveTaskState, TeamTaskStateFlag.Overtime);
-                AssignNewTask(teamGameState, oldTask);
-            }
         }
 
         public static List<string> GetCodes(string codes, string prefixMainCode, string prefixBonusCode)

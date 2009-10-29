@@ -56,6 +56,7 @@
         <div>Выполнено заданий: <%= ViewData.Model.TeamGameState.AcceptedTasks.Count(t => t.State == (int)TeamTaskStateFlag.Success)%></div>
         <div>Не выполнено заданий: <%= ViewData.Model.TeamGameState.AcceptedTasks.Count(t => t.State == (int)TeamTaskStateFlag.Overtime)%></div>
         <div>Слито заданий: <%= ViewData.Model.TeamGameState.AcceptedTasks.Count(t => t.State == (int)TeamTaskStateFlag.Canceled)%></div>
+        <div>Дисквалифицировано заданий: <%= ViewData.Model.TeamGameState.AcceptedTasks.Count(t => t.State == (int)TeamTaskStateFlag.Cheat)%></div>
 
         <ul>
         

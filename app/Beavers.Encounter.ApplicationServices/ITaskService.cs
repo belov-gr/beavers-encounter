@@ -17,7 +17,7 @@ namespace Beavers.Encounter.ApplicationServices
         void SubmitCode(string codes, TeamGameState teamGameState, User user);
 
         /// <summary>
-        /// Помечает задание как успешно выполненное.
+        /// Помечает задание как выполненное, назначает причину завершения.
         /// </summary>
         /// <param name="teamTaskState"></param>
         void CloseTaskForTeam(TeamTaskState teamTaskState, TeamTaskStateFlag flag);

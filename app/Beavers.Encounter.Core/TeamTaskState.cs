@@ -59,6 +59,8 @@ namespace Beavers.Encounter.Core
         [Description("Не выполнено")]
         Overtime,
         [Description("Задание слито")]
-        Canceled
+        Canceled,
+        [Description("Дисквалификация")]
+        Cheat
     }
 }

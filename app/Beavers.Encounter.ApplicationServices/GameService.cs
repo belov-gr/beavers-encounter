@@ -120,10 +120,11 @@ namespace Beavers.Encounter.ApplicationServices
                             if (taskState.TaskFinishTime != null)
                             {
                                 string state = String.Empty;
-                                state = taskState.State == (int)TeamTaskStateFlag.Success ? "Вып" : state;
-                                state = taskState.State == (int)TeamTaskStateFlag.Overtime ? "Невып" : state;
-                                state = taskState.State == (int)TeamTaskStateFlag.Canceled ? "Слито" : state;
-                                rows[4][taskState.Task.Name] = String.Format("{0} в {1}", state,((DateTime)taskState.TaskFinishTime).TimeOfDay);
+                                state = taskState.State == (int)TeamTaskStateFlag.Success ? "ОК!" : state;
+                                state = taskState.State == (int)TeamTaskStateFlag.Overtime ? "ПРОСР." : state;
+                                state = taskState.State == (int)TeamTaskStateFlag.Canceled ? "СЛИТО" : state;
+                                state = taskState.State == (int)TeamTaskStateFlag.Cheat ? "БАН!" : state;
+                                rows[4][taskState.Task.Name] = String.Format("{0} в {1}", state, ((DateTime)taskState.TaskFinishTime).TimeOfDay);
                             }
                         }
                     }

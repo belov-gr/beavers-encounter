@@ -53,7 +53,7 @@
             { %>
                 <%= Html.AntiForgeryToken() %>
                 <div style="color:Yellow">
-                Внимание! После нажатия кнопки, время на выполнение задание останется <%= Model.TeamGameState.Game.TimePerTask - Model.ActiveTaskState.Task.Tips.Last(tip => tip.SuspendTime > 0).SuspendTime%> минут, вы уверены, что всё готово?
+                Внимание! После нажатия кнопки, на выполнение задания останется <%= Model.TeamGameState.Game.TimePerTask - Model.ActiveTaskState.Task.Tips.Last(tip => tip.SuspendTime > 0).SuspendTime%> минут. Вы уверены, что всё готово?
                 </div>
                 <div>
                     <%= Html.SubmitButton("btnAccelerateTask", "Всё готово!", new Dictionary<string, object> { { "onclick", "return confirm('Are you sure?');" } })%>
@@ -175,16 +175,16 @@
                 <%= Html.Encode(ViewData.Model.ErrorMessage) %>
             </div>
             <div style="color:Red">
-                Осталось попыток: <%= 20 - ViewData.Model.ActiveTaskState.AcceptedBadCodes.Count %>
+                Осталось попыток: <%= Game.BadCodesLimit - ViewData.Model.ActiveTaskState.AcceptedBadCodes.Count %>
             </div>
-            <div class="note">При привышении попыток ввода некорректных кодов задание автоматически будет незащитанно!</div>
+            <div class="note">При исчерпании попыток будет заблокирован ввод кодов, а задание в момент первой подсказки будет дисквалифицировано!</div>
         <% 
         } %>
         
 
         <% 
         // Запрещаем вводить коды, если все попытки исчерпаны
-        if (ViewData.Model.ActiveTaskState.AcceptedBadCodes.Count < 20)
+        if (ViewData.Model.ActiveTaskState.AcceptedBadCodes.Count < Game.BadCodesLimit)
         {
             // Поле отправки кодов
             using (Html.BeginForm<TeamGameboardController>(c => c.SubmitCodes(null), FormMethod.Post))

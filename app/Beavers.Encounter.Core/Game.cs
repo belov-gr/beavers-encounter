@@ -50,6 +50,8 @@ namespace Beavers.Encounter.Core
         public virtual IList<Task> Tasks { get; protected set; }
 
         public virtual IList<BonusTask> BonusTasks { get; protected set; }
+
+        public static int BadCodesLimit = 20;
     }
 
     public enum GameStates
@@ -58,6 +60,6 @@ namespace Beavers.Encounter.Core
         Startup,
         Started,
         Finished,
-        Cloused
+        Cloused //Очепятка...
     }
 }
