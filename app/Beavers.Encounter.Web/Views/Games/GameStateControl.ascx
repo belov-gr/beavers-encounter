@@ -7,32 +7,32 @@
 	<%= Html.ActionLink<GamesController>(c => c.CurrentState(Model.Id), "Состояние игры:")%>
     <%= Html.Encode(Enum.GetName(typeof(GameStates), Model.GameState))%>
     <% 
-        if (Model.GameState == (int)GameStates.Planned)
+        if (Model.GameState == GameStates.Planned)
        { %>
    
         <%= Html.Button("btnStartupGame", "Подготовить к запуску", HtmlButtonType.Button,
                         "window.location.href = '" + Html.BuildUrlFromExpression<GamesController>(c => c.StartupGame(Model.Id)) + "';")%>
     <% }
-        else if (Model.GameState == (int)GameStates.Started)
+        else if (Model.GameState == GameStates.Started)
        { %>
         <%= Html.Button("btnStopGame", "Остановить игру", HtmlButtonType.Button,
                         "window.location.href = '" + Html.BuildUrlFromExpression<GamesController>(c => c.StopGame(Model.Id)) + "';")%>
     <% }
-        else if (Model.GameState == (int)GameStates.Startup)
+        else if (Model.GameState == GameStates.Startup)
        { %>
         <%= Html.Button("btnStartGame", "Запустить игру", HtmlButtonType.Button,
                         "window.location.href = '" + Html.BuildUrlFromExpression<GamesController>(c => c.StartGame(Model.Id)) + "';")%>
     <% }
-        else if (Model.GameState == (int)GameStates.Finished)
+        else if (Model.GameState == GameStates.Finished)
        { %>
 
         <%= Html.Button("btnCloseGame", "Закрыть игру", HtmlButtonType.Button,
                         "window.location.href = '" + Html.BuildUrlFromExpression<GamesController>(c => c.CloseGame(Model.Id)) + "';")%>
     <% } %>
 
-    <% if (Model.GameState == (int)GameStates.Startup ||
-           Model.GameState == (int)GameStates.Finished ||
-           Model.GameState == (int)GameStates.Cloused)
+    <% if (Model.GameState == GameStates.Startup ||
+           Model.GameState == GameStates.Finished ||
+           Model.GameState == GameStates.Cloused)
        { %>
    
         <%= Html.Button("btnResetGame", "Перезагрузка игры", HtmlButtonType.Button,

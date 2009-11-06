@@ -102,8 +102,8 @@ namespace Beavers.Encounter.Web.Controllers
 
             viewModel.Game = gameRepository.Get(id);
 
-            if (viewModel.Game.GameState == (int)GameStates.Finished ||
-                viewModel.Game.GameState == (int)GameStates.Cloused)
+            if (viewModel.Game.GameState == GameStates.Finished ||
+                viewModel.Game.GameState == GameStates.Cloused)
             {
                 viewModel.GameResults = gameService.GetGameResults(
                     viewModel.Game.Id).Select("", "tasks desc, bonus desc, time asc");

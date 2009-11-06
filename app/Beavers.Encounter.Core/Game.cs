@@ -37,7 +37,7 @@ namespace Beavers.Encounter.Core
 
         public virtual int TimePerTip { get; set; }
 
-        public virtual int GameState { get; set; }
+        public virtual GameStates GameState { get; set; }
 
         [Length(6)]
         public virtual string PrefixMainCode { get; set; }
@@ -60,6 +60,6 @@ namespace Beavers.Encounter.Core
         Startup,
         Started,
         Finished,
-        Cloused //Очепятка...
+        Cloused
     }
 }

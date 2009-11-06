@@ -213,15 +213,15 @@ namespace Beavers.Encounter.ApplicationServices
 
         public void StartupGame(Game game)
         {
-            Check.Require(game.GameState == (int)GameStates.Planned, String.Format(
+            Check.Require(game.GameState == GameStates.Planned, String.Format(
                     "Невозможно перевести игру в предстартовый режим, когда она находится в режиме {0}.",
                     Enum.GetName(typeof(GameStates), game.GameState))
                 );
 
             Check.Require(!gameRepository.GetAll().Any(
                 g =>
-                g.GameState == (int)GameStates.Startup || g.GameState == (int)GameStates.Started ||
-                g.GameState == (int)GameStates.Finished), 
+                g.GameState == GameStates.Startup || g.GameState == GameStates.Started ||
+                g.GameState == GameStates.Finished), 
                 "Невозможно запустить игру, т.к. уже существует запущенная игра."
                 );
 
@@ -234,7 +234,7 @@ namespace Beavers.Encounter.ApplicationServices
             }
             
             // Переводим игру в предстартовый режим 
-            game.GameState = (int)GameStates.Startup;
+            game.GameState = GameStates.Startup;
             
             gameRepository.SaveOrUpdate(game);
             teamGameStateRepository.DbContext.CommitChanges();
@@ -242,13 +242,13 @@ namespace Beavers.Encounter.ApplicationServices
 
         public void StartGame(Game game)
         {
-            Check.Require(game.GameState == (int)GameStates.Startup, String.Format(
+            Check.Require(game.GameState == GameStates.Startup, String.Format(
                     "Невозможно перевести игру в рабочий режим, когда она находится в режиме {0}.",
                     Enum.GetName(typeof(GameStates), game.GameState))
                 );
 
             // Переводим игру в рабочий режим 
-            game.GameState = (int)GameStates.Started;
+            game.GameState = GameStates.Started;
             gameRepository.SaveOrUpdate(game);
 
             // Запускаем демона
@@ -257,7 +257,7 @@ namespace Beavers.Encounter.ApplicationServices
 
         public void StopGame(Game game)
         {
-            Check.Require(game.GameState == (int)GameStates.Started, String.Format(
+            Check.Require(game.GameState == GameStates.Started, String.Format(
                     "Невозможно остановить игру, когда она находится в режиме {0}.",
                     Enum.GetName(typeof(GameStates), game.GameState))
                 );
@@ -270,7 +270,7 @@ namespace Beavers.Encounter.ApplicationServices
             }
 
             // Останавливаем игру
-            game.GameState = (int)GameStates.Finished;
+            game.GameState = GameStates.Finished;
             gameRepository.SaveOrUpdate(game);
 
             // Для каждой команды устанавливаем время окончания игры
@@ -293,13 +293,13 @@ namespace Beavers.Encounter.ApplicationServices
 
         public void CloseGame(Game game)
         {
-            Check.Require(game.GameState == (int)GameStates.Finished || game.GameState == (int)GameStates.Planned, 
+            Check.Require(game.GameState == GameStates.Finished || game.GameState == GameStates.Planned, 
                 String.Format(
                     "Невозможно закрыть игру, когда она находится в режиме {0}.",
                     Enum.GetName(typeof(GameStates), game.GameState))
                 );
 
-            game.GameState = (int)GameStates.Cloused;
+            game.GameState = GameStates.Cloused;
             gameRepository.SaveOrUpdate(game);
 
             // Для каждой команды сбрасываем игровое состояние
@@ -322,16 +322,16 @@ namespace Beavers.Encounter.ApplicationServices
         public void ResetGame(Game game)
         {
             Check.Require(
-                game.GameState == (int)GameStates.Startup || 
-                game.GameState == (int)GameStates.Finished ||
-                game.GameState == (int)GameStates.Cloused ||
-                game.GameState == (int)GameStates.Planned,
+                game.GameState == GameStates.Startup || 
+                game.GameState == GameStates.Finished ||
+                game.GameState == GameStates.Cloused ||
+                game.GameState == GameStates.Planned,
                 String.Format(
                     "Невозможно сбросить состояние игры, когда она находится в режиме {0}.",
                     Enum.GetName(typeof(GameStates), game.GameState))
                 );
 
-            game.GameState = (int)GameStates.Planned;
+            game.GameState = GameStates.Planned;
             gameRepository.SaveOrUpdate(game);
 
             // Для каждой команды сбрасываем игровое состояние

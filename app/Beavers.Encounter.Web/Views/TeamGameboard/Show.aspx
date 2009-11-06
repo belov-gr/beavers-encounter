@@ -44,7 +44,7 @@
         <%
         // Кнопка для "ускорения" задания. Доступна только для капитана команды.
         if (((User)User).Role.IsTeamLeader && 
-            Model.TeamGameState.ActiveTaskState.Task.TaskType == (int)TaskTypes.NeedForSpeed &&
+            Model.TeamGameState.ActiveTaskState.Task.TaskType == TaskTypes.NeedForSpeed &&
             Model.TeamGameState.ActiveTaskState.AccelerationTaskStartTime == null) 
         { %>
             <p/>

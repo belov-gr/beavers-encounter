@@ -8,6 +8,8 @@ namespace Beavers.Encounter.Data.NHibernateMaps
     {
         public void Override(AutoMap<Task> mapping)
         {
+            mapping.Map(x => x.TaskType).CustomTypeIs(typeof (TaskTypes));
+
             mapping.HasMany(x => x.Tips).Inverse().Cascade.Delete();
             mapping.HasMany(x => x.Codes).Inverse().Cascade.Delete();
             

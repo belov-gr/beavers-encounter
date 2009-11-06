@@ -55,7 +55,7 @@ namespace Beavers.Encounter.ApplicationServices
         public void GameDemonCallback(object o)
         {
             Game game = gameRepository.Get(gameId);
-            if (game.GameState != (int)GameStates.Started)
+            if (game.GameState != GameStates.Started)
                 return;
 
             CheckForGameFinish(game);
@@ -73,7 +73,7 @@ namespace Beavers.Encounter.ApplicationServices
 
         private void CheckForGameFinish(Game game)
         {
-            if ((DateTime.Now - game.GameDate).TotalMinutes > game.TotalTime && game.GameState == (int)GameStates.Started)
+            if ((DateTime.Now - game.GameDate).TotalMinutes > game.TotalTime && game.GameState == GameStates.Started)
             {
                 gameService.StopGame(game);
             }
@@ -103,7 +103,7 @@ namespace Beavers.Encounter.ApplicationServices
                 return;
 
             // Для заданий с выбором подсказок ничерта не делаем
-            if (teamGameState.ActiveTaskState.Task.TaskType == (int)TaskTypes.RussianRoulette)
+            if (teamGameState.ActiveTaskState.Task.TaskType == TaskTypes.RussianRoulette)
                 return;
 
             // время выполнения задания
@@ -146,7 +146,7 @@ namespace Beavers.Encounter.ApplicationServices
             int timePerTask = teamGameState.Game.TimePerTask;
 
             // Если задание с "ускорением" и "ускорение" произошло
-            if (teamGameState.ActiveTaskState.Task.TaskType == (int)TaskTypes.NeedForSpeed &&
+            if (teamGameState.ActiveTaskState.Task.TaskType == TaskTypes.NeedForSpeed &&
                 teamGameState.ActiveTaskState.AccelerationTaskStartTime != null)
             {
                 taskTime = DateTime.Now - (DateTime)teamGameState.ActiveTaskState.AccelerationTaskStartTime;

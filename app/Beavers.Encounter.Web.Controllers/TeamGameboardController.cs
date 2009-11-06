@@ -51,18 +51,18 @@ namespace Beavers.Encounter.Web.Controllers
             {
                 viewModel.Message = "Для Вас нет активной игры.";
             }
-            else if (team.Game.GameState == (int)GameStates.Finished)
+            else if (team.Game.GameState == GameStates.Finished)
             {
                 viewModel.Message = "Игра закончена.";
                 return RedirectToAction("Results");
             }
-            else if (team.Game.GameState == (int)GameStates.Planned)
+            else if (team.Game.GameState == GameStates.Planned)
             {
                 viewModel.Message = String.Format("Игра запланирована на {0}",
                                                   team.Game.GameDate.ToShortDateString());
             }
-            else if (team.Game.GameState == (int)GameStates.Startup ||
-                    (team.Game.GameState == (int)GameStates.Started && team.Game.GameDate > DateTime.Now))
+            else if (team.Game.GameState == GameStates.Startup ||
+                    (team.Game.GameState == GameStates.Started && team.Game.GameDate > DateTime.Now))
             {
                 viewModel.Message = String.Format("Игра начнется в {0}",
                                                   team.TeamGameState.Game.GameDate.TimeOfDay);
@@ -80,7 +80,7 @@ namespace Beavers.Encounter.Web.Controllers
                 viewModel.ActiveTaskState = team.TeamGameState.ActiveTaskState;
 
                 if (viewModel.ActiveTaskState != null &&
-                    viewModel.ActiveTaskState.Task.TaskType == (int)TaskTypes.RussianRoulette)
+                    viewModel.ActiveTaskState.Task.TaskType == TaskTypes.RussianRoulette)
                 {
                     viewModel.SuggestTips = gameService.GetSuggestTips(viewModel.ActiveTaskState);
 
@@ -168,7 +168,7 @@ namespace Beavers.Encounter.Web.Controllers
             if (team.TeamGameState != null &&
                 team.TeamGameState.ActiveTaskState != null &&
                 team.TeamGameState.ActiveTaskState.Id == activeTaskStateId &&
-                team.TeamGameState.ActiveTaskState.Task.TaskType == (int)TaskTypes.NeedForSpeed)
+                team.TeamGameState.ActiveTaskState.Task.TaskType == TaskTypes.NeedForSpeed)
             {
                 gameService.AccelerateTask(team.TeamGameState.ActiveTaskState);
             }
@@ -187,7 +187,7 @@ namespace Beavers.Encounter.Web.Controllers
             if (team.TeamGameState != null &&
                 team.TeamGameState.ActiveTaskState != null &&
                 team.TeamGameState.ActiveTaskState.Id == activeTaskStateId &&
-                team.TeamGameState.ActiveTaskState.Task.TaskType == (int)TaskTypes.RussianRoulette)
+                team.TeamGameState.ActiveTaskState.Task.TaskType == TaskTypes.RussianRoulette)
             {
                 gameService.AssignNewTaskTip(
                     team.TeamGameState.ActiveTaskState,

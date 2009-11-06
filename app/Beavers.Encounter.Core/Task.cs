@@ -37,7 +37,7 @@ namespace Beavers.Encounter.Core
         public virtual int Locked { get; set; }
 
         [NotNull]
-        public virtual int TaskType { get; set; }
+        public virtual TaskTypes TaskType { get; set; }
 
         [NotNull]
         public virtual int Priority { get; set; }

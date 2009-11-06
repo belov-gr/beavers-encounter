@@ -42,7 +42,7 @@ namespace Beavers.Encounter.Web.Controllers.Filters
             if (user.Team != null &&
                 (user.Role.IsPlayer || user.Role.IsTeamLeader) && 
                 user.Team.Game != null && 
-                user.Team.Game.GameState != (int)GameStates.Planned &&
+                user.Team.Game.GameState != GameStates.Planned &&
                 user.Team.TeamGameState != null)
             {
                 filterContext.Result = new RedirectResult("/TeamGameboard/Show");

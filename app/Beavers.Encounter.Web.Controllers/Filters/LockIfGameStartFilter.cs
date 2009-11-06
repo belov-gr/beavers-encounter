@@ -46,9 +46,9 @@ namespace Beavers.Encounter.Web.Controllers.Filters
             // Если игра запушена и пользователь не усаствует в игре, 
             // то позволяем ему доступ только к главной странице
             bool gameIsRun = gameRepository.GetAll().Any(
-                g => g.GameState == (int) GameStates.Startup ||
-                     g.GameState == (int) GameStates.Started ||
-                     g.GameState == (int) GameStates.Finished);
+                g => g.GameState == GameStates.Startup ||
+                     g.GameState == GameStates.Started ||
+                     g.GameState == GameStates.Finished);
             User user = (User)filterContext.HttpContext.User;
             if ((user.Role.IsPlayer || user.Role.IsTeamLeader) && user.Team != null && user.Team.TeamGameState == null && gameIsRun)
             {
