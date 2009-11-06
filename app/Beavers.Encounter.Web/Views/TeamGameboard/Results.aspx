@@ -71,6 +71,7 @@
             <%= taskState.State == (int) TeamTaskStateFlag.Success ? "выполнено" : String.Empty %>
             <%= taskState.State == (int) TeamTaskStateFlag.Canceled ? "слито" : String.Empty %>
             <%= taskState.State == (int) TeamTaskStateFlag.Overtime ? "не выполнено" : String.Empty %>
+            <%= taskState.State == (int)TeamTaskStateFlag.Cheat ? " дисквал-но" : String.Empty%>
             <div>
             </li>
         <%

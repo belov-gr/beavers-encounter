@@ -377,9 +377,25 @@ namespace Beavers.Encounter.ApplicationServices
                 AssignNewTask(teamGameState, oldTask);
             }
 
-            // Игра для команды закончена
-            if (teamGameState.ActiveTaskState == null)
+            CheckExceededBadCodes(teamGameState);
+        }
+
+        /// <summary>
+        /// Проверка на превышение количества левых кодов. При превышении задание закрывается сразу перед первой подсказкой.
+        /// </summary>
+        public void CheckExceededBadCodes(TeamGameState teamGameState)
+        {
+            if (teamGameState == null || teamGameState.ActiveTaskState == null)
                 return;
+
+            if ((teamGameState.ActiveTaskState.AcceptedBadCodes.Count >= Game.BadCodesLimit)
+                && (((DateTime.Now - teamGameState.ActiveTaskState.TaskStartTime).TotalMinutes + 1) //+1 - чтобы сработало до того, как покажется первая подсказка.
+                     >= (teamGameState.ActiveTaskState.Task.Tips.First(x => x.SuspendTime > 0).SuspendTime)))
+            {
+                Task oldTask = teamGameState.ActiveTaskState.Task;
+                CloseTaskForTeam(teamGameState.ActiveTaskState, TeamTaskStateFlag.Cheat);
+                AssignNewTask(teamGameState, oldTask);
+            }
         }
 
         public static List<string> GetCodes(string codes, string prefixMainCode, string prefixBonusCode)

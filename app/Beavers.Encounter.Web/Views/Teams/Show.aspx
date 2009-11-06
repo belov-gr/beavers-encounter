@@ -1,5 +1,5 @@
 <%@ Page Title="Team Details" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" 
-	Inherits="System.Web.Mvc.ViewPage<Beavers.Encounter.Core.Team>" %>
+	Inherits="System.Web.Mvc.ViewPage<Team>" %>
 <%@ Import Namespace="Beavers.Encounter.Core"%>
 <%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
 
@@ -12,9 +12,9 @@
 			<label for="Team_Name">Название:</label>
             <% if (((User)User).Team == ViewData.Model)
                { %>
-                    <span id="My_Team_Name"><%= "<b>" + Server.HtmlEncode(ViewData.Model.Name.ToString()) + "</b>"%></span>
+                    <span id="My_Team_Name"><%= "<b>" + Server.HtmlEncode(ViewData.Model.Name) + "</b>"%></span>
             <% } else { %>
-                    <span id="Team_Name"><%= Server.HtmlEncode(ViewData.Model.Name.ToString()) %></span>
+                    <span id="Team_Name"><%= Server.HtmlEncode(ViewData.Model.Name) %></span>
             <% } %>
 		</li>
         <% if (((User)User).Team == null && ((User)User).Role.IsPlayer && ViewData.Model.Users.Count < 6)

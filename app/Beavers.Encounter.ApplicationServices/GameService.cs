@@ -61,7 +61,7 @@ namespace Beavers.Encounter.ApplicationServices
 
             if (Doers > 0)
             {
-                log4net.LogManager.GetLogger("LogToFile").Info(String.Format("Ахтунг!!! Doers = {0}", Doers));
+                log4net.LogManager.GetLogger("LogToFile").Warn(String.Format("Ахтунг!!! Doers = {0}", Doers));
             }
 
             try
@@ -72,7 +72,7 @@ namespace Beavers.Encounter.ApplicationServices
             }
             catch(Exception e)
             {
-                log4net.LogManager.GetLogger("LogToFile").Info(String.Format("Ахтунг ошибка!!! Doers = {0}, {1}", Doers, e));
+                log4net.LogManager.GetLogger("LogToFile").Warn(String.Format("Ахтунг ошибка!!! Doers = {0}, {1}", Doers, e));
             }
             finally
             {
@@ -220,8 +220,8 @@ namespace Beavers.Encounter.ApplicationServices
 
             Check.Require(!gameRepository.GetAll().Any(
                 g =>
-                g.GameState == (int) GameStates.Startup || g.GameState == (int) GameStates.Started ||
-                g.GameState == (int) GameStates.Finished), 
+                g.GameState == (int)GameStates.Startup || g.GameState == (int)GameStates.Started ||
+                g.GameState == (int)GameStates.Finished), 
                 "Невозможно запустить игру, т.к. уже существует запущенная игра."
                 );
 
@@ -393,6 +393,14 @@ namespace Beavers.Encounter.ApplicationServices
         public void AccelerateTask(TeamTaskState teamTaskState)
         {
             taskService.AccelerateTask(teamTaskState);
+        }
+
+        /// <summary>
+        /// Проверка на превышение количества левых кодов. При превышении задание закрывается сразу перед первой подсказкой.
+        /// </summary>
+        public void CheckExceededBadCodes(TeamGameState teamGameState)
+        {
+            taskService.CheckExceededBadCodes(teamGameState);
         }
 
         /// <summary>

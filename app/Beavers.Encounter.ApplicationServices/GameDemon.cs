@@ -121,26 +121,15 @@ namespace Beavers.Encounter.ApplicationServices
                     }
                 }
             } 
-
         }
 
         /// <summary>
         /// Проверка на превышение количества левых кодов. При превышении задание закрывается сразу перед первой подсказкой.
         /// </summary>
         /// <param name="teamGameState"></param>
-        private void CheckExceededBadCodes(TeamGameState teamGameState)
+        public void CheckExceededBadCodes(TeamGameState teamGameState)
         {
-            if (teamGameState == null || teamGameState.ActiveTaskState == null)
-                return;
-
-            if ((teamGameState.ActiveTaskState.AcceptedBadCodes.Count >= Game.BadCodesLimit)
-                && (((DateTime.Now - teamGameState.ActiveTaskState.TaskStartTime).TotalMinutes + 1) //+1 - чтобы сработало до того, как покажется первая подсказка.
-                     >= (teamGameState.ActiveTaskState.Task.Tips.First(x => x.SuspendTime > 0).SuspendTime)))
-            {
-                Task oldTask = teamGameState.ActiveTaskState.Task;
-                gameService.CloseTaskForTeam(teamGameState.ActiveTaskState, TeamTaskStateFlag.Cheat);
-                gameService.AssignNewTask(teamGameState, oldTask);
-            }
+            gameService.CheckExceededBadCodes(teamGameState);
         }
 
         /// <summary>

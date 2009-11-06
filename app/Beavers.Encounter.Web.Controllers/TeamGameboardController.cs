@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Ajax;
 using Beavers.Encounter.ApplicationServices;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Core.DataInterfaces;
@@ -40,17 +38,8 @@ namespace Beavers.Encounter.Web.Controllers
         [Transaction]
         public ActionResult Show()
         {
-            //if (((User)User).Team == null && ((User)User).Game != null)
-            //    return this.RedirectToAction<GamesController>(c => c.CurrentState(((User) User).Game.Id));
-
-            //try
-            //{
-            //    gameService.Do((User)User);
-            //}
-            //catch (Exception e)
-            //{
-
-            //}
+            if (User.Role.IsAuthor)
+                return this.RedirectToAction<GamesController>(c => c.CurrentState(User.Game.Id));
 
             Team team = teamRepository.Get(User.Team.Id);
 
@@ -72,7 +61,8 @@ namespace Beavers.Encounter.Web.Controllers
                 viewModel.Message = String.Format("Игра запланирована на {0}",
                                                   team.Game.GameDate.ToShortDateString());
             }
-            else if (team.Game.GameState == (int)GameStates.Startup)
+            else if (team.Game.GameState == (int)GameStates.Startup ||
+                    (team.Game.GameState == (int)GameStates.Started && team.Game.GameDate > DateTime.Now))
             {
                 viewModel.Message = String.Format("Игра начнется в {0}",
                                                   team.TeamGameState.Game.GameDate.TimeOfDay);
@@ -115,9 +105,6 @@ namespace Beavers.Encounter.Web.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SubmitCodes(string codes)
         {
-            if (User.Team == null && User.Game != null)
-                return this.RedirectToAction<GamesController>(c => c.CurrentState(User.Game.Id));
-
             Team team = teamRepository.Get(User.Team.Id);
             try
             {
@@ -137,9 +124,6 @@ namespace Beavers.Encounter.Web.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult NextTask(int activeTaskStateId)
         {
-            if (User.Team == null && User.Game != null)
-                return this.RedirectToAction<GamesController>(c => c.CurrentState(User.Game.Id));
-
             Team team = teamRepository.Get(User.Team.Id);
 
             if (team.TeamGameState.ActiveTaskState.Id == activeTaskStateId)
@@ -162,9 +146,6 @@ namespace Beavers.Encounter.Web.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SkipTask()
         {
-            if (User.Team == null && User.Game != null)
-                return this.RedirectToAction<GamesController>(c => c.CurrentState(User.Game.Id));
-
             Team team = teamRepository.Get(User.Team.Id);
 
             { // TODO: Перенести в gameService
@@ -221,6 +202,9 @@ namespace Beavers.Encounter.Web.Controllers
         [Transaction]
         public ActionResult Results()
         {
+            if (User.Role.IsAuthor)
+                return this.RedirectToAction<GamesController>(c => c.CurrentState(User.Game.Id));
+
             TeamGameboardViewModel model = TeamGameboardViewModel.CreateTeamGameboardViewModel();
             model.GameResults = gameService.GetGameResults(User.Team.Game.Id).Select("", "tasks desc, bonus desc, time asc");
             

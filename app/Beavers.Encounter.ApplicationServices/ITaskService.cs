@@ -41,6 +41,11 @@ namespace Beavers.Encounter.ApplicationServices
         void AccelerateTask(TeamTaskState teamTaskState);
 
         /// <summary>
+        /// Проверка на превышение количества левых кодов. При превышении задание закрывается сразу перед первой подсказкой.
+        /// </summary>
+        void CheckExceededBadCodes(TeamGameState teamGameState);
+
+        /// <summary>
         /// Возвращает варианты выбора подсказок, если это необходимо для задания с выбором подсказки.
         /// </summary>
         IEnumerable<Tip> GetSuggestTips(TeamTaskState teamTaskState);
