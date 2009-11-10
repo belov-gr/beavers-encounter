@@ -103,16 +103,19 @@ namespace Beavers.Encounter.Web.Controllers
         [ValidateAntiForgeryToken]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SubmitCodes(string codes)
+        public ActionResult SubmitCodes(int activeTaskStateId, string codes)
         {
             Team team = teamRepository.Get(User.Team.Id);
-            try
+            if (team.TeamGameState.ActiveTaskState.Id == activeTaskStateId)
             {
-                gameService.SubmitCode(codes, team.TeamGameState, User);
-            }
-            catch (MaxCodesCountException e)
-            {
-                Message = e.Message;
+                try
+                {
+                    gameService.SubmitCode(codes, team.TeamGameState, User);
+                }
+                catch (MaxCodesCountException e)
+                {
+                    Message = e.Message;
+                }
             }
             return this.RedirectToAction(c => c.Show());
         }

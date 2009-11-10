@@ -187,7 +187,7 @@
         if (ViewData.Model.ActiveTaskState.AcceptedBadCodes.Count < Game.BadCodesLimit)
         {
             // Поле отправки кодов
-            using (Html.BeginForm<TeamGameboardController>(c => c.SubmitCodes(null), FormMethod.Post))
+            using (Html.BeginForm<TeamGameboardController>(c => c.SubmitCodes(ViewData.Model.ActiveTaskState.Id, null), FormMethod.Post))
             { %>
             <%= Html.AntiForgeryToken()%>
             <div>
