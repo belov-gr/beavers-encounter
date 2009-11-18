@@ -1,5 +1,4 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Game>"%>
-<%@ Import Namespace="Beavers.Encounter.Core"%>
 
 <h2>Состояние игры</h2>
 

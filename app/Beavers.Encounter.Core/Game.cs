@@ -24,25 +24,44 @@ namespace Beavers.Encounter.Core
         
         [DomainSignature]
 		[NotNull, NotEmpty]
-		public virtual string Name { get; set; }
+        [Meta.Caption("Название")]
+        [Meta.Description("Название игры")]
+        public virtual string Name { get; set; }
 
-		public virtual DateTime GameDate { get; set; }
+        [Meta.Caption("Дата проведения")]
+        [Meta.Description("Формат ввода ДД.ММ.ГГ ЧЧ:ММ.")]
+        public virtual DateTime GameDate { get; set; }
 
 		[NotNull, NotEmpty]
-		public virtual string Description { get; set; }
+        [Meta.Caption("Описание")]
+        [Meta.TextArea(40, 3)]
+        public virtual string Description { get; set; }
 
-		public virtual int TotalTime { get; set; }
+        [Meta.Default(540)]
+        [Meta.Caption("Продолжительность игры")]
+        [Meta.Description("Значение в минутах. Например, 540 - т.е. 9 часов.")]
+        public virtual int TotalTime { get; set; }
 
+        [Meta.Default(90)]
+        [Meta.Caption("Время на задание")]
+        [Meta.Description("Значение в минутах. Например, 90 - т.е. 1.5 часа.")]
         public virtual int TimePerTask { get; set; }
 
+        [Meta.Default(30)]
+        [Meta.Caption("Время на подсказку")]
+        [Meta.Description("Значение в минутах. Например, 30 - т.е. пол часа.")]
         public virtual int TimePerTip { get; set; }
 
         public virtual GameStates GameState { get; set; }
 
         [Length(6)]
+        [Meta.Caption("Префикс для основного кода")]
+        [Meta.Description("Например, 14DR.")]
         public virtual string PrefixMainCode { get; set; }
 
         [Length(6)]
+        [Meta.Caption("Префикс для бонусного кода")]
+        [Meta.Description("Например, 14B.")]
         public virtual string PrefixBonusCode { get; set; }
 
         public virtual IList<Team> Teams { get; protected set; }

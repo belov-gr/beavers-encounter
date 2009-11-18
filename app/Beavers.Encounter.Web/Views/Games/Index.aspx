@@ -1,8 +1,5 @@
 <%@ Page Title="Games" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" 
 	Inherits="System.Web.Mvc.ViewPage<IEnumerable<Game>>" %>
-<%@ Import Namespace="Beavers.Encounter.Core" %>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
- 
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <h2>Список игр</h2>

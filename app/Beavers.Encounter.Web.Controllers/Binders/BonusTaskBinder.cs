@@ -47,7 +47,7 @@ namespace Beavers.Encounter.Web.Controllers.Binders
             task.TaskText = values["BonusTask.TaskText"];
             task.StartTime = Convert.ToDateTime(values["BonusTask.StartTime"]);
             task.FinishTime = Convert.ToDateTime(values["BonusTask.FinishTime"]);
-            task.IsIndividual = Convert.ToBoolean(values["BonusTask.IsIndividual"].Split(new char[] { ',' })[0]) ? 1 : 0;
+            task.IsIndividual = Convert.ToBoolean(values["BonusTask.IsIndividual"].Split(new char[] { ',' })[0]);
 
             return task;
         }

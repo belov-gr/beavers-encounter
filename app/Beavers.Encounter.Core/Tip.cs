@@ -5,14 +5,15 @@ namespace Beavers.Encounter.Core
 {
     public class Tip : Entity
     {
-        public Tip() { }
-		
         [DomainSignature]
 		[NotNull, NotEmpty]
-		public virtual string Name { get; set; }
+        [Meta.Caption("Текст задания/подсказки")]
+        [Meta.TextArea(80, 10)]
+        public virtual string Name { get; set; }
 
 		[NotNull]
-		public virtual int SuspendTime { get; set; }
+        [Meta.Caption("Время")]
+        public virtual int SuspendTime { get; set; }
 
 		[NotNull]
 		public virtual Task Task { get; set; }

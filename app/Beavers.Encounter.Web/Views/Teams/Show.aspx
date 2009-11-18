@@ -1,7 +1,5 @@
 <%@ Page Title="Team Details" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" 
 	Inherits="System.Web.Mvc.ViewPage<Team>" %>
-<%@ Import Namespace="Beavers.Encounter.Core"%>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 

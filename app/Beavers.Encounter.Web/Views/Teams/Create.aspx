@@ -1,5 +1,5 @@
 <%@ Page Title="Create Team" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" 
-	Inherits="System.Web.Mvc.ViewPage<Beavers.Encounter.Web.Controllers.TeamsController.TeamFormViewModel>" %>
+	Inherits="System.Web.Mvc.ViewPage<TeamsController.TeamFormViewModel>" %>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 

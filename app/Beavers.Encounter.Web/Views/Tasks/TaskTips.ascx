@@ -1,7 +1,5 @@
 <%@ Control Language="C#" Inherits="Beavers.Encounter.Web.Views.ViewUserControl<Task>" %>
 <%@ Import Namespace="Beavers.Encounter.Common"%>
-<%@ Import Namespace="Beavers.Encounter.Core"%>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers"%>
 
 	<h2>Текст задания и подсказки</h2>
 

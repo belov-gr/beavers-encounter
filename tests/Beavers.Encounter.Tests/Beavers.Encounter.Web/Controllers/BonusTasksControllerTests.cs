@@ -130,7 +130,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
                 TaskText = "Task description",
                 StartTime = DateTime.Parse("01.01.75 0:00:00"),
                 FinishTime = DateTime.Parse("01.01.75 0:00:00"),
-                IsIndividual = 0,
+                IsIndividual = false,
                 Game = new Game() { Name = "New game" }
             };
             

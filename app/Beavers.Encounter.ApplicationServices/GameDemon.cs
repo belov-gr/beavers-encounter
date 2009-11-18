@@ -157,7 +157,7 @@ namespace Beavers.Encounter.ApplicationServices
             {
                 // Если все основные коды приняты, то задание считаем выполненым успешно
                 TeamTaskStateFlag closeFlag =
-                    teamGameState.ActiveTaskState.AcceptedCodes.Count(x => x.Code.IsBonus == 0) == teamGameState.ActiveTaskState.Task.Codes.Count(x => x.IsBonus == 0)
+                    teamGameState.ActiveTaskState.AcceptedCodes.Count(x => !x.Code.IsBonus) == teamGameState.ActiveTaskState.Task.Codes.Count(x => !x.IsBonus)
                     ? TeamTaskStateFlag.Success
                     : TeamTaskStateFlag.Overtime;
                 

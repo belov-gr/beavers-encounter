@@ -14,7 +14,7 @@ namespace Beavers.Encounter.Core.DataInterfaces
             foreach (TeamTaskState taskState in acceptedTasks)
             {
                 if (taskState.State == (int)TeamTaskStateFlag.Execute || taskState.State == (int)TeamTaskStateFlag.Success)
-                    count += taskState.AcceptedCodes.Count(x => x.Code.IsBonus == 1);
+                    count += taskState.AcceptedCodes.Count(x => x.Code.IsBonus);
             }
             return count;
         }

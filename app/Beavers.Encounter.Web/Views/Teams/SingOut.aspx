@@ -5,6 +5,3 @@
     <h2>SingOut</h2>
 
 </asp:Content>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
-</asp:Content>

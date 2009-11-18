@@ -1,6 +1,5 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IList<BonusTask>>" %>
-<%@ Import Namespace="Beavers.Encounter.Core"%>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers"%>
+
 <div>
     <h2>Сквозные бонусные задания</h2>
 

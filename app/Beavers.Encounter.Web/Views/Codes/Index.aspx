@@ -1,8 +1,5 @@
 <%@ Page Title="Codes" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" 
-	Inherits="System.Web.Mvc.ViewPage<IEnumerable<Beavers.Encounter.Core.Code>>" %>
-<%@ Import Namespace="Beavers.Encounter.Core" %>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
- 
+	Inherits="System.Web.Mvc.ViewPage<IEnumerable<Code>>" %>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <h1>Codes</h1>

@@ -134,6 +134,11 @@ p#logo, h1#logo
     _height: 1px; /* only IE6 applies CSS properties starting with an underscrore */
 }
 
+.field-validation-error, .validation-summary-errors
+{
+	color: Red;
+}
+
 .columnsContainer
 {
     position: relative;

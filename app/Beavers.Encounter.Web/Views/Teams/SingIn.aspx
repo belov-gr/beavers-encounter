@@ -1,6 +1,4 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<TeamsController.TeamFormViewModel1>" %>
-<%@ Import Namespace="Beavers.Encounter.Core"%>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
@@ -28,7 +26,4 @@
         </div>
     <% } %>
 
-</asp:Content>
-
-<asp:Content ID="Content2" ContentPlaceHolderID="HeadContentPlaceHolder" runat="server">
 </asp:Content>

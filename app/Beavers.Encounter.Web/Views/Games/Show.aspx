@@ -1,7 +1,5 @@
 <%@ Page Title="Game Details" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" 
-	Inherits="System.Web.Mvc.ViewPage<Beavers.Encounter.Core.Game>" %>
-<%@ Import Namespace="Beavers.Encounter.Core"%>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
+	Inherits="System.Web.Mvc.ViewPage<Game>" %>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
@@ -9,25 +7,26 @@
 
     <ul>
 		<li>
-			<label for="Game_Name">Название:</label>
-            <span id="Game_Name"><%= Server.HtmlEncode(ViewData.Model.Name.ToString()) %></span>
+		    <%= Model.Render<Game>(Html, x => x.Name) %>
 		</li>
 		<li>
-			<label for="Game_GameDate">Дата проведения:</label>
-            <span id="Game_GameDate"><%= Server.HtmlEncode(ViewData.Model.GameDate.ToString()) %></span>
+		    <%= Model.Render<Game>(Html, x => x.GameDate) %>
 		</li>
 		<li>
-			<label for="Game_Description">Описание:</label>
-            <div id="Game_Description"><%= Beavers.Encounter.Common.BBCode.ConvertToHtml(ViewData.Model.Description) %></div>
-            <br />
+		    <%= Model.Render<Game>(Html, x => x.Description) %>
 		</li>
-        <% if (((User)User).Team != null && ((User)User).Team.Game == null && ((User)User).Role.IsTeamLeader) { %>
-	        <li class="buttons">
-                <%= Html.Button("registerTeam", "Будем играть", HtmlButtonType.Button, 
-                    "window.location.href = '" + Html.BuildUrlFromExpression<TeamsController>(c => c.SingInGame(ViewData.Model.Id, ((User)User).Team.Id)) + "';") %>
-            </li>
-        <% } %>
+		<li>
+		    <%= Model.Render<Game>(Html, x => x.PrefixMainCode) %>
+		</li>
+		<li>
+		    <%= Model.Render<Game>(Html, x => x.PrefixBonusCode) %>
+		</li>
 	</ul>
+
+    <% if (((User)User).Team != null && ((User)User).Team.Game == null && ((User)User).Role.IsTeamLeader) { %>
+        <%= Html.Button("registerTeam", "Будем играть", HtmlButtonType.Button, 
+            "window.location.href = '" + Html.BuildUrlFromExpression<TeamsController>(c => c.SingInGame(ViewData.Model.Id, ((User)User).Team.Id)) + "';") %>
+    <% } %>
 
     <p><%= Html.ActionLink<GamesController>(c => c.Edit(Model.Id), "Изменить")%></p>
 

@@ -1,6 +1,5 @@
 <%@ Page Title="Code Details" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" 
-	Inherits="System.Web.Mvc.ViewPage<Beavers.Encounter.Core.Code>" %>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
+	Inherits="System.Web.Mvc.ViewPage<Code>" %>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
@@ -8,25 +7,17 @@
 
     <ul>
 		<li>
-			<label for="Code_Name">Name:</label>
-            <span id="Code_Name"><%= Server.HtmlEncode(ViewData.Model.Name.ToString()) %></span>
+		    <%= Model.Render<Code>(Html, x => x.Name) %>
 		</li>
 		<li>
-			<label for="Code_Danger">Danger:</label>
-            <span id="Code_Danger"><%= Server.HtmlEncode(ViewData.Model.Danger.ToString()) %></span>
+		    <%= Model.Render<Code>(Html, x => x.Danger) %>
 		</li>
 		<li>
-			<label for="Code_IsBonus">IsBonus:</label>
-            <span id="Span1"><%= Server.HtmlEncode(ViewData.Model.IsBonus.ToString()) %></span>
+		    <%= Model.Render<Code>(Html, x => x.IsBonus) %>
 		</li>
-		<li>
-			<label for="Code_Task">Task:</label>
-            <span id="Code_Task"><%= Server.HtmlEncode(ViewData.Model.Task.ToString()) %></span>
-		</li>
-	    <li class="buttons">
-            <%= Html.Button("btnBack", "Back", HtmlButtonType.Button, 
-                "window.location.href = '" + Html.BuildUrlFromExpression<CodesController>(c => c.Index()) + "';") %>
-        </li>
 	</ul>
+
+    <%= Html.Button("btnBack", "Back", HtmlButtonType.Button, 
+        "window.location.href = '" + Html.BuildUrlFromExpression<CodesController>(c => c.Index()) + "';") %>
 
 </asp:Content>

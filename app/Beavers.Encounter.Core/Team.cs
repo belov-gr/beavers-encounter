@@ -24,10 +24,16 @@ namespace Beavers.Encounter.Core
         [DomainSignature]
 		[NotNull, NotEmpty]
         [Length(100)]
+        [Meta.Caption("Название")]
 		public virtual string Name { get; set; }
 
+        [Meta.Caption("Код доступа")]
+        [Meta.Description("Секретный код для доступа новых игроков в команду. Изначально секретный код известен только капитану команды. Капитан должен передавать этот код только участникам своей команды.")]
         public virtual string AccessKey { get; set; }
 
+        [Meta.Caption("Индивидуальное задание")]
+        [Meta.Description("Индивидуальное задание для команды выдается в рамках бонусного задания, если у бунусного задания установлен признак \"Индивидуальное задание\".")]
+        [Meta.TextArea(80, 10)]
         public virtual string FinalTask { get; set; }
 
         public virtual Game Game { get; set; }
@@ -40,6 +46,8 @@ namespace Beavers.Encounter.Core
 
         public virtual IList<User> Users { get; protected set; }
 
+        [Meta.Caption("Анти-слив")]
+        [Meta.Description("Данная опция помогает предотвратить сливы заданий, направляя текущую команду по маршруту отличному от маршрута указанных здесь команд.")]
         public virtual IList<Team> PreventTasksAfterTeams { get; protected set; }
 
         public override string ToString()

@@ -1,8 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true"
 	Inherits="System.Web.Mvc.ViewUserControl<TeamsController.TeamFormViewModel>" %>
-<%@ Import Namespace="Beavers.Encounter.Core" %>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
- 
 
 <% if (ViewContext.TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()] != null) { %>
     <p id="pageMessage"><%= ViewContext.TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()]%></p>
@@ -14,91 +11,19 @@
     <%= Html.AntiForgeryToken() %>
     <%= Html.Hidden("Team.Id", (Model.Team != null) ? Model.Team.Id : 0)%>
 
-    <ul>
-		<li>
-			<label for="Team_Name">Название:</label>
-			<div>
-				<%= Html.TextBox("Team.Name", 
-					(Model.Team != null) ? Model.Team.Name : "")%>
-			</div>
-			<%= Html.ValidationMessage("Team.Name")%>
-		</li>
-		<li>
-			<label for="Team_AccessKey">Код доступа:</label>
-			<div class="note">
-			Секретный код для доступа новых игроков в команду. 
-			Изначально секретный код известен только капитану команды.
-			Капитан должен передавать этот код только участникам своей команды.
-			</div>
-			<div>
-				<%= Html.TextBox("Team.AccessKey", 
-					(Model.Team != null) ? Model.Team.AccessKey : "")%>
-			</div>
-			<%= Html.ValidationMessage("Team.AccessKey")%>
-		</li>
-<%
-if (Model.Team != null && Model.Team.Game != null)       
-{ %>
-		<li>
-			<label for="Team_PreventTasksAfterTeams">Анти-слив:</label>
-			<div class="note">
-			Данная опция помогает предотвратить сливы заданий, направляя текущую команду 
-			по маршруту отличному от маршрута указанных здесь команд.
-			</div>
-			<div>
-    <%
-    int i = 0;
-    foreach (var notAfterTeam in Model.Team.PreventTasksAfterTeams)
-    {
-        var empty = new Team { Name = "<Не указано>" };
-        var list = new List<Team> { empty };
-        var selected = new List<Team> { notAfterTeam };
-        var sl = new SelectList(
-            selected
-            .Union(Model.Team.Game.Teams.Where(x => x.Id != Model.Team.Id).Except(Model.Team.PreventTasksAfterTeams))
-            .Union(list),
-            "Id", "Name", notAfterTeam);
-        %>
-        <%=Html.DropDownList(String.Format("Team.PreventTasksAfterTeams{0}", i), sl)%>
-        <%
-        i++;
-    }
-    var emptyTeam = new Team { Name = "<Не указано>" };
-    var tasksList = new List<Team> { emptyTeam };
-    var slTeam = new SelectList(
-        tasksList
-        .Union(Model.Team.Game.Teams.Where(x => x.Id != Model.Team.Id)),
-        "Id", "Name", emptyTeam);
-    %>
-    <%=Html.DropDownList(String.Format("Team.PreventTasksAfterTeams{0}", i), slTeam)%>
-			</div>
-			<%= Html.ValidationMessage("Team.PreventTasksAfterTeams")%>
-		</li>
+    
+    <%= Model.Team.RenderEditable<Team>(Html, x => x.Name)%>
+    <%= Model.Team.RenderEditable<Team>(Html, x => x.AccessKey)%>
+
+<% if (Model.Team != null && Model.Team.Game != null) { %>
+    <%= Model.Team.RenderEditable(Html, x => x.PreventTasksAfterTeams, Model.Team.Game.Teams, new Team { Name = "<Не указано>" })%>
 <% } %>
-		<li>
-			<label for="Team_FinalTask">Индивидуальное задание:</label>
-			<div class="note">
-			Индивидуальное задание для команды выдается в рамках бонусного задания,
-			если у бунусного задания установлен признак "Индивидуальное задание".
-			</div>
-			<div>
-				<%= Html.TextArea("Team.FinalTask", 
-					(Model.Team != null) ? Model.Team.FinalTask : "", 10, 80, "")%>
-				<div class="note">В этом поле можно использовать BBCode:</div>
-				<div class="note">[b]<strong>Жирный</strong>[/b]</div>
-				<div class="note">[i]<em>Курсив</em>[/i]</div>
-				<div class="note">[u]<span style="text-decoration:underline">Подчеркнутый</span>[/u]</div>
-				<div class="note">[del]<span style="text-decoration:line-through">Зачеркнутый</span>[/del]</div>
-				<div class="note">[color=Red]<span style="color:Red">Красный</span>[/color]</div>
-				<div class="note">[url]<span><a href="http://example.com/sample/page">http://example.com/sample/page</a></span>[/url]</div>
-				<div class="note">[url=http://example.com/sample/page]<span><a href="http://example.com/sample/page">Пример</a></span>[/url]</div>
-				<div class="note">[img]<span><a href="http://example.com/sample/page">http://example.com/sample/page</a></span>[/img]</div>
-			</div>
-			<%= Html.ValidationMessage("Team.FinalTask")%>
-		</li>
-    </ul>
-    <p/>
-    <%= Html.SubmitButton("btnSave", "Сохранить") %>
-    <%= Html.Button("btnCancel", "Отмена", HtmlButtonType.Button, 
-		    "window.location.href = '" + Html.BuildUrlFromExpression<TeamsController>(c => c.Index()) + "';") %>
+
+    <%= Model.Team.RenderEditable<Team>(Html, x => x.FinalTask)%>
+
+    <div>
+        <%= Html.SubmitButton("btnSave", "Сохранить") %>
+        <%= Html.Button("btnCancel", "Отмена", HtmlButtonType.Button, 
+		        "window.location.href = '" + Html.BuildUrlFromExpression<TeamsController>(c => c.Index()) + "';") %>
+    </div>		    
 <% } %>

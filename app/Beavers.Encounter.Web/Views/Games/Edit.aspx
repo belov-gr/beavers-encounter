@@ -1,7 +1,5 @@
 <%@ Page Title="Edit Game" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" 
 	Inherits="System.Web.Mvc.ViewPage<GamesController.GameFormViewModel>" %>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers"%>
-<%@ Import Namespace="Beavers.Encounter.Core"%>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 

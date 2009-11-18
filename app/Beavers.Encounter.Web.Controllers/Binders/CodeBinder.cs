@@ -59,7 +59,7 @@ namespace Beavers.Encounter.Web.Controllers.Binders
 
             code.Name = values["code.Name"];
             code.Danger = values["code.Danger"];
-            code.IsBonus = Convert.ToBoolean(values["code.IsBonus"].Split(new char[] { ',' })[0]) ? 1 : 0;
+            code.IsBonus = Convert.ToBoolean(values["code.IsBonus"].Split(new char[] { ',' })[0]);
 
             if (!fetch)
             {

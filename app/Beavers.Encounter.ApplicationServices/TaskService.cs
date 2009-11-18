@@ -65,7 +65,7 @@ namespace Beavers.Encounter.ApplicationServices
             
             // Если количество полученных заданий равно количеству заданий в игре и нет нового задания,
             // то считаем, что команда завершила игру
-            if (newTask == null && teamGameState.AcceptedTasks.Count >= teamGameState.Game.Tasks.Count(x => x.Locked == 0))
+            if (newTask == null && teamGameState.AcceptedTasks.Count >= teamGameState.Game.Tasks.Count(x => !x.Locked))
             {
                 TeamFinishGame(teamGameState);
                 return;
@@ -160,7 +160,7 @@ namespace Beavers.Encounter.ApplicationServices
         {
             // Получаем все незаблокированные задания для текущей игры
             var gameTasks = taskRepository.GetAll()
-                .Where(t => t.Game.Id == teamGameState.Game.Id && t.Locked == 0);
+                .Where(t => t.Game.Id == teamGameState.Game.Id && !t.Locked);
 
             // Получаем доступные (невыполненные) для команды задания
             List<Task> accessibleTasks = new List<Task>();
@@ -255,7 +255,7 @@ namespace Beavers.Encounter.ApplicationServices
             
             //--------------------------------------------------------------------
             // Если задание типа Челлендж, то +500
-            if (task.StreetChallendge == 1)
+            if (task.StreetChallendge)
             {
                 taskPoints += 500;
                 return taskPoints;
@@ -264,7 +264,7 @@ namespace Beavers.Encounter.ApplicationServices
             //--------------------------------------------------------------------
             // Если задание c агентами выполняется другой командой, то -500
             // Задание с агентами одновременно может выполняться только одной командой
-            if (task.Agents == 1 && executingTasks.ContainsKey(task))
+            if (task.Agents && executingTasks.ContainsKey(task))
                 taskPoints -= 500;
 
             //--------------------------------------------------------------------
@@ -304,7 +304,7 @@ namespace Beavers.Encounter.ApplicationServices
             int bonusCodes = 0;
             foreach (Code code in task.Codes)
             {
-                bonusCodes += code.IsBonus;
+                bonusCodes += code.IsBonus ? 1 : 0;
             }
             taskPoints += bonusCodes * 10;
 

@@ -1,6 +1,5 @@
 <%@ Page Title="Tip Details" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" 
-	Inherits="System.Web.Mvc.ViewPage<Beavers.Encounter.Core.Tip>" %>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
+	Inherits="System.Web.Mvc.ViewPage<Tip>" %>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
@@ -8,16 +7,10 @@
 
     <ul>
 		<li>
-			<label for="Tip_Name">Name:</label>
-            <span id="Tip_Name"><%= Server.HtmlEncode(ViewData.Model.Name.ToString()) %></span>
+            <%= Model.Render<Tip>(Html, x => x.Name)%>
 		</li>
 		<li>
-			<label for="Tip_SuspendTime">SuspendTime:</label>
-            <span id="Tip_SuspendTime"><%= Server.HtmlEncode(ViewData.Model.SuspendTime.ToString()) %></span>
-		</li>
-		<li>
-			<label for="Tip_Task">Task:</label>
-            <span id="Tip_Task"><%= Server.HtmlEncode(ViewData.Model.Task.ToString()) %></span>
+            <%= Model.Render<Tip>(Html, x => x.SuspendTime)%>
 		</li>
 	    <li class="buttons">
             <%= Html.Button("btnBack", "Back", HtmlButtonType.Button, 

@@ -1,7 +1,5 @@
 <%@ Page Title="Task Details" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" 
 	Inherits="System.Web.Mvc.ViewPage<Task>" %>
-<%@ Import Namespace="Beavers.Encounter.Core"%>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
@@ -13,24 +11,19 @@
 
             <ul>
 		        <li>
-			        <label for="Task_Name">Кодовое название:</label>
-                    <span id="Task_Name" style="font-weight:bold"><%= Html.Encode(ViewData.Model.Name) %></span>
+                    <%= Model.Render<Task>(Html, x => x.Name)%>
 		        </li>
 		        <li>
-			        <label for="Task_Priority">Приоритет задания:</label>
-                    <span id="Task_Priority"><%= ViewData.Model.Priority %></span>
+                    <%= Model.Render<Task>(Html, x => x.Priority)%>
 		        </li>
 		        <li>
-			        <label for="Task_StreetChallendge">Street Challenge:</label>
-                    <span id="Task_StreetChallendge"><%= ViewData.Model.StreetChallendge == 1 ? "Да" : "Нет" %></span>
+                    <%= Model.Render<Task>(Html, x => x.StreetChallendge)%>
 		        </li>
 		        <li>
-			        <label for="Task_Agents">Задание с агентами:</label>
-                    <span id="Task_Agents"><%= ViewData.Model.Agents == 1 ? "Да" : "Нет" %></span>
+                    <%= Model.Render<Task>(Html, x => x.Agents)%>
 		        </li>
 		        <li>
-			        <label for="Task_Locked">Задание заблокированно:</label>
-                    <span id="Task_Locked"><%= ViewData.Model.Locked == 1 ? "Да" : "Нет" %></span>
+                    <%= Model.Render<Task>(Html, x => x.Locked)%>
 		        </li>
 		        <li>
 			        <label for="Task_NotAfterTasks">Не после:</label>

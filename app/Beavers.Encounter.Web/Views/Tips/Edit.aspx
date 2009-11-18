@@ -1,5 +1,5 @@
 <%@ Page Title="Edit Tip" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" 
-	Inherits="System.Web.Mvc.ViewPage<Beavers.Encounter.Web.Controllers.TipsController.TipFormViewModel>" %>
+	Inherits="System.Web.Mvc.ViewPage<TipsController.TipFormViewModel>" %>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 

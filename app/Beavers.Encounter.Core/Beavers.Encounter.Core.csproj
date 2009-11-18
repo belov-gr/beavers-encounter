@@ -77,6 +77,12 @@
     <Compile Include="DataInterfaces\TipsRepositoryExtensions.cs" />
     <Compile Include="DataInterfaces\UserRepositoryExtensions.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Meta\CaptionAttribute.cs" />
+    <Compile Include="Meta\DefaultAttribute.cs" />
+    <Compile Include="Meta\DescriptionAttribute.cs" />
+    <Compile Include="Meta\EntityAttribute.cs" />
+    <Compile Include="Meta\HelpLinkAttribute.cs" />
+    <Compile Include="Meta\TextAreaAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Task.cs" />

@@ -132,7 +132,7 @@ namespace Beavers.Encounter.Web.Controllers
             if (team.TeamGameState.ActiveTaskState.Id == activeTaskStateId)
             { // TODO: Перенести в gameService
                 Task oldTask = team.TeamGameState.ActiveTaskState.Task;
-                if (team.TeamGameState.ActiveTaskState.AcceptedCodes.Count(x => x.Code.IsBonus == 0) == team.TeamGameState.ActiveTaskState.Task.Codes.Count(x => x.IsBonus == 0))
+                if (team.TeamGameState.ActiveTaskState.AcceptedCodes.Count(x => !x.Code.IsBonus) == team.TeamGameState.ActiveTaskState.Task.Codes.Count(x => !x.IsBonus))
                 {
                     gameService.CloseTaskForTeam(team.TeamGameState.ActiveTaskState, TeamTaskStateFlag.Success);
                     gameService.AssignNewTask(team.TeamGameState, oldTask);
