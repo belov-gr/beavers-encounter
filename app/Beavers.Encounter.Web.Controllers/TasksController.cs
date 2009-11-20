@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.Web.Mvc;
 using Beavers.Encounter.Web.Controllers.Binders;
-using Beavers.Encounter.Web.Controllers.Filters;
 using SharpArch.Core;
 using SharpArch.Core.PersistenceSupport;
 using SharpArch.Web.NHibernate;
@@ -31,13 +29,6 @@ namespace Beavers.Encounter.Web.Controllers
         }
 
         [Transaction]
-        public ActionResult Index() 
-        {
-            IList<Task> tasks = taskRepository.GetByGame(User.Game);
-            return View(tasks);
-        }
-
-        [Transaction]
         public ActionResult Show(int id) {
             Task task = taskRepository.Get(id);
             return View(task);
@@ -55,7 +46,7 @@ namespace Beavers.Encounter.Web.Controllers
         {
             if (ViewData.ModelState.IsValid && task.IsValid()) 
             {
-                task.Game = ((User)User).Game;
+                task.Game = User.Game;
                 
                 Tip tip = new Tip();
                 tip.Name = "Здесь должен быть текст задания...";

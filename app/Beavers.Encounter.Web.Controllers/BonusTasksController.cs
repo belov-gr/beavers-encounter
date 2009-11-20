@@ -1,13 +1,8 @@
 using System.Web.Mvc;
 using Beavers.Encounter.Web.Controllers.Binders;
 using SharpArch.Core.PersistenceSupport;
-using SharpArch.Core.DomainModel;
-using System.Collections.Generic;
 using System;
 using SharpArch.Web.NHibernate;
-using NHibernate.Validator.Engine;
-using System.Text;
-using SharpArch.Web.CommonValidator;
 using SharpArch.Core;
 
 using Beavers.Encounter.Common.Filters;

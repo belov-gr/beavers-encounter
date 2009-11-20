@@ -36,19 +36,6 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             user = new User { Game = new Game() };
         }
 
-        /// <summary>
-        /// Add a couple of objects to the list within CreateTasks and change the 
-        /// "ShouldEqual(0)" within this test to the respective number.
-        /// </summary>
-        [Test]
-        public void CanListTasks() {
-            testContext.TestContext.Context.User = user;
-            ViewResult result = controller.Index().AssertViewRendered();
-
-            result.ViewData.Model.ShouldNotBeNull();
-            (result.ViewData.Model as List<Task>).Count.ShouldEqual(0);
-        }
-
         [Test]
         public void CanShowTask() {
             ViewResult result = controller.Show(1).AssertViewRendered();

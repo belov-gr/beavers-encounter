@@ -2,15 +2,8 @@ using System.Web.Mvc;
 using Beavers.Encounter.Common.Filters;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Web.Controllers.Binders;
-using SharpArch.Core.CommonValidator;
 using SharpArch.Core.PersistenceSupport;
-using SharpArch.Core.DomainModel;
-using System.Collections.Generic;
-using System;
 using SharpArch.Web.NHibernate;
-using NHibernate.Validator.Engine;
-using System.Text;
-using SharpArch.Web.CommonValidator;
 using SharpArch.Core;
 using Beavers.Encounter.Common.MvcContrib;
 using Beavers.Encounter.Core.DataInterfaces;
@@ -29,18 +22,6 @@ namespace Beavers.Encounter.Web.Controllers
 
             this.tipRepository = tipRepository;
             this.taskRepository = taskRepository;
-        }
-
-        [Transaction]
-        public ActionResult Index() {
-            IList<Tip> tips = tipRepository.GetAll();
-            return View(tips);
-        }
-
-        [Transaction]
-        public ActionResult Show(int id) {
-            Tip tip = tipRepository.Get(id);
-            return View(tip);
         }
 
         public ActionResult Create(int taskId)

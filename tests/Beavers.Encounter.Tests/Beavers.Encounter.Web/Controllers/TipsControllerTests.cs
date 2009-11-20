@@ -26,27 +26,6 @@ namespace Tests.Beavers.Encounter.Web.Controllers
                 MockRepository.GenerateMock<IUserRepository>());
         }
 
-        /// <summary>
-        /// Add a couple of objects to the list within CreateTips and change the 
-        /// "ShouldEqual(0)" within this test to the respective number.
-        /// </summary>
-        [Test]
-        public void CanListTips() {
-            ViewResult result = controller.Index().AssertViewRendered();
-
-            result.ViewData.Model.ShouldNotBeNull();
-            (result.ViewData.Model as List<Tip>).Count.ShouldEqual(0);
-        }
-
-        [Test]
-        public void CanShowTip() {
-            ViewResult result = controller.Show(1).AssertViewRendered();
-
-			result.ViewData.ShouldNotBeNull();
-			
-            (result.ViewData.Model as Tip).Id.ShouldEqual(1);
-        }
-
         [Test]
         public void CanInitTipCreation() {
             ViewResult result = controller.Create(1).AssertViewRendered();

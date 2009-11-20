@@ -26,27 +26,6 @@ namespace Tests.Beavers.Encounter.Web.Controllers
                 MockRepository.GenerateMock<IUserRepository>());
         }
 
-        /// <summary>
-        /// Add a couple of objects to the list within CreateCodes and change the 
-        /// "ShouldEqual(0)" within this test to the respective number.
-        /// </summary>
-        [Test]
-        public void CanListCodes() {
-            ViewResult result = controller.Index().AssertViewRendered();
-
-            result.ViewData.Model.ShouldNotBeNull();
-            (result.ViewData.Model as List<Code>).Count.ShouldEqual(0);
-        }
-
-        [Test]
-        public void CanShowCode() {
-            ViewResult result = controller.Show(1).AssertViewRendered();
-
-			result.ViewData.ShouldNotBeNull();
-			
-            (result.ViewData.Model as Code).Id.ShouldEqual(1);
-        }
-
         [Test]
         public void CanInitCodeCreation() {
             ViewResult result = controller.Create(1).AssertViewRendered();
