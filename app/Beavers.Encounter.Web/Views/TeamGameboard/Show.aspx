@@ -1,7 +1,5 @@
 <%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<TeamGameboardController.TeamGameboardViewModel>" %>
 <%@ Import Namespace="Beavers.Encounter.Common"%>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers"%>
-<%@ Import Namespace="Beavers.Encounter.Core"%>
 <%@ Import Namespace="Beavers.Encounter.Core.DataInterfaces"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -11,19 +9,19 @@
 </head>
 <body>
   <div class="teamGameboardPage">
-    <h1><%= Html.Encode(ViewData.Model.TeamName) %></h1>
+    <h1><%= Html.Encode(Model.TeamName) %></h1>
     
     <div><%= Html.Encode(Model.Message) %></div>
     
-    <% if (ViewData.Model.TeamGameState != null && ViewData.Model.ActiveTaskState != null) { %>
+    <% if (Model.TeamGameState != null && Model.ActiveTaskState != null) { %>
     
-        <h2>Задание №: <%= ViewData.Model.TeamGameState.AcceptedTasks.Count %></h2>
+        <h2>Задание №: <%= Model.TeamGameState.AcceptedTasks.Count %></h2>
 
         <ul>
         <% 
         // Выводим текст полученного задания и подсказок
         int indx = 0;
-        foreach (AcceptedTip tip in ViewData.Model.ActiveTaskState.AcceptedTips)
+        foreach (AcceptedTip tip in Model.ActiveTaskState.AcceptedTips)
         { %>
             <li>
             <div style="font-weight:bold">
@@ -101,11 +99,11 @@
         <% 
         
         // Выводим коды опасности основных кодов
-        foreach (Code code in ViewData.Model.ActiveTaskState.Task.Codes)
+        foreach (Code code in Model.ActiveTaskState.Task.Codes)
         { 
-            if (code.IsBonus == 0)
+            if (!code.IsBonus)
             { %>
-            <span class="<%= ViewData.Model.ActiveTaskState.AcceptedCodes.Any(x => x.Code.Id == code.Id) ? "acceptedCode" : "notAcceptedCode" %>">
+            <span class="<%= Model.ActiveTaskState.AcceptedCodes.Any(x => x.Code.Id == code.Id) ? "acceptedCode" : "notAcceptedCode" %>">
                 <%= code.Danger %>
             </span>
             <% 
@@ -113,15 +111,15 @@
         }
 
         // Выводим коды опасности бонусных кодов, если конечно они есть в задании
-        if (ViewData.Model.ActiveTaskState.Task.Codes.Any(x => x.IsBonus == 1))
+        if (Model.ActiveTaskState.Task.Codes.Any(x => x.IsBonus))
         { %>
         (Б: 
             <% 
-            foreach (Code code in ViewData.Model.ActiveTaskState.Task.Codes)
+            foreach (Code code in Model.ActiveTaskState.Task.Codes)
             { 
-                if (code.IsBonus == 1)
+                if (code.IsBonus)
                 { %>
-            <span class="<%= ViewData.Model.ActiveTaskState.AcceptedCodes.Any(x => x.Code.Id == code.Id) ? "acceptedBonusCode" : "notAcceptedCode" %>">
+            <span class="<%= Model.ActiveTaskState.AcceptedCodes.Any(x => x.Code.Id == code.Id) ? "acceptedBonusCode" : "notAcceptedCode" %>">
                 <%= code.Danger %>
             </span>
                 <% 
@@ -135,13 +133,13 @@
 
         <% 
         // Выводим принятые коды 
-        if (ViewData.Model.ActiveTaskState.AcceptedCodes.Count > 0)
+        if (Model.ActiveTaskState.AcceptedCodes.Count > 0)
         { %>
             <p> Принятые коды:  
             <% 
-            foreach (AcceptedCode acceptedCode in ViewData.Model.ActiveTaskState.AcceptedCodes)
+            foreach (AcceptedCode acceptedCode in Model.ActiveTaskState.AcceptedCodes)
             { %>
-                <span class="<%= acceptedCode.Code.IsBonus == 1 ? "acceptedBonusCode" : "acceptedCode" %>">
+                <span class="<%= acceptedCode.Code.IsBonus ? "acceptedBonusCode" : "acceptedCode" %>">
                     <%= acceptedCode.Code.Name %>
                 </span>
             <% 
@@ -152,11 +150,11 @@
 <!--
         <% 
         // Выводим некорректные принятые коды 
-        if (ViewData.Model.ActiveTaskState.AcceptedBadCodes.Count > 0)
+        if (Model.ActiveTaskState.AcceptedBadCodes.Count > 0)
         { %>
             <p> Некорректные принятые коды:  
             <% 
-            foreach (AcceptedBadCode ccceptedBadCode in ViewData.Model.ActiveTaskState.AcceptedBadCodes)
+            foreach (AcceptedBadCode ccceptedBadCode in Model.ActiveTaskState.AcceptedBadCodes)
             { %>
                 <span class="acceptedBadCode">
                     <%= Html.Encode(ccceptedBadCode.Name)%>
@@ -169,13 +167,13 @@
 -->
         <% 
         // Запрещаем вводить коды, если все попытки исчерпаны
-        if (ViewData.Model.ActiveTaskState.AcceptedBadCodes.Count > 0)
+        if (Model.ActiveTaskState.AcceptedBadCodes.Count > 0)
         { %>
             <div style="color:Red">
-                <%= Html.Encode(ViewData.Model.ErrorMessage) %>
+                <%= Html.Encode(Model.ErrorMessage) %>
             </div>
             <div style="color:Red">
-                Осталось попыток: <%= Game.BadCodesLimit - ViewData.Model.ActiveTaskState.AcceptedBadCodes.Count %>
+                Осталось попыток: <%= Game.BadCodesLimit - Model.ActiveTaskState.AcceptedBadCodes.Count %>
             </div>
             <div class="note">При исчерпании попыток будет заблокирован ввод кодов, а задание в момент первой подсказки будет дисквалифицировано!</div>
         <% 
@@ -184,10 +182,10 @@
 
         <% 
         // Запрещаем вводить коды, если все попытки исчерпаны
-        if (ViewData.Model.ActiveTaskState.AcceptedBadCodes.Count < Game.BadCodesLimit)
+        if (Model.ActiveTaskState.AcceptedBadCodes.Count < Game.BadCodesLimit)
         {
             // Поле отправки кодов
-            using (Html.BeginForm<TeamGameboardController>(c => c.SubmitCodes(ViewData.Model.ActiveTaskState.Id, null), FormMethod.Post))
+            using (Html.BeginForm<TeamGameboardController>(c => c.SubmitCodes(Model.ActiveTaskState.Id, null), FormMethod.Post))
             { %>
             <%= Html.AntiForgeryToken()%>
             <div>
@@ -201,7 +199,7 @@
 
         <% 
         // Выводим сообщение, что все основные коды найдены и можно перейти к следующему заданию
-        if (ViewData.Model.ActiveTaskState.AcceptedCodes.Count(x => x.Code.IsBonus == 0) == ViewData.Model.ActiveTaskState.Task.Codes.Count(x => x.IsBonus == 0))
+        if (Model.ActiveTaskState.AcceptedCodes.Count(x => !x.Code.IsBonus) == Model.ActiveTaskState.Task.Codes.Count(x => !x.IsBonus))
         { %>
             <div style="font-weight:bold">Внимание!</div>
             <div style="color:Yellow">
@@ -209,7 +207,7 @@
             Если Вы не желаете продолжить поиск бонусных кодов, то нажмите на кнопку "Следующее задание" для получения нового задания.
             </div>
             <% 
-            using (Html.BeginForm<TeamGameboardController>(c => c.NextTask(ViewData.Model.ActiveTaskState.Id), FormMethod.Post)) 
+            using (Html.BeginForm<TeamGameboardController>(c => c.NextTask(Model.ActiveTaskState.Id), FormMethod.Post)) 
             { %>
                 <%= Html.AntiForgeryToken() %>
                 <div>
@@ -230,7 +228,7 @@
             <%
             foreach (BonusTask task in Model.TeamGameState.Game.BonusTasks.AvailableNowTasks())
             { 
-                if (task.IsIndividual == 0)
+                if (!task.IsIndividual)
                 {%>
                 <li>
                     <div style="font-weight:bold">
@@ -253,10 +251,10 @@
 
         <h2>Статистика</h2>
         <ul>
-            <li>Выполнено: <%= Html.Encode(ViewData.Model.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Success)) %></li>
-            <li>Невыполнено: <%= Html.Encode(ViewData.Model.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Overtime)) %></li>
-            <li>Слито: <%= Html.Encode(ViewData.Model.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Canceled)) %></li>
-            <li>Бонусные коды: <%= Html.Encode(ViewData.Model.TeamGameState.AcceptedTasks.BonusCodesCount())%></li>
+            <li>Выполнено: <%= Html.Encode(Model.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Success)) %></li>
+            <li>Невыполнено: <%= Html.Encode(Model.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Overtime)) %></li>
+            <li>Слито: <%= Html.Encode(Model.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Canceled)) %></li>
+            <li>Бонусные коды: <%= Html.Encode(Model.TeamGameState.AcceptedTasks.BonusCodesCount())%></li>
         </ul>
 
 
@@ -264,12 +262,12 @@
         <h2>Слив задания</h2>
         <%
         // Кнопка для слива задания. Доступна только для капитана команды, после первой подсказки
-        if (((User)User).Role.IsTeamLeader && ViewData.Model.TeamGameState.ActiveTaskState.AcceptedTips.Count > 1 &&
-            ViewData.Model.ActiveTaskState.AcceptedCodes.Count(x => x.Code.IsBonus == 0) != ViewData.Model.ActiveTaskState.Task.Codes.Count(x => x.IsBonus == 0)) 
+        if (((User)User).Role.IsTeamLeader && Model.TeamGameState.ActiveTaskState.AcceptedTips.Count > 1 &&
+            Model.ActiveTaskState.AcceptedCodes.Count(x => !x.Code.IsBonus) != Model.ActiveTaskState.Task.Codes.Count(x => !x.IsBonus)) 
         { %>
             
             <% 
-            using (Html.BeginForm<TeamGameboardController>(c => c.SkipTask(), FormMethod.Post)) 
+            using (Html.BeginForm<TeamGameboardController>(c => c.SkipTask(Model.ActiveTaskState.Id), FormMethod.Post)) 
             { %>
                 <%= Html.AntiForgeryToken() %>
                 <div>

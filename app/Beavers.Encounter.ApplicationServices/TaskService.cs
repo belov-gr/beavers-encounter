@@ -317,7 +317,8 @@ namespace Beavers.Encounter.ApplicationServices
 
         public void SubmitCode(string codes, TeamGameState teamGameState, User user)
         {
-            if (teamGameState.ActiveTaskState.AcceptedBadCodes.Count >= Game.BadCodesLimit)
+            if (teamGameState.ActiveTaskState == null ||
+                teamGameState.ActiveTaskState.AcceptedBadCodes.Count >= Game.BadCodesLimit)
                 return;
 
             List<string> codesList = GetCodes(codes, teamGameState.Game.PrefixMainCode, teamGameState.Game.PrefixBonusCode);

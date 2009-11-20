@@ -106,7 +106,9 @@ namespace Beavers.Encounter.Web.Controllers
         public ActionResult SubmitCodes(int activeTaskStateId, string codes)
         {
             Team team = teamRepository.Get(User.Team.Id);
-            if (team.TeamGameState.ActiveTaskState.Id == activeTaskStateId)
+            if (team.TeamGameState != null &&
+                team.TeamGameState.ActiveTaskState != null &&
+                team.TeamGameState.ActiveTaskState.Id == activeTaskStateId)
             {
                 try
                 {
@@ -129,8 +131,11 @@ namespace Beavers.Encounter.Web.Controllers
         {
             Team team = teamRepository.Get(User.Team.Id);
 
-            if (team.TeamGameState.ActiveTaskState.Id == activeTaskStateId)
-            { // TODO: Перенести в gameService
+            if (team.TeamGameState != null &&
+                team.TeamGameState.ActiveTaskState != null &&
+                team.TeamGameState.ActiveTaskState.Id == activeTaskStateId)
+            { 
+                // TODO: Перенести в gameService
                 Task oldTask = team.TeamGameState.ActiveTaskState.Task;
                 if (team.TeamGameState.ActiveTaskState.AcceptedCodes.Count(x => !x.Code.IsBonus) == team.TeamGameState.ActiveTaskState.Task.Codes.Count(x => !x.IsBonus))
                 {
@@ -143,14 +148,17 @@ namespace Beavers.Encounter.Web.Controllers
         }
 
         //
-        // POST: /TeamGameboard/NextTask
+        // POST: /TeamGameboard/SkipTask
         [ValidateAntiForgeryToken]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult SkipTask()
+        public ActionResult SkipTask(int activeTaskStateId)
         {
             Team team = teamRepository.Get(User.Team.Id);
 
+            if (team.TeamGameState != null &&
+                team.TeamGameState.ActiveTaskState != null && 
+                team.TeamGameState.ActiveTaskState.Id == activeTaskStateId)
             { // TODO: Перенести в gameService
                 Task oldTask = team.TeamGameState.ActiveTaskState.Task;
                 gameService.CloseTaskForTeam(team.TeamGameState.ActiveTaskState, TeamTaskStateFlag.Canceled);

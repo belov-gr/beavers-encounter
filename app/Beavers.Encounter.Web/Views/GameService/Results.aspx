@@ -1,5 +1,4 @@
-<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<DataRow[]>" %>
-<%@ Import Namespace="System.Data"%>
+<%@ Page Language="C#" Inherits="System.Web.Mvc.ViewPage<System.Data.DataRow[]>" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -19,7 +18,7 @@
             </thead>
             <tbody>
             <%
-            foreach (DataRow row in ViewData.Model)
+            foreach (System.Data.DataRow row in ViewData.Model)
             { %>
                 <tr>
                     <td><%= Html.Encode(row["team"]) %></td>

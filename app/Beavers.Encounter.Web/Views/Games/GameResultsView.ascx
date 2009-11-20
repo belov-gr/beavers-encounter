@@ -1,5 +1,4 @@
-<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<DataRow[]>" %>
-<%@ Import Namespace="System.Data"%>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<System.Data.DataRow[]>" %>
 
 <h2>Итоговая таблица</h2>
 <table>
@@ -11,7 +10,7 @@
     </thead>
     <tbody>
     <%
-    foreach (DataRow row in Model)
+    foreach (System.Data.DataRow row in Model)
     { %>
         <tr>
             <td><%= Html.Encode(row["team"]) %></td>

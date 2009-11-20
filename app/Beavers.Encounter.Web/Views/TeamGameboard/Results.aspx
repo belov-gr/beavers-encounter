@@ -2,8 +2,6 @@
 <%@ Import Namespace="Beavers.Encounter.Common"%>
 <%@ Import Namespace="Beavers.Encounter.Core.DataInterfaces"%>
 <%@ Import Namespace="System.Data"%>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers"%>
-<%@ Import Namespace="Beavers.Encounter.Core"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -34,7 +32,7 @@
                 </div>
                 <div>
                 <% 
-                if (task.IsIndividual == 0)
+                if (!task.IsIndividual)
                 { %>
                     <%= BBCode.ConvertToHtml(task.TaskText)%>
                 <%
