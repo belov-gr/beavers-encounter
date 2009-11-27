@@ -3,17 +3,10 @@ using System.Web.Mvc;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Core.DataInterfaces;
 using Beavers.Encounter.Web.Controllers.Filters;
-using Microsoft.Practices.ServiceLocation;
 using SharpArch.Core.PersistenceSupport;
-using SharpArch.Core.DomainModel;
 using System.Collections.Generic;
-using System;
 using SharpArch.Web.NHibernate;
-using NHibernate.Validator.Engine;
-using System.Text;
-using SharpArch.Web.CommonValidator;
 using SharpArch.Core;
-using Beavers.Encounter.Common.Filters;
 using Beavers.Encounter.Common.MvcContrib;
 using Beavers.Encounter.ApplicationServices;
 
@@ -50,7 +43,7 @@ namespace Beavers.Encounter.Web.Controllers
             return View(game);
         }
 
-        [AuthorsOnly]
+        [GameOwner]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult StartupGame(int id)
@@ -59,7 +52,7 @@ namespace Beavers.Encounter.Web.Controllers
             return this.RedirectToAction(c => c.CurrentState(id));
         }
 
-        [AuthorsOnly]
+        [GameOwner]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult StartGame(int id)
@@ -68,7 +61,7 @@ namespace Beavers.Encounter.Web.Controllers
             return this.RedirectToAction(c => c.CurrentState(id));
         }
 
-        [AuthorsOnly]
+        [GameOwner]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult StopGame(int id)
@@ -77,7 +70,7 @@ namespace Beavers.Encounter.Web.Controllers
             return this.RedirectToAction(c => c.Edit(id));
         }
 
-        [AuthorsOnly]
+        [GameOwner]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult CloseGame(int id)
@@ -86,7 +79,7 @@ namespace Beavers.Encounter.Web.Controllers
             return this.RedirectToAction(c => c.Edit(id));
         }
 
-        [AuthorsOnly]
+        [GameOwner]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult ResetGame(int id)
@@ -95,7 +88,7 @@ namespace Beavers.Encounter.Web.Controllers
             return this.RedirectToAction(c => c.Edit(id));
         }
 
-        [AuthorsOnly]
+        [GameOwner]
         public ActionResult CurrentState(int id)
         {
             GameStateViewModel viewModel = GameStateViewModel.CreateGameStateViewModel();
@@ -112,14 +105,12 @@ namespace Beavers.Encounter.Web.Controllers
             return View(viewModel);
         }
 
-        //[AuthorsOnly]
         public ActionResult Create()
         {
             GameFormViewModel viewModel = GameFormViewModel.CreateGameFormViewModel();
             return View(viewModel);
         }
 
-        //[AuthorsOnly]
         [ValidateAntiForgeryToken]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
@@ -140,7 +131,7 @@ namespace Beavers.Encounter.Web.Controllers
             return View(viewModel);
         }
 
-        [AuthorsOnly]
+        [GameOwner]
         [Transaction]
         public ActionResult Edit(int id) {
             GameFormViewModel viewModel = GameFormViewModel.CreateGameFormViewModel();
@@ -148,7 +139,7 @@ namespace Beavers.Encounter.Web.Controllers
             return View(viewModel);
         }
 
-        [AuthorsOnly]
+        [GameOwner]
         [ValidateAntiForgeryToken]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
@@ -160,13 +151,12 @@ namespace Beavers.Encounter.Web.Controllers
                 Message = "The game was successfully updated.";
                 return this.RedirectToAction(c => c.Index());
             }
-            else {
-                gameRepository.DbContext.RollbackTransaction();
+            
+            gameRepository.DbContext.RollbackTransaction();
 
-				GameFormViewModel viewModel = GameFormViewModel.CreateGameFormViewModel();
-				viewModel.Game = game;
-				return View(viewModel);
-            }
+			GameFormViewModel viewModel = GameFormViewModel.CreateGameFormViewModel();
+			viewModel.Game = game;
+			return View(viewModel);
         }
 
         private void TransferFormValuesTo(Game gameToUpdate, Game gameFromForm) {
@@ -180,7 +170,7 @@ namespace Beavers.Encounter.Web.Controllers
             gameToUpdate.PrefixBonusCode = gameFromForm.PrefixBonusCode;
         }
 
-        [AuthorsOnly]
+        [GameOwner]
         [ValidateAntiForgeryToken]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]

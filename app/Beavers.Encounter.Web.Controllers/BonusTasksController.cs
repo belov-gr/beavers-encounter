@@ -1,11 +1,11 @@
 using System.Web.Mvc;
 using Beavers.Encounter.Web.Controllers.Binders;
+using Beavers.Encounter.Web.Controllers.Filters;
 using SharpArch.Core.PersistenceSupport;
 using System;
 using SharpArch.Web.NHibernate;
 using SharpArch.Core;
 
-using Beavers.Encounter.Common.Filters;
 using Beavers.Encounter.Common.MvcContrib;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Core.DataInterfaces;
@@ -13,7 +13,7 @@ using Beavers.Encounter.Core.DataInterfaces;
 
 namespace Beavers.Encounter.Web.Controllers
 {
-    [AuthorsOnly]
+    [BonusTaskOwner]
     [HandleError]
     public class BonusTasksController : BaseController
     {
@@ -34,8 +34,11 @@ namespace Beavers.Encounter.Web.Controllers
         public ActionResult Create() {
             BonusTaskFormViewModel viewModel = BonusTaskFormViewModel.CreateBonusTaskFormViewModel();
 
-            viewModel.StartTime = User.Game.GameDate.AddMinutes(60);
-            viewModel.FinishTime = User.Game.GameDate.AddMinutes(User.Game.TotalTime) ;
+            if (User != null)
+            {
+                viewModel.StartTime = User.Game.GameDate.AddMinutes(60);
+                viewModel.FinishTime = User.Game.GameDate.AddMinutes(User.Game.TotalTime);
+            }
 
             return View(viewModel);
         }

@@ -28,7 +28,12 @@ namespace Beavers.Encounter.Web.CastleWindsor
                 Component.For<AuthenticateFilter>().LifeStyle.Transient,
                 Component.For<LockIfGameStartFilter>().LifeStyle.Transient,
                 Component.For<GameStateFilter>().LifeStyle.Transient,
-                Component.For<TeamGameboardFilter>().LifeStyle.Transient
+                Component.For<TeamGameboardFilter>().LifeStyle.Transient,
+                Component.For<GameOwnerFilter>().LifeStyle.Transient,
+                Component.For<TaskOwnerFilter>().LifeStyle.Transient,
+                Component.For<TipOwnerFilter>().LifeStyle.Transient,
+                Component.For<CodeOwnerFilter>().LifeStyle.Transient,
+                Component.For<BonusTaskOwnerFilter>().LifeStyle.Transient
                 //Component.For<UnitOfWorkFilter>().LifeStyle.Transient,
                 //Component.For<DataBinder>().LifeStyle.Transient,
                 //Component.For<LoadUsingFilter>().LifeStyle.Transient,

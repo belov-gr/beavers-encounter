@@ -1,8 +1,8 @@
 using System.Web.Mvc;
-using Beavers.Encounter.Common.Filters;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Core.DataInterfaces;
 using Beavers.Encounter.Web.Controllers.Binders;
+using Beavers.Encounter.Web.Controllers.Filters;
 using SharpArch.Core.PersistenceSupport;
 using SharpArch.Web.NHibernate;
 using SharpArch.Core;
@@ -10,7 +10,7 @@ using Beavers.Encounter.Common.MvcContrib;
 
 namespace Beavers.Encounter.Web.Controllers
 {
-    [AuthorsOnly]
+    [CodeOwner]
     [HandleError]
     public class CodesController : BaseController
     {

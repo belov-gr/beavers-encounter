@@ -98,10 +98,16 @@
     <Compile Include="BonusTasksController.cs" />
     <Compile Include="CodesController.cs" />
     <Compile Include="ControllerEnums.cs" />
+    <Compile Include="Filters\BonusTaskOwnerFilter.cs" />
+    <Compile Include="Filters\CodeOwnerFilter.cs" />
     <Compile Include="Filters\CompressionFilter.cs" />
+    <Compile Include="Filters\EntityOwnerFilter.cs" />
+    <Compile Include="Filters\GameOwnerFilter.cs.cs" />
     <Compile Include="Filters\LockIfGameStartFilter.cs" />
+    <Compile Include="Filters\TaskOwnerFilter.cs" />
     <Compile Include="Filters\TeamGameboardFilter.cs" />
     <Compile Include="Filters\TeamLeadersOnlyAttribute.cs" />
+    <Compile Include="Filters\TipOwnerFilter.cs" />
     <Compile Include="GameServiceController.cs" />
     <Compile Include="TeamGameboardController.cs" />
     <Compile Include="Filters\AuthenticateFilter.cs" />

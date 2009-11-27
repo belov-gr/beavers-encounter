@@ -1,10 +1,10 @@
 using System.Web.Mvc;
 using Beavers.Encounter.Web.Controllers.Binders;
+using Beavers.Encounter.Web.Controllers.Filters;
 using SharpArch.Core;
 using SharpArch.Core.PersistenceSupport;
 using SharpArch.Web.NHibernate;
 
-using Beavers.Encounter.Common.Filters;
 using Beavers.Encounter.Common.MvcContrib;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Core.DataInterfaces;
@@ -12,7 +12,7 @@ using Beavers.Encounter.Core.DataInterfaces;
 
 namespace Beavers.Encounter.Web.Controllers
 {
-    [AuthorsOnly]
+    [TaskOwner]
     [HandleError]
     public class TasksController : BaseController
     {
