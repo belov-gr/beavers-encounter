@@ -3,8 +3,6 @@
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
-    <h2>Описание игры</h2>
-
     <ul>
 		<li>
 		    <%= Model.Render<Game>(Html, x => x.Name) %>

@@ -3,8 +3,6 @@
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
-    <h1>BonusTask Details</h1>
-
     <ul>
 		<li>
 		    <%= Model.Render<BonusTask>(Html, x => x.Name) %>

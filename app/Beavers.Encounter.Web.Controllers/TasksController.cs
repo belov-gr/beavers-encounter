@@ -57,7 +57,7 @@ namespace Beavers.Encounter.Web.Controllers
                 taskRepository.SaveOrUpdate(task);
                 tipsRepository.SaveOrUpdate(tip);
 
-                Message = "The task was successfully created.";
+                Message = "Задание успешно создано.";
 
                 return this.RedirectToAction<GamesController>(c => c.Edit(task.Game.Id));
             }
@@ -83,7 +83,7 @@ namespace Beavers.Encounter.Web.Controllers
             TransferFormValuesTo(taskToUpdate, task);
 
             if (ViewData.ModelState.IsValid && task.IsValid()) {
-                Message = "The task was successfully updated.";
+                Message = "Задание успешно изменено.";
                 return this.RedirectToAction<GamesController>(c => c.Edit(taskToUpdate.Game.Id));
             }
             else {
@@ -108,7 +108,7 @@ namespace Beavers.Encounter.Web.Controllers
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(int id) {
-            string resultMessage = "The task was successfully deleted.";
+            string resultMessage = "Задание успешно удалено.";
             Task taskToDelete = taskRepository.Get(id);
             int gameId = taskToDelete.Game.Id;
 
@@ -122,14 +122,13 @@ namespace Beavers.Encounter.Web.Controllers
                 }
                 catch 
                 {
-                    resultMessage = "A problem was encountered preventing the task from being deleted. " +
-						"Another item likely depends on this task.";
+                    resultMessage = "По ряду причин задание не может быть удалено. Возможно, оно еще где-то нужно.";
                     taskRepository.DbContext.RollbackTransaction();
                 }
             }
             else 
             {
-                resultMessage = "The task could not be found for deletion. It may already have been deleted.";
+                resultMessage = "Удаляемое задание не обнаружено. Возможно, его уже удалили.";
             }
 
             Message = resultMessage;

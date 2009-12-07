@@ -1,8 +1,6 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IList<Task>>" %>
 
 <div>
-    <h2>Список заданий</h2>
-
     <table>
         <thead>
             <tr>
@@ -19,7 +17,7 @@
 				<td>
     				<% using (Html.BeginForm<TasksController>(c => c.Delete(task.Id))) { %>
                         <%= Html.AntiForgeryToken() %>
-    				    <input type="submit" value="Удалить" onclick="return confirm('Are you sure?');" />
+    				    <input type="submit" value="Удалить" onclick="return confirm('Вы уверены, что хотите удалить задание?');" />
                     <% } %>
 				</td>
 			</tr>

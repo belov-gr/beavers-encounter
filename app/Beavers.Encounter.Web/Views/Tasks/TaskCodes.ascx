@@ -1,7 +1,5 @@
 <%@ Control Language="C#" Inherits="Beavers.Encounter.Web.Views.ViewUserControl<Task>" %>
 
-	<h2>Список кодов</h2>
-
 <div>
     <ul>
     <%
@@ -16,10 +14,10 @@
 		<% using (Html.BeginForm<CodesController>(c => c.Delete(code.Id)))
            { %>
             <%= Html.AntiForgeryToken() %>
-		    <input type="submit" value="Удалить код" onclick="return confirm('Are you sure?');" />
+		    <input type="submit" value="Удалить код" onclick="return confirm('Вы действительно хотите удалить код?');" />
         <% } %>
         </li>
-<%  } %>
+	<% } %>
     </ul>
     <p><%= Html.ActionLink<CodesController>(c => c.Create(Model.Id), "Добавить новый код")%></p>
 </div>

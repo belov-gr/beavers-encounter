@@ -122,7 +122,7 @@ namespace Beavers.Encounter.Web.Controllers
                 User.Game = game;
                 UserRepository.SaveOrUpdate(User);
 
-                Message = "The game was successfully created.";
+                Message = "Игра успешно создана.";
                 return this.RedirectToAction(c => c.Index());
             }
 
@@ -148,7 +148,7 @@ namespace Beavers.Encounter.Web.Controllers
             TransferFormValuesTo(gameToUpdate, game);
 
             if (ViewData.ModelState.IsValid && game.IsValid()) {
-                Message = "The game was successfully updated.";
+                Message = "Игра успешно изменена.";
                 return this.RedirectToAction(c => c.Index());
             }
             
@@ -175,7 +175,7 @@ namespace Beavers.Encounter.Web.Controllers
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(int id) {
-            string resultMessage = "The game was successfully deleted.";
+            string resultMessage = "Игра успешно удалена.";
             Game gameToDelete = gameRepository.Get(id);
 
             if (gameToDelete != null) {
@@ -186,13 +186,12 @@ namespace Beavers.Encounter.Web.Controllers
                     gameRepository.DbContext.CommitChanges();
                 }
                 catch {
-                    resultMessage = "A problem was encountered preventing the game from being deleted. " +
-						"Another item likely depends on this game.";
+                    resultMessage = "По ряду причин игра не может быть удалена. Возможно, она еще где-то нужна.";
                     gameRepository.DbContext.RollbackTransaction();
                 }
             }
             else {
-                resultMessage = "The game could not be found for deletion. It may already have been deleted.";
+                resultMessage = "Удаляемая игра не найдена. Возможно, она уже удалена.";
             }
 
             Message = resultMessage;

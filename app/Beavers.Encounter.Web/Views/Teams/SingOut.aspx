@@ -2,6 +2,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
-    <h2>SingOut</h2>
+    <h2>Выход из команды</h2>
 
 </asp:Content>

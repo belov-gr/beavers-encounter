@@ -52,7 +52,7 @@
         
         <div>Получено заданий: <%= ViewData.Model.TeamGameState.AcceptedTasks.Count%></div>
         <div>Выполнено заданий: <%= ViewData.Model.TeamGameState.AcceptedTasks.Count(t => t.State == (int)TeamTaskStateFlag.Success)%></div>
-        <div>Не выполнено заданий: <%= ViewData.Model.TeamGameState.AcceptedTasks.Count(t => t.State == (int)TeamTaskStateFlag.Overtime)%></div>
+        <div>Провалено заданий: <%= ViewData.Model.TeamGameState.AcceptedTasks.Count(t => t.State == (int)TeamTaskStateFlag.Overtime)%></div>
         <div>Слито заданий: <%= ViewData.Model.TeamGameState.AcceptedTasks.Count(t => t.State == (int)TeamTaskStateFlag.Canceled)%></div>
         <div>Дисквалифицировано заданий: <%= ViewData.Model.TeamGameState.AcceptedTasks.Count(t => t.State == (int)TeamTaskStateFlag.Cheat)%></div>
 
@@ -62,15 +62,15 @@
         foreach (var taskState in ViewData.Model.TeamGameState.AcceptedTasks)
         { %>
             <li>
-            Задание "<%= Html.Encode(taskState.Task.Name) %>" 
-            <div><%= Html.Encode(taskState.TaskStartTime) %> получено</div>
-            <div> 
-            <%= Html.Encode(taskState.TaskFinishTime) %>
-            <%= taskState.State == (int) TeamTaskStateFlag.Success ? "выполнено" : String.Empty %>
-            <%= taskState.State == (int) TeamTaskStateFlag.Canceled ? "слито" : String.Empty %>
-            <%= taskState.State == (int) TeamTaskStateFlag.Overtime ? "не выполнено" : String.Empty %>
-            <%= taskState.State == (int)TeamTaskStateFlag.Cheat ? " дисквал-но" : String.Empty%>
-            <div>
+                <div>Задание &quot;<%= Html.Encode(taskState.Task.Name) %>&quot;</div> 
+                <div><%= Html.Encode(taskState.TaskStartTime) %> получено</div>
+                <div> 
+                    <%= Html.Encode(taskState.TaskFinishTime) %>
+                    <%= taskState.State == (int) TeamTaskStateFlag.Success ? "выполнено" : String.Empty %>
+                    <%= taskState.State == (int) TeamTaskStateFlag.Canceled ? "слито" : String.Empty %>
+                    <%= taskState.State == (int) TeamTaskStateFlag.Overtime ? "не выполнено" : String.Empty %>
+                    <%= taskState.State == (int) TeamTaskStateFlag.Cheat ? "дисквалифицировано" : String.Empty%>
+                </div>
             </li>
         <%
         } %>

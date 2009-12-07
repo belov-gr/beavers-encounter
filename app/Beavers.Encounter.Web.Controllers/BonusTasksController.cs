@@ -54,7 +54,7 @@ namespace Beavers.Encounter.Web.Controllers
                 bonusTaskRepository.SaveOrUpdate(bonusTask);
 
                 TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()] = 
-					"The bonusTask was successfully created.";
+					"Бонусное задание успешно создано.";
                 return this.RedirectToAction<GamesController>(c => c.Edit(bonusTask.Game.Id));
             }
 
@@ -79,7 +79,7 @@ namespace Beavers.Encounter.Web.Controllers
             TransferFormValuesTo(bonusTaskToUpdate, bonusTask);
 
             if (ViewData.ModelState.IsValid && bonusTask.IsValid()) {
-                Message = "The bonusTask was successfully updated.";
+                Message = "Бонусное задание успешно изменено.";
                 return this.RedirectToAction<GamesController>(c => c.Edit(bonusTaskToUpdate.Game.Id));
             }
             else {
@@ -103,7 +103,7 @@ namespace Beavers.Encounter.Web.Controllers
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(int id) {
-            string resultMessage = "The bonusTask was successfully deleted.";
+            string resultMessage = "Бонусное задание успешно удалено.";
             BonusTask bonusTaskToDelete = bonusTaskRepository.Get(id);
             int gameId = bonusTaskToDelete.Game.Id;
 
@@ -117,14 +117,13 @@ namespace Beavers.Encounter.Web.Controllers
                 }
                 catch 
                 {
-                    resultMessage = "A problem was encountered preventing the bonusTask from being deleted. " +
-						"Another item likely depends on this bonusTask.";
+                    resultMessage = "По ряду причин бонусное задание не может быть удалено. Возможно, оно еще где-то нужно.";
                     bonusTaskRepository.DbContext.RollbackTransaction();
                 }
             }
             else 
             {
-                resultMessage = "The bonusTask could not be found for deletion. It may already have been deleted.";
+                resultMessage = "Удаляемое бонусное задание не найдено. Возможно, оно уже удалено.";
             }
 
             Message = resultMessage;

@@ -79,7 +79,7 @@ namespace Beavers.Encounter.Web.Controllers
                 teamRepository.SaveOrUpdate(team);
                 UserRepository.SaveOrUpdate(User);
 
-                Message = "The team was successfully created.";
+                Message = "Команда успешно создана.";
                 return this.RedirectToAction(c => c.Index());
             }
 
@@ -108,7 +108,7 @@ namespace Beavers.Encounter.Web.Controllers
             TransferFormValuesTo(teamToUpdate, team);
 
             if (ViewData.ModelState.IsValid && team.IsValid()) {
-                Message = "The team was successfully updated.";
+                Message = "Команда успешно изменена.";
                 return this.RedirectToAction(c => c.Index());
             }
             else {
@@ -132,7 +132,7 @@ namespace Beavers.Encounter.Web.Controllers
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(int id) {
-            string resultMessage = "The team was successfully deleted.";
+            string resultMessage = "Команда успешно удалена.";
             Team teamToDelete = teamRepository.Get(id);
 
             if (teamToDelete != null) {
@@ -143,13 +143,12 @@ namespace Beavers.Encounter.Web.Controllers
                     teamRepository.DbContext.CommitChanges();
                 }
                 catch {
-                    resultMessage = "A problem was encountered preventing the team from being deleted. " +
-						"Another item likely depends on this team.";
+                    resultMessage = "По ряду причин команда не может быть удалена. Возмодно, она нужна где-то еще.";
                     teamRepository.DbContext.RollbackTransaction();
                 }
             }
             else {
-                resultMessage = "The team could not be found for deletion. It may already have been deleted.";
+                resultMessage = "Удаляемая команда не найдена. Возможно, ее уже удалили.";
             }
 
             Message = resultMessage;
@@ -191,7 +190,7 @@ namespace Beavers.Encounter.Web.Controllers
             }
             else
             {
-                Message = "Неверный код доступа!";
+                Message = "Неверный код доступа! Уточните его у вашего капитана.";
                 return this.RedirectToAction<TeamsController>(c => c.SingIn(id));
             }
 

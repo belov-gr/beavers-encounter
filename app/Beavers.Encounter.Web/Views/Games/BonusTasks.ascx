@@ -1,8 +1,6 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IList<BonusTask>>" %>
 
 <div>
-    <h2>Сквозные бонусные задания</h2>
-
     <table>
         <thead>
             <tr>
@@ -19,13 +17,14 @@
 				<td>
     				<% using (Html.BeginForm<BonusTasksController>(c => c.Delete(task.Id))) { %>
                         <%= Html.AntiForgeryToken() %>
-    				    <input type="submit" value="Удалить" onclick="return confirm('Are you sure?');" />
+                        <% string msg = String.Format("return confirm('Вы уверены, что хотите удалить бонусное задание {0}?');", task.Name); %>
+    				    <input type="submit" value="Удалить" onclick="<%= msg %>" />
                     <% } %>
 				</td>
 			</tr>
 		<%} %>
     </table>
 
-    <p><%= Html.ActionLink<BonusTasksController>(c => c.Create(), "Создать новое задание")%></p>
+    <p><%= Html.ActionLink<BonusTasksController>(c => c.Create(), "Создать новое бонусное задание")%></p>
 
 </div>

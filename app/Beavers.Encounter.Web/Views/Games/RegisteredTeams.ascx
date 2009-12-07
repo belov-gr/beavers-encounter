@@ -1,7 +1,6 @@
 <%@ Control Language="C#" Inherits="Beavers.Encounter.Web.Views.ViewUserControl<Game>" %>
 
 <div class="registeredTeams">
-    <h2>Зарегистрированные команды</h2>
     <ul>
     <%
     foreach (Team team in Model.Teams)
@@ -16,7 +15,7 @@
                 "window.location.href = '" + Html.BuildUrlFromExpression<TeamsController>(c => c.SingOutGame(Model.Id, team.Id)) + "';")%>
         <% } %>
         </li>
-<%  } %>
+	<% } %>
     </ul>
 </div>
 

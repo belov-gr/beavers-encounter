@@ -8,9 +8,9 @@
 		    <th>Команда</th>
 		    <th>Текущее<br />задание</th>
 		    <th>Время<br />выполнения</th>
-		    <th>Получено\<br />Успешно\<br />Проср-но\<br />Слито\<br />Дисквал-но</th>
-		    <th>Количество<br />подсказок</th>
-		    <th>Количество<br />принятых кодов</th>
+		    <th>Заданий:<br />получено /<br />выполнено /<br />просрочено /<br />слито /<br />забанено</th>
+		    <th>Выдано<br />подсказок</th>
+		    <th>Кодов:<br />необходимо /<br />получено</th>
         </tr>
     </thead>
     
@@ -38,10 +38,10 @@
             </td>
 		    <td align="center">
                 <% if (team.TeamGameState.ActiveTaskState != null) { %>
-                <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count) %> \
-                <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Success)) %> \
-                <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Overtime))%> \
-                <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Canceled))%> \
+                <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count) %> /
+                <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Success)) %> /
+                <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Overtime))%> /
+                <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Canceled))%> /
                 <%= Html.Encode(team.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Cheat))%>
                 <% } %>
             </td>
@@ -52,6 +52,7 @@
             </td>
 		    <td align="center">
                 <% if (team.TeamGameState.ActiveTaskState != null) { %>
+                <%= Html.Encode(team.TeamGameState.ActiveTaskState.Task.Tips.Count)%> /
                 <%= Html.Encode(team.TeamGameState.ActiveTaskState.AcceptedCodes.Count) %>
                 <% } %>
             </td>

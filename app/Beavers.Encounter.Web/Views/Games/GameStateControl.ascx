@@ -33,10 +33,10 @@
            Model.GameState == GameStates.Cloused)
        { %>
    
-        <%= Html.Button("btnResetGame", "Перезагрузка игры", HtmlButtonType.Button,
+        <%= Html.Button("btnResetGame", "Перезапуск игры", HtmlButtonType.Button,
                         "window.location.href = '" + Html.BuildUrlFromExpression<GamesController>(c => c.ResetGame(Model.Id)) + "';")%>
     <% } %>
 
-        <div><%= Html.ActionLink<GameServiceController>(c => c.CalcState(Model.Id), "Пересчет состояния")%></div>
-        <div><%= Html.ActionLink<GameServiceController>(c => c.GetState(Model.Id), "Скачать состояние в архиве")%></div>
+        <div><%= Html.ActionLink<GameServiceController>(c => c.CalcState(Model.Id), "Запуск пересчета состояния (если автоматически не пересчитывается)")%></div>
+        <div><%= Html.ActionLink<GameServiceController>(c => c.GetState(Model.Id), "Скачать состояние (текущую телеметрию) в архиве.")%></div>
     

@@ -70,7 +70,7 @@ namespace Beavers.Encounter.Web.Controllers
             else if (team.TeamGameState.GameDoneTime != null)
             {
                 viewModel.Message =
-                    "Игра закончена. Для вас пока больше нет заданий, возможно Вы выполнили все задания:)";
+                    "Игра закончена. Для Вас пока больше нет заданий. Возможно Вы выполнили все задания :-)";
                 return RedirectToAction("Results");
             }
             else
@@ -87,8 +87,8 @@ namespace Beavers.Encounter.Web.Controllers
                     if (viewModel.SuggestTips != null)
                     {
                         viewModel.SuggestMessage = viewModel.SuggestTips.Count() == 3
-                            ? "У вас есть две подсказки из трёх, какую вы выберите:"
-                            : "У вас осталась последняя подсказка, какую вы выберите:";
+                            ? "У вас есть две подсказки из трёх. Выберите одну из них:"
+                            : "У вас осталась последняя подсказка! Выберите одну из двух:";
                     }
                 }
             }

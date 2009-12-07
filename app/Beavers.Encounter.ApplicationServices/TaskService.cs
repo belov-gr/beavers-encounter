@@ -50,7 +50,11 @@ namespace Beavers.Encounter.ApplicationServices
                   TeamTaskState = teamTaskState
                 };
 
-            teamTaskState.AcceptedTips.Add(acceptedTip);
+            //Подсказку дадим только в том случае, если такая еще не выдавалась.
+            if (!teamTaskState.AcceptedTips.Any(x => x.Tip.Id == tip.Id))
+            {
+                teamTaskState.AcceptedTips.Add(acceptedTip);
+            }
 
             acceptedTipRepository.SaveOrUpdate(acceptedTip);
             teamTaskStateRepository.SaveOrUpdate(teamTaskState);
@@ -136,11 +140,10 @@ namespace Beavers.Encounter.ApplicationServices
         {
             // Время от начала задания
             double taskTimeSpend = (DateTime.Now - teamTaskState.TaskStartTime).TotalMinutes;
+            // Время получения последней из полученных подсказок
             double lastAcceptTipTime = (teamTaskState.AcceptedTips.Last().AcceptTime - teamTaskState.TaskStartTime).TotalMinutes;
-
             // Подсказки, 
             // которые дожны быть выданы на данный момент, 
-            // исключая уже выданные
             var tips = new List<Tip>(teamTaskState.Task.Tips
                 .Where(tip => tip.SuspendTime > lastAcceptTipTime && tip.SuspendTime <= taskTimeSpend && tip.SuspendTime < teamTaskState.TeamGameState.Game.TimePerTask));
 

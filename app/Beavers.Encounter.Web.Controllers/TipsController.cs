@@ -27,7 +27,7 @@ namespace Beavers.Encounter.Web.Controllers
         public ActionResult Create(int taskId)
         {
             TipFormViewModel viewModel = TipFormViewModel.CreateTipFormViewModel();
-            viewModel.Tip = new Tip { Name = "New tip", SuspendTime = 30};
+            viewModel.Tip = new Tip { Name = "Новая подсказка", SuspendTime = 30};
             viewModel.TaskId = taskId;
 
             Task task = taskRepository.Get(taskId);
@@ -46,7 +46,7 @@ namespace Beavers.Encounter.Web.Controllers
                 tipRepository.SaveOrUpdate(tip);
                 taskRepository.DbContext.CommitChanges();
 
-                Message = "The tip was successfully created.";
+                Message = "Подсказка успешно создана.";
                 return this.RedirectToAction<TasksController>(c => c.Edit(tip.Task.Id));
             }
 
@@ -72,7 +72,7 @@ namespace Beavers.Encounter.Web.Controllers
             TransferFormValuesTo(tipToUpdate, tip);
 
             if (ViewData.ModelState.IsValid && tip.IsValid()) {
-                Message = "The tip was successfully updated.";
+                Message = "Подсказка успешно изменена.";
                 return this.RedirectToAction<TasksController>(c => c.Edit(tip.Task.Id));
             }
             else {
@@ -94,7 +94,7 @@ namespace Beavers.Encounter.Web.Controllers
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(int id) {
-            string resultMessage = "The tip was successfully deleted.";
+            string resultMessage = "Подсказка успешно удалена.";
             Tip tipToDelete = tipRepository.Get(id);
             int taskId = tipToDelete.Task.Id;
 
@@ -105,13 +105,12 @@ namespace Beavers.Encounter.Web.Controllers
                     tipRepository.DbContext.CommitChanges();
                 }
                 catch {
-                    resultMessage = "A problem was encountered preventing the tip from being deleted. " +
-						"Another item likely depends on this tip.";
+                    resultMessage = "По ряду причин подскакза не может быть удалена. Возможно, она нужна где-то еще.";
                     tipRepository.DbContext.RollbackTransaction();
                 }
             }
             else {
-                resultMessage = "The tip could not be found for deletion. It may already have been deleted.";
+                resultMessage = "Удаляемая подсказка не найдена. Возможно, ее уже удалили.";
             }
 
             Message = resultMessage;

@@ -3,8 +3,6 @@
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
-    <h2>Профиль команды</h2>
-
     <ul>
 		<li>
 			<label for="Team_Name">Название:</label>
@@ -44,7 +42,7 @@
        {
     %>
         <p>
-        Команда заявлена на участие в игре:
+        Команда зарегистрирована на участие в игре:
         <%= Html.ActionLink<GamesController>(c => c.Show(ViewData.Model.Game.Id), ViewData.Model.Game.Name)%>
         <% if (ViewData.Model == ((User)User).Team && ((User)User).Role.IsAuthor) { %>
             <%= Html.Button("btnSingOutGame", 

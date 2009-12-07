@@ -3,8 +3,6 @@
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
-	<h1>Новая игра</h1>
-
 	<% Html.RenderPartial("GameForm", ViewData); %>
 
 </asp:Content>

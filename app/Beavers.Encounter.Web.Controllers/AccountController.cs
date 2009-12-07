@@ -150,13 +150,13 @@ namespace Beavers.Encounter.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("_FORM", "The current password is incorrect or the new password is invalid.");
+                    ModelState.AddModelError("_FORM", "Текущий пароль неверен или новый пароль некорректен.");
                     return View();
                 }
             }
             catch
             {
-                ModelState.AddModelError("_FORM", "The current password is incorrect or the new password is invalid.");
+                ModelState.AddModelError("_FORM", "Текущий пароль неверен или новый пароль некорректен.");
                 return View();
             }
         }
@@ -181,20 +181,20 @@ namespace Beavers.Encounter.Web.Controllers
         {
             if (String.IsNullOrEmpty(currentPassword))
             {
-                ModelState.AddModelError("currentPassword", "You must specify a current password.");
+                ModelState.AddModelError("currentPassword", "Вы должны указать свой текущий пароль.");
             }
 
             if (newPassword == null || newPassword.Length < MembershipService.MinPasswordLength)
             {
                 ModelState.AddModelError("newPassword",
                     String.Format(CultureInfo.CurrentCulture,
-                         "You must specify a new password of {0} or more characters.",
+                         "Новый пароль должен содержать не менее {0} символов.",
                          MembershipService.MinPasswordLength));
             }
 
             if (!String.Equals(newPassword, confirmPassword, StringComparison.Ordinal))
             {
-                ModelState.AddModelError("_FORM", "The new password and confirmation password do not match.");
+                ModelState.AddModelError("_FORM", "Новый пароль не совпадает с подтверждением пароля.");
             }
 
             return ModelState.IsValid;
@@ -204,11 +204,11 @@ namespace Beavers.Encounter.Web.Controllers
         {
             if (String.IsNullOrEmpty(userName))
             {
-                ModelState.AddModelError("username", "You must specify a username.");
+                ModelState.AddModelError("username", "Нужно указать имя пользователя.");
             }
             if (String.IsNullOrEmpty(password))
             {
-                ModelState.AddModelError("password", "You must specify a password.");
+                ModelState.AddModelError("password", "Нужно указать пароль.");
             }
             if (!MembershipService.ValidateUser(userName, password))
             {
@@ -228,7 +228,7 @@ namespace Beavers.Encounter.Web.Controllers
 
             if (String.IsNullOrEmpty(userName))
             {
-                ModelState.AddModelError("username", "You must specify a username.");
+                ModelState.AddModelError("username", "Нужно указать имя пользователя.");
             }
 
             if (userName.Length < 2 || userName.Length > 25)
@@ -238,7 +238,7 @@ namespace Beavers.Encounter.Web.Controllers
 
             if (userName.StartsWith(" ") || userName.EndsWith(" "))
             {
-                ModelState.AddModelError("username", "Имя не может быть пустым, а также начинаться и заканчиваться пробелами.");
+                ModelState.AddModelError("username", "Имя не может быть пустым, а также начинаться или заканчиваться пробелами.");
             }
 
             /*if (String.IsNullOrEmpty(email))
@@ -250,12 +250,12 @@ namespace Beavers.Encounter.Web.Controllers
             {
                 ModelState.AddModelError("password",
                     String.Format(CultureInfo.CurrentCulture,
-                         "You must specify a password of {0} or more characters.",
+                         "Новый пароль должен содержать не менее {0} символов.",
                          MembershipService.MinPasswordLength));
             }
             if (!String.Equals(password, confirmPassword, StringComparison.Ordinal))
             {
-                ModelState.AddModelError("_FORM", "The new password and confirmation password do not match.");
+                ModelState.AddModelError("_FORM", "Новый пароль не совпадает с подтверждением пароля.");
             }
             return ModelState.IsValid;
         }
@@ -267,13 +267,13 @@ namespace Beavers.Encounter.Web.Controllers
             switch (createStatus)
             {
                 case MembershipCreateStatus.DuplicateUserName:
-                    return "Username already exists. Please enter a different user name.";
+                    return "Пользователь с таким именем уже существует. Пожалуйста, введите другое имя.";
 
                 case MembershipCreateStatus.DuplicateEmail:
                     return "A username for that e-mail address already exists. Please enter a different e-mail address.";
 
                 case MembershipCreateStatus.InvalidPassword:
-                    return "The password provided is invalid. Please enter a valid password value.";
+                    return "Некорректный пароль. Пожалуйста, введите правильный пароль.";
 
                 case MembershipCreateStatus.InvalidEmail:
                     return "The e-mail address provided is invalid. Please check the value and try again.";
@@ -285,7 +285,7 @@ namespace Beavers.Encounter.Web.Controllers
                     return "The password retrieval question provided is invalid. Please check the value and try again.";
 
                 case MembershipCreateStatus.InvalidUserName:
-                    return "The user name provided is invalid. Please check the value and try again.";
+                    return "Имя пользователя некорректно. Пожалуйста, введите правильное имя и попробуйте еще раз.";
 
                 case MembershipCreateStatus.ProviderError:
                     return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";

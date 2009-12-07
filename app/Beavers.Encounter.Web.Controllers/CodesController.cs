@@ -27,7 +27,7 @@ namespace Beavers.Encounter.Web.Controllers
         public ActionResult Create(int taskId)
         {
             CodeFormViewModel viewModel = CodeFormViewModel.CreateCodeFormViewModel();
-            viewModel.Code = new Code { Name = "New code", Danger = "1" };
+            viewModel.Code = new Code { Name = "НовыйКод", Danger = "1" };
             viewModel.TaskId = taskId;
             return View(viewModel);
         }
@@ -43,7 +43,7 @@ namespace Beavers.Encounter.Web.Controllers
                 codeRepository.SaveOrUpdate(code);
                 taskRepository.DbContext.CommitChanges();
 
-                Message = "The code was successfully created.";
+                Message = "Код успешно создан.";
                 return this.RedirectToAction<TasksController>(c => c.Edit(code.Task.Id));
             }
 
@@ -69,7 +69,7 @@ namespace Beavers.Encounter.Web.Controllers
             TransferFormValuesTo(codeToUpdate, code);
 
             if (ViewData.ModelState.IsValid && code.IsValid()) {
-                Message = "The code was successfully updated.";
+                Message = "Код успешно изменен.";
                 return this.RedirectToAction<TasksController>(c => c.Edit(code.Task.Id));
             }
             else {
@@ -92,7 +92,7 @@ namespace Beavers.Encounter.Web.Controllers
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult Delete(int id) {
-            string resultMessage = "The code was successfully deleted.";
+            string resultMessage = "Код успешно удален.";
             Code codeToDelete = codeRepository.Get(id);
             int taskId = codeToDelete.Task.Id;
 
@@ -103,13 +103,12 @@ namespace Beavers.Encounter.Web.Controllers
                     codeRepository.DbContext.CommitChanges();
                 }
                 catch {
-                    resultMessage = "A problem was encountered preventing the code from being deleted. " +
-						"Another item likely depends on this code.";
+                    resultMessage = "По ряду причин код не может быть удален. Возможно, он еще где-то нужен.";
                     codeRepository.DbContext.RollbackTransaction();
                 }
             }
             else {
-                resultMessage = "The code could not be found for deletion. It may already have been deleted.";
+                resultMessage = "Удаляемый код не найден. Возможно, его уже удалили.";
             }
 
             Message = resultMessage;

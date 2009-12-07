@@ -2,10 +2,7 @@
 
 <asp:Content ID="changePasswordContent" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <h2>Смена пароля</h2>
-    <p>
-        New passwords are required to be a minimum of <%=Html.Encode(ViewData["PasswordLength"])%> characters in length.
-    </p>
-    <%= Html.ValidationSummary("Password change was unsuccessful. Please correct the errors and try again.")%>
+    <%= Html.ValidationSummary("Не удалось изменить пароль.<br />Пожалуйста, исправьте ошибки и попробуйте снова.")%>
 
     <% using (Html.BeginForm()) { %>
         <div>
@@ -16,7 +13,9 @@
                     <%= Html.ValidationMessage("currentPassword") %>
 		        </div>
             </div>
-
+            <p>
+                Новый пароль должен содержать<br />не менее <%=Html.Encode(ViewData["PasswordLength"])%> символов.<br />
+            </p>
 		    <div>
                 <label for="newPassword">Введите новый пароль:</label>
 		        <div>
@@ -34,7 +33,7 @@
             </div>
 
 		    <div>
-                <input type="submit" value="Change Password" />
+                <input type="submit" value="Изменить пароль" />
             </div>
         </div>
     <% } %>

@@ -97,26 +97,49 @@ namespace Beavers.Encounter.ApplicationServices
 
                 foreach (Team team in user.Game.Teams)
                 {
-                    DataRow[] rows = new DataRow[] { dt.NewRow(), dt.NewRow(), dt.NewRow(), dt.NewRow(), dt.NewRow() };
+                    //                               
+                    DataRow[] rows = new DataRow[] { dt.NewRow(),   //Получено - <время>
+                                                     dt.NewRow(),   //Подсказки - <время><пробел><время>...<время>
+                                                     dt.NewRow(),   //Коды - список <код>(<время>)<пробел><код>(<время>)...<код>(<время>)
+                                                     dt.NewRow(),   //Потрачено - <всего_минут>
+                                                     dt.NewRow(),   //Итог задания - <итог><пробел>в<пробел><время>
+                                                     dt.NewRow()};  //Разделитель - пустая строка.
 
+                    //[Cтрока(число)][Столбец(0|ИмяЗадания)]
                     rows[0][0] = team.Name;
+                    rows[1][0] = ""; //"подсказки";
+                    rows[2][0] = ""; //"коды";
+                    rows[3][0] = ""; //"длилось";
+                    rows[4][0] = ""; //"итог";
+                    rows[5][0] = "";
 
                     if (team.TeamGameState != null)
                     {
                         foreach (TeamTaskState taskState in team.TeamGameState.AcceptedTasks)
                         {
-                            int i = 0;
-                            foreach (AcceptedTip tip in taskState.AcceptedTips)
+                            //Указываем время начала задания
+							rows[0][taskState.Task.Name] = String.Format("{0}", taskState.TaskStartTime);
+
+                            //Выписываем все подсказки
+							foreach (AcceptedTip tip in taskState.AcceptedTips)
                             {
-                                rows[i++][taskState.Task.Name] = "Пол. в " + tip.AcceptTime.TimeOfDay;
+                                //Стартовая подсказка (SuspendTime = 0) не нужна.
+                                if (tip.Tip.SuspendTime > 0)
+                                {
+                                    rows[1][taskState.Task.Name] = String.Format("{0} {1}", rows[1][taskState.Task.Name], tip.AcceptTime.TimeOfDay);
+                                }
                             }
 
-                            rows[3][taskState.Task.Name] = "Пол. коды ";
+                            //Выписываем все коды
                             foreach (AcceptedCode code in taskState.AcceptedCodes)
                             {
-                                rows[3][taskState.Task.Name] = String.Format("{0} {1}", rows[3][taskState.Task.Name], code.Code.Name);
+                                rows[2][taskState.Task.Name] = String.Format("{0} {1}({2})", rows[3][taskState.Task.Name], code.Code.Name, code.AcceptTime.TimeOfDay);
                             }
 
+                            //Указываем количество потраченных минут.
+                            rows[3][taskState.Task.Name] = Math.Round(((DateTime)taskState.TaskFinishTime - (DateTime)taskState.TaskStartTime).TotalMinutes);
+
+                            //Указываем итог задания.
                             if (taskState.TaskFinishTime != null)
                             {
                                 string state = String.Empty;
@@ -134,6 +157,7 @@ namespace Beavers.Encounter.ApplicationServices
                     dt.Rows.Add(rows[2]);
                     dt.Rows.Add(rows[3]);
                     dt.Rows.Add(rows[4]);
+                    dt.Rows.Add(rows[5]);
                 }
                 dt.AcceptChanges();
                 return dt;
@@ -225,8 +249,8 @@ namespace Beavers.Encounter.ApplicationServices
                 "Невозможно запустить игру, т.к. уже существует запущенная игра."
                 );
 
-            // Для каждой команды создаем игровое состояние
-            foreach (Team team in game.Teams)
+            // Для каждой команды, имеющей игроков, создаем игровое состояние
+            foreach (Team team in game.Teams.Where(t => t.Users.Count > 0))
             {
                 team.TeamGameState = new TeamGameState { Team = team, Game = game };
                 teamGameStateRepository.SaveOrUpdate(team.TeamGameState);

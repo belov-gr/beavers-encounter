@@ -32,7 +32,7 @@
     				    <% using (Html.BeginForm<GamesController>(c => c.Delete(game.Id)))
                            { %>
                             <%= Html.AntiForgeryToken()%>
-    				        <input type="submit" value="Удалить" onclick="return confirm('Вы уверены, что хотите удалить игру?');" />
+    				        <input type="submit" value="Удалить" onclick="return confirm('Вы уверены, что хотите удалить игру ''<%= game.Name%>''?');" />
                         <% } %>
 				    </td>
 				<% } %>

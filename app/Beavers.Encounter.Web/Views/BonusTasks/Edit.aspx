@@ -3,8 +3,6 @@
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
-	<h1>Edit BonusTask</h1>
-
 	<% Html.RenderPartial("BonusTaskForm", ViewData); %>
 
 </asp:Content>

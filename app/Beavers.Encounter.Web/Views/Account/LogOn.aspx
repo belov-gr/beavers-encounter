@@ -3,9 +3,10 @@
 <asp:Content ID="loginContent" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <h2>Авторизация</h2>
     <p>
-        Введите свой логин и пароль. Или <%= Html.ActionLink("зарегистрируйтесь", "Register")%>, если у Вас нет учетной записи.
+        <div>Введите свой логин и пароль.</div>
+        <div>Если у Вас нет учетной записи, то <%= Html.ActionLink("зарегистрируйтесь", "Register")%>.</div>
     </p>
-    <%= Html.ValidationSummary("Авторизация неудачна. Пожалуйста введите корректный логин и пароль.")%>
+    <%= Html.ValidationSummary("Вход не удался. Пожалуйста введите корректный логин и пароль.")%>
 
     <% using (Html.BeginForm())
        { %>
@@ -27,7 +28,7 @@
             </div>
 
 		    <div>
-            <%= Html.CheckBox("rememberMe")%> <label class="inline" for="rememberMe">Запомнить меня?</label>
+            <%= Html.CheckBox("rememberMe")%> <label class="inline" for="rememberMe">Запомнить</label>
             </div>
             <input type="submit" value="Войти" />
         </div>
