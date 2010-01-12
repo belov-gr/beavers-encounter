@@ -256,6 +256,59 @@ namespace Beavers.Encounter.Web.HtmlHelpers
         }
 
         /// <summary>
+        /// Визуализация свойства модели (пречислений) для редактирования.
+        /// </summary>
+        /// <typeparam name="T">Класс объекта модели.</typeparam>
+        /// <typeparam name="TV">Тип свойства модели.</typeparam>
+        /// <param name="entity">Объект модели.</param>
+        /// <param name="html">Объект для визуализации HTML контролов.</param>
+        /// <param name="expr">Выражение для получения значения свойства.</param>
+        /// <param name="allObjects">Список из всех элементов.</param>
+        /// <param name="emptyObject">Список с одним "пустым" элементом.</param>
+        public static string RenderEditableMultiCombo<T, TV, TLI>(this T entity, HtmlHelper html, Expression<Func<T, TV>> expr, IList<TLI> allObjects, TLI emptyObject) where T : Entity
+        {
+            var pi = new PropertyInfo<T, TV>(entity, expr, null);
+
+            var sb = new StringBuilder();
+
+            sb.Append("<div class=\"property\">");
+
+            sb.AppendFormat("<label class=\"property-label\" for=\"{0}\">{1}</label>", pi.TagId, pi.Caption);
+
+            sb.Append("<span class=\"property-value\">");
+
+            int i = 0;
+            foreach (TLI selectedItem in (IList<TLI>)pi.Value)
+            {
+                var list = new SelectList(
+                        new List<TLI> { selectedItem }
+                        .Union(allObjects.Except((IList<TLI>)pi.Value))
+                        .Union(new List<TLI> { emptyObject }),
+                    "Id", "Name", selectedItem);
+
+                sb.Append(html.DropDownList(String.Format("{0}{1}", pi.TagName, i++), list));
+            }
+
+            var allList = new SelectList(
+                    new List<TLI> { emptyObject }
+                    .Union(allObjects.Except((IList<TLI>)pi.Value)),
+                "Id", "Name", emptyObject);
+
+            sb.Append(html.DropDownList(String.Format("{0}{1}", pi.TagName, i), allList));
+
+            sb.Append("</span>");
+
+            if (!String.IsNullOrEmpty(pi.Description))
+            {
+                sb.AppendFormat("<div class=\"note\">{0}</div>", pi.Description);
+            }
+
+            sb.Append("</div>");
+
+            return sb.ToString();
+        }
+
+        /// <summary>
         /// Возвращает орисание элемента перечисления указанного в атрибуте DescriptionAttribute.
         /// </summary>
         /// <param name="type">Тип перечисления.</param>

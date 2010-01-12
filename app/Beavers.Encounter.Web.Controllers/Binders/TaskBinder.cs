@@ -28,7 +28,7 @@ namespace Beavers.Encounter.Web.Controllers.Binders
         public override IModelBinder GetBinder()
         {
             return new TaskBinder(
-                ServiceLocator.Current.GetInstance(typeof(IRepository<Tip>)) as IRepository<Tip>,
+                ServiceLocator.Current.GetInstance(typeof(IRepository<Team>)) as IRepository<Team>,
                 ServiceLocator.Current.GetInstance(typeof(IRepository<Task>)) as IRepository<Task>,
                 Fetch);
         }
@@ -40,14 +40,14 @@ namespace Beavers.Encounter.Web.Controllers.Binders
     {
         private bool fetch;
         private readonly IRepository<Task> taskRepository;
-        private readonly IRepository<Tip> tipRepository;
+        private readonly IRepository<Team> teamRepository;
 
-        public TaskBinder(IRepository<Tip> tipRepository, IRepository<Task> taskRepository, bool fetch)
+        public TaskBinder(IRepository<Team> teamRepository, IRepository<Task> taskRepository, bool fetch)
         {
-            Check.Require(tipRepository != null, "tipRepository may not be null");
+            Check.Require(teamRepository != null, "teamRepository may not be null");
             Check.Require(taskRepository != null, "taskRepository may not be null");
 
-            this.tipRepository = tipRepository;
+            this.teamRepository = teamRepository;
             this.taskRepository = taskRepository;
             this.fetch = fetch;
         }
@@ -129,6 +129,39 @@ namespace Beavers.Encounter.Web.Controllers.Binders
             foreach (var item in forRemove)
             {
                 task.NotOneTimeTasks.Remove(item);
+            }
+
+            // ----------------------------------
+            // Не выдавать задание
+            var forRemoveTeams = new System.Collections.Generic.List<Team>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (values.AllKeys.Contains("Task.NotForTeams" + i))
+                {
+                    int notForTeamTaskId = Convert.ToInt32(values["Task.NotForTeams" + i]);
+                    if (notForTeamTaskId != 0)
+                    {
+                        var t = teamRepository.Get(notForTeamTaskId);
+                        if (!task.NotForTeams.Contains(t))
+                            task.NotForTeams.Add(t);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            forRemoveTeams.Add(task.NotForTeams[i]);
+                        }
+                        catch (ArgumentOutOfRangeException)
+                        {
+                        }
+                    }
+                }
+            }
+
+            foreach (var item in forRemoveTeams)
+            {
+                task.NotForTeams.Remove(item);
             }
 
             if (!fetch)

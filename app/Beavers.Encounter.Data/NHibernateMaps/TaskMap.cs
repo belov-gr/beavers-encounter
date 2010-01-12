@@ -22,6 +22,11 @@ namespace Beavers.Encounter.Data.NHibernateMaps
                 .WithTableName("PreventOneTimeTasks")
                 .WithChildKeyColumn("TaskFk")
                 .WithParentKeyColumn("TaskRefFk");
+
+            mapping.HasManyToMany(x => x.NotForTeams)
+                .WithTableName("PreventTeamTasks")
+                .WithChildKeyColumn("TeamFk")
+                .WithParentKeyColumn("TaskFk");
         }
     }
 }

@@ -21,6 +21,7 @@
 <% if (Model.Task != null) { %>    
     <%= Model.Task.RenderEditable(Html, x => x.NotAfterTasks, Model.Task.Game.Tasks, new Task { Name = "<Не указано>" })%>
     <%= Model.Task.RenderEditable(Html, x => x.NotOneTimeTasks, Model.Task.Game.Tasks, new Task { Name = "<Не указано>" })%>
+    <%= Model.Task.RenderEditableMultiCombo(Html, x => x.NotForTeams, Model.Task.Game.Teams, new Team { Name = "<Не указано>" })%>
 <% } %>    
 
     <div>

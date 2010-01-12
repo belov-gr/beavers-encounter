@@ -69,7 +69,7 @@ namespace Beavers.Encounter.ApplicationServices
             
             // Если количество полученных заданий равно количеству заданий в игре и нет нового задания,
             // то считаем, что команда завершила игру
-            if (newTask == null && teamGameState.AcceptedTasks.Count >= teamGameState.Game.Tasks.Count(x => !x.Locked))
+            if (newTask == null)
             {
                 TeamFinishGame(teamGameState);
                 return;
@@ -169,8 +169,10 @@ namespace Beavers.Encounter.ApplicationServices
             List<Task> accessibleTasks = new List<Task>();
             foreach (Task task in gameTasks)
             {
-                // Если задание не получено, то добавляем в список
-                if (!teamGameState.AcceptedTasks.Any(x => x.Task.Id == task.Id))
+                // Если задание не получено и не запрещена выдача задания текущей команде, 
+                // то добавляем задание в список
+                if (!teamGameState.AcceptedTasks.Any(x => x.Task.Id == task.Id) &&
+                    !task.NotForTeams.Contains(teamGameState.Team))
                     accessibleTasks.Add(task);
             }
 
