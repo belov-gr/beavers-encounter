@@ -70,7 +70,7 @@ namespace Beavers.Encounter.Core
 
         public virtual IList<BonusTask> BonusTasks { get; protected set; }
 
-        public static int BadCodesLimit = 20;
+        public static int BadCodesLimit = 10;
     }
 
     public enum GameStates
