@@ -60,7 +60,8 @@ namespace Beavers.Encounter.Web.Controllers.Filters
                 }
 
                 TEntity entity = repository.Get(entityId);
-                if (entity != null && ((User)filterContext.HttpContext.User).Game.Id != GetGameId(entity))
+                if (entity != null && (((User)filterContext.HttpContext.User).Game == null ||
+                    ((User)filterContext.HttpContext.User).Game.Id != GetGameId(entity)))
                 {
                     ((TController) filterContext.Controller).Message = "У вас нет прав на доступ в объекту.";
                     Uri urlReferrer = filterContext.HttpContext.Request.UrlReferrer;
