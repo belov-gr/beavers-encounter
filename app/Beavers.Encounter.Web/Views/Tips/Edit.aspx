@@ -3,7 +3,7 @@
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
-	<h1>Edit Tip</h1>
+	<h1>Редактирование подсказки</h1>
 
 	<% Html.RenderPartial("TipForm", ViewData); %>
 

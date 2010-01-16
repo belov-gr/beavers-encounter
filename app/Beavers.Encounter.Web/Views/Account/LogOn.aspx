@@ -6,7 +6,7 @@
         <div>Введите свой логин и пароль.</div>
         <div>Если у Вас нет учетной записи, то <%= Html.ActionLink("зарегистрируйтесь", "Register")%>.</div>
     </p>
-    <%= Html.ValidationSummary("Вход не удался. Пожалуйста введите корректный логин и пароль.")%>
+    <%= Html.ValidationSummary("Вход не удался. Пожалуйста, введите корректный логин и пароль.")%>
 
     <% using (Html.BeginForm())
        { %>
@@ -28,7 +28,7 @@
             </div>
 
 		    <div>
-            <%= Html.CheckBox("rememberMe")%> <label class="inline" for="rememberMe">Запомнить</label>
+            <%= Html.CheckBox("rememberMe")%> <label class="inline" for="rememberMe">Запомнить меня.</label>
             </div>
             <input type="submit" value="Войти" />
         </div>

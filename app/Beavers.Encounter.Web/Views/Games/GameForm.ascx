@@ -1,6 +1,8 @@
 <%@ Control Language="C#" AutoEventWireup="true"
 	Inherits="System.Web.Mvc.ViewUserControl<GamesController.GameFormViewModel>" %>
  
+	<h2>Редактирование свойств игры</h2>
+
 <% if (ViewContext.TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()] != null) { %>
     <p id="pageMessage"><%= ViewContext.TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()]%></p>
 <% } %>

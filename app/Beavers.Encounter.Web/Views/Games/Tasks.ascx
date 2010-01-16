@@ -1,6 +1,8 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IList<Task>>" %>
 
 <div>
+    <h2>Список заданий</h2>
+
     <table>
         <thead>
             <tr>

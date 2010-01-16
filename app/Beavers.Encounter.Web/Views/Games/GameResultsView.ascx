@@ -1,6 +1,7 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<System.Data.DataRow[]>" %>
 
 <h2>Итоговая таблица</h2>
+
 <table>
     <thead>
         <th>Команда</th>

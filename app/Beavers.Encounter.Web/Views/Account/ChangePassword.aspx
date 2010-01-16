@@ -2,7 +2,7 @@
 
 <asp:Content ID="changePasswordContent" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <h2>Смена пароля</h2>
-    <%= Html.ValidationSummary("Не удалось изменить пароль.<br />Пожалуйста, исправьте ошибки и попробуйте снова.")%>
+    <%= Html.ValidationSummary("Не удалось изменить пароль. Пожалуйста, исправьте ошибки и попробуйте снова.")%>
 
     <% using (Html.BeginForm()) { %>
         <div>
@@ -14,7 +14,7 @@
 		        </div>
             </div>
             <p>
-                Новый пароль должен содержать<br />не менее <%=Html.Encode(ViewData["PasswordLength"])%> символов.<br />
+                Новый пароль должен содержать не менее <%=Html.Encode(ViewData["PasswordLength"])%> символов.
             </p>
 		    <div>
                 <label for="newPassword">Введите новый пароль:</label>

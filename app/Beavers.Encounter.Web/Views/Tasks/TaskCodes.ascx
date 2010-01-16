@@ -1,5 +1,7 @@
 <%@ Control Language="C#" Inherits="Beavers.Encounter.Web.Views.ViewUserControl<Task>" %>
 
+	<h2>Список кодов</h2>
+
 <div>
     <ul>
     <%

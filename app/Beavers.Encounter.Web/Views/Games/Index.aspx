@@ -2,6 +2,7 @@
 	Inherits="System.Web.Mvc.ViewPage<IEnumerable<Game>>" %>
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
+
     <h2>Список игр</h2>
 
     <% if (ViewContext.TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()] != null) { %>

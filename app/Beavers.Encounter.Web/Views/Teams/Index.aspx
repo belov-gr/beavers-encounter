@@ -3,6 +3,7 @@
  
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
+
     <h2>Список команд</h2>
 
     <% if (ViewContext.TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()] != null) { %>

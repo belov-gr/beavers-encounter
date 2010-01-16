@@ -45,7 +45,7 @@
                 </div>
             </div>-->
             <div>
-                <input type="submit" value="Зарегистрировать" />
+                <input type="submit" value="Зарегистрироваться" />
             </div>
         </div>
     <% } %>

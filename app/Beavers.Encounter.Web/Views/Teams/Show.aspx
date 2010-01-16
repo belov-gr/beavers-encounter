@@ -3,6 +3,8 @@
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
+    <h2>Профиль команды</h2>
+
     <ul>
 		<li>
 			<label for="Team_Name">Название:</label>

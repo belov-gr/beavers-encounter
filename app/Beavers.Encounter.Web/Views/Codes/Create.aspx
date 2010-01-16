@@ -3,6 +3,8 @@
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
+	<h1>Новый код</h1>
+
 	<% Html.RenderPartial("CodeForm", ViewData); %>
 
 </asp:Content>

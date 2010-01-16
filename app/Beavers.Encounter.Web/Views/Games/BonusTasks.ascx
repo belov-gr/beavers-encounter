@@ -1,6 +1,8 @@
 <%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IList<BonusTask>>" %>
 
 <div>
+    <h2>Сквозные бонусные задания</h2>
+
     <table>
         <thead>
             <tr>

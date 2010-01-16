@@ -67,8 +67,7 @@ namespace Beavers.Encounter.ApplicationServices
             // Пытаемся получить следующее задание для команды
             Task newTask = GetNextTaskForTeam(teamGameState, oldTask);
             
-            // Если количество полученных заданий равно количеству заданий в игре и нет нового задания,
-            // то считаем, что команда завершила игру
+            // Если нет нового задания, то команда завершила игру
             if (newTask == null)
             {
                 TeamFinishGame(teamGameState);
@@ -147,7 +146,7 @@ namespace Beavers.Encounter.ApplicationServices
             var tips = new List<Tip>(teamTaskState.Task.Tips
                 .Where(tip => tip.SuspendTime > lastAcceptTipTime && tip.SuspendTime <= taskTimeSpend && tip.SuspendTime < teamTaskState.TeamGameState.Game.TimePerTask));
 
-            // Если пришло время предложить коменде выбрать подсказку
+            // Если пришло время предложить команде выбрать подсказку
             if (tips.Count() > 0)
             {
                 // Все подсказки, исключая уже выданные
