@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
     <link href="<%= ResolveUrl("~") %>Content/Site.css" rel="stylesheet" type="text/css" />
-    <title>Резутьтаты команды</title>
+    <title>Результаты команды</title>
 </head>
 <body>
     <div class="teamGameboardPage">
