@@ -20,6 +20,7 @@
     <%= Model.Task.RenderEditable<Task>(Html, x => x.StreetChallendge)%>
     <%= Model.Task.RenderEditable<Task>(Html, x => x.Agents)%>
     <%= Model.Task.RenderEditable<Task>(Html, x => x.Locked)%>
+    <%= Model.Task.RenderEditable<Task>(Html, x => x.GroupTag)%>
 <% if (Model.Task != null) { %>    
     <%= Model.Task.RenderEditable(Html, x => x.NotAfterTasks, Model.Task.Game.Tasks, new Task { Name = "<Не указано>" })%>
     <%= Model.Task.RenderEditable(Html, x => x.NotOneTimeTasks, Model.Task.Game.Tasks, new Task { Name = "<Не указано>" })%>

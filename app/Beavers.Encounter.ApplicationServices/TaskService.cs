@@ -164,17 +164,28 @@ namespace Beavers.Encounter.ApplicationServices
             var gameTasks = taskRepository.GetAll()
                 .Where(t => t.Game.Id == teamGameState.Game.Id && !t.Locked);
 
+			// Формируем список номеров групп заданий, с которыми команда уже познакомилась
+			List<int> executedGroupTags = new List<int>();
+			foreach (TeamTaskState acceptedTask in teamGameState.AcceptedTasks.Where(x => x.Task.GroupTag != 0))
+            {
+                if (!executedGroupTags.Contains(acceptedTask.Task.GroupTag))
+					executedGroupTags.Add(acceptedTask.Task.GroupTag);
+            }			
+			
             // Получаем доступные (невыполненные) для команды задания
             List<Task> accessibleTasks = new List<Task>();
             foreach (Task task in gameTasks)
             {
-                // Если задание не получено и не запрещена выдача задания текущей команде, 
+                // Если задание не получено
+				// и задание не входит ни в одну "засвеченную" группу,
+				// и не запрещена выдача задания текущей команде,
                 // то добавляем задание в список
                 if (!teamGameState.AcceptedTasks.Any(x => x.Task.Id == task.Id) &&
-                    !task.NotForTeams.Contains(teamGameState.Team))
+					!executedGroupTags.Contains(task.GroupTag) &&
+					!task.NotForTeams.Contains(teamGameState.Team))
                     accessibleTasks.Add(task);
             }
-
+			
             // Формируем список выполняемых заданий другими командами
             Dictionary<Task, int> executingTasks = new Dictionary<Task, int>();
             foreach (Team team in teamGameState.Game.Teams)

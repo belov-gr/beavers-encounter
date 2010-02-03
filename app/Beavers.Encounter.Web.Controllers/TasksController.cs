@@ -47,6 +47,7 @@ namespace Beavers.Encounter.Web.Controllers
             if (ViewData.ModelState.IsValid && task.IsValid()) 
             {
                 task.Game = User.Game;
+                task.GroupTag = 0;
                 
                 Tip tip = new Tip();
                 tip.Name = "Здесь должен быть текст задания...";
@@ -102,6 +103,7 @@ namespace Beavers.Encounter.Web.Controllers
             taskToUpdate.Locked = taskFromForm.Locked;
             taskToUpdate.TaskType = taskFromForm.TaskType;
             taskToUpdate.Priority = taskFromForm.Priority;
+            taskToUpdate.GroupTag = taskFromForm.GroupTag;
         }
 
         [ValidateAntiForgeryToken]
