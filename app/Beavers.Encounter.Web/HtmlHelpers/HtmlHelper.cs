@@ -323,14 +323,16 @@ namespace Beavers.Encounter.Web.HtmlHelpers
         }
 
         private static string BBCodeNote =
-            "<div class=\"note\">В этом поле можно использовать BBCode:</div>" +
-            "<div class=\"note\">[b]<strong>Жирный</strong>[/b]</div>" +
-            "<div class=\"note\">[i]<em>Курсив</em>[/i]</div>" +
-            "<div class=\"note\">[u]<span style=\"text-decoration:underline\">Подчеркнутый</span>[/u]</div>" +
-            "<div class=\"note\">[del]<span style=\"text-decoration:line-through\">Зачеркнутый</span>[/del]</div>" +
-            "<div class=\"note\">[color=Red]<span style=\"color:Red\">Красный</span>[/color]</div>" +
-            "<div class=\"note\">[url]<span><a href=\"http://example.com/sample/page\">http://example.com/sample/page</a></span>[/url]</div>" +
-            "<div class=\"note\">[url=http://example.com/sample/page]<span><a href=\"http://example.com/sample/page\">Пример</a></span>[/url]</div>" +
-            "<div class=\"note\">[img]<span><a href=\"http://example.com/sample/page\">http://example.com/sample/page</a></span>[/img]</div>";
+            "<div class=\"note\">" +
+            "В этом поле можно использовать BBCode:<br />" +
+            "[b]<strong>Жирный</strong>[/b]<br />" +
+            "[i]<em>Курсив</em>[/i]<br />" +
+            "[u]<span style=\"text-decoration:underline\">Подчеркнутый</span>[/u]<br />" +
+            "[del]<span style=\"text-decoration:line-through\">Зачеркнутый</span>[/del]<br />" +
+            "[color=Red]<span style=\"color:Red\">Красный (можно любой цвет в формате CSS)</span>[/color]<br />" +
+            "[url]<span><a href=\"http://example.com/sample/page\">http://example.com/sample/page</a></span>[/url]<br />" +
+            "[url=http://example.com/sample/page]<span><a href=\"http://example.com/sample/page\">Пример</a></span>[/url]<br />" +
+            "[img]<span><a href=\"http://example.com/sample/image.jpg\">http://example.com/sample/image.jpg</a></span>[/img]" +
+            "</div>";
     }
 }

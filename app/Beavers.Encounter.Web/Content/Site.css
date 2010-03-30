@@ -17,31 +17,39 @@ body
 {
 	font-size: .75em;
     color: #999;
+    margin-bottom: 10px;
+}
+
+.attention
+{
+	color: Yellow;
 }
 
 a:link
 {
-    color: #038af3;
+    color: #00eeee;
     text-decoration: underline;
 }
 a:visited
 {
     color: #509abc;
+    text-decoration: underline;
 }
 a:hover
 {
-    color: #1da0ff;
+    color: #bbffff;
     text-decoration: none;
 }
 a:active
 {
-    color: #12eb87;
+    color: Lime;
 }
 
 p, ul
 {
     margin-bottom: 2px;
-    padding-left: 10px;
+    padding-left: 0px;
+    margin-left: 20px;
     line-height: 1.6em;
 }
 
@@ -127,9 +135,7 @@ p#logo, h1#logo
 
 #mainContent
 {
-	background: #091936 url(/Content/Images/bgMainContent.png) repeat-x 0 0;
-    background-color: #000;
-    padding: 5px 5px 15px 10px;
+    background-color: Transparent;
     margin-bottom: 30px;
     _height: 1px; /* only IE6 applies CSS properties starting with an underscrore */
 }
@@ -177,7 +183,7 @@ p#logo, h1#logo
 {
     font-size:1em;
     display:block;
-    text-align:right;
+    text-align:left;
     margin:0px;
     color:White;
 }
@@ -229,14 +235,14 @@ ul#menu li a
 {
     padding: 0px 0px;
     font-weight: bold;
-    text-decoration: none;
+    text-decoration: underline;
     line-height: 2.8em;
     color: #F00;
 }
 
 ul#menu li a:hover
 {
-    background-color: #496FC8;
+    background-color: Green;
     text-decoration: none;
 }
 
@@ -271,8 +277,7 @@ ul#menu li.selected a
 ----------------------------------------------------------*/
 .teamGameboardPage
 {
-    width: 240px;
-    margin-top: 20px;
+    width: 240px; /* По идее на многих старых телефонах всего 176 */
     margin-left: auto;
     margin-right: auto;
     border-width: thin;

@@ -212,7 +212,7 @@ namespace Beavers.Encounter.Web.Controllers
             }
             if (!MembershipService.ValidateUser(userName, password))
             {
-                ModelState.AddModelError("_FORM", "The username or password provided is incorrect.");
+                ModelState.AddModelError("_FORM", "Указанные имя пользователя и/или пароль неверны.");
             }
 
             return ModelState.IsValid;
