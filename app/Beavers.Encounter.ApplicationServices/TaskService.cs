@@ -208,10 +208,13 @@ namespace Beavers.Encounter.ApplicationServices
             var excludeExecutedTasks = new List<Task>();
             foreach (Team team in teamGameState.Team.PreventTasksAfterTeams)
             {
-                foreach (var task in team.TeamGameState.AcceptedTasks)
+                if (team.TeamGameState != null)
                 {
-                    if (!excludeExecutedTasks.Contains(task.Task))
-                        excludeExecutedTasks.Add(task.Task);
+                    foreach (var task in team.TeamGameState.AcceptedTasks)
+                    {
+                        if (!excludeExecutedTasks.Contains(task.Task))
+                            excludeExecutedTasks.Add(task.Task);
+                    }
                 }
             }
 
@@ -222,7 +225,12 @@ namespace Beavers.Encounter.ApplicationServices
             // и отбираем задания с максимальным приоритетом
             foreach (Task task in accessibleTasks)
             {
-                int taskPoints = GetTaskPoints(task, oldTask, executingTasks, excludeExecutedTasks);
+                int taskPoints = GetTaskPoints(task, oldTask, executingTasks, excludeExecutedTasks, teamGameState);
+                
+                // Не выдавать задание вообще
+                if (taskPoints == MinPoints)
+                    continue;
+                
                 if (taskPoints > maxPoints)
                 {
                     maxPoints = taskPoints;
@@ -256,6 +264,9 @@ namespace Beavers.Encounter.ApplicationServices
             return tasksWithMaxPoints.Count == 0 ? null : tasksWithMaxPoints.First();
         }
 
+        private const int MaxPoints = Int32.MaxValue;
+        private const int MinPoints = Int32.MinValue;
+
         /// <summary>
         /// Вычисление приоритета для задания.
         /// </summary>
@@ -264,10 +275,38 @@ namespace Beavers.Encounter.ApplicationServices
         /// <param name="executingTasks">Задания выполняемые в данных момент другими командами.</param>
         /// <param name="excludeExecutedTasks">Задания выполненные командами, которые помечены опцией "Анти-слив".</param>
         /// <returns>Приоритет задания.</returns>
-        private static int GetTaskPoints(Task task, Task oldTask, Dictionary<Task, int> executingTasks, List<Task> excludeExecutedTasks)
+        private static int GetTaskPoints(Task task, Task oldTask, Dictionary<Task, int> executingTasks, List<Task> excludeExecutedTasks, TeamGameState teamGameState)
         {
             int taskPoints = 1000;
-            
+
+            //--------------------------------------------------------------------
+            // Если задание связано с предыдущим выданным, то +10000 )))
+            if (task.AfterTask != null && task.AfterTask == oldTask)
+            {
+                var oldTeamTaskState = teamGameState.AcceptedTasks.Single(x => x.Task == oldTask);
+                if (task.GiveTaskAfter == GiveTaskAfter.Strictly)
+                {
+                    if (oldTeamTaskState.State == (int)TeamTaskStateFlag.Success)
+                    {
+                        return MaxPoints; // Выдать незамедлительно
+                    }
+                    return MinPoints; // Не выдавать
+                }
+                if (task.GiveTaskAfter == GiveTaskAfter.StrictlyOrFinaly)
+                {
+                    if (oldTeamTaskState.State == (int)TeamTaskStateFlag.Success)
+                    {
+                        return MaxPoints; // Выдать незамедлительно
+                    }
+                    return -1000; // Выдать с наименьшим приоритетом
+
+                }
+                if (task.GiveTaskAfter == GiveTaskAfter.InAnyCase)
+                {
+                    return MaxPoints; // Выдать незамедлительно
+                }
+            }
+
             //--------------------------------------------------------------------
             // Если задание типа Челлендж, то +500
             if (task.StreetChallendge)
@@ -333,7 +372,7 @@ namespace Beavers.Encounter.ApplicationServices
         public void SubmitCode(string codes, TeamGameState teamGameState, User user)
         {
             if (teamGameState.ActiveTaskState == null ||
-                teamGameState.ActiveTaskState.AcceptedBadCodes.Count >= Game.BadCodesLimit)
+                teamGameState.ActiveTaskState.AcceptedBadCodes.Count >= GameConsnt.BadCodesLimit)
                 return;
 
             List<string> codesList = GetCodes(codes, teamGameState.Game.PrefixMainCode, teamGameState.Game.PrefixBonusCode);
@@ -404,7 +443,7 @@ namespace Beavers.Encounter.ApplicationServices
             if (teamGameState == null || teamGameState.ActiveTaskState == null)
                 return;
 
-            if ((teamGameState.ActiveTaskState.AcceptedBadCodes.Count >= Game.BadCodesLimit)
+            if ((teamGameState.ActiveTaskState.AcceptedBadCodes.Count >= GameConsnt.BadCodesLimit)
                 && (((DateTime.Now - teamGameState.ActiveTaskState.TaskStartTime).TotalMinutes + 1) //+1 - чтобы сработало до того, как покажется первая подсказка.
                      >= (teamGameState.ActiveTaskState.Task.Tips.First(x => x.SuspendTime > 0).SuspendTime)))
             {

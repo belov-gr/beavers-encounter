@@ -20,6 +20,11 @@ namespace Beavers.Encounter.Web.Controllers.Filters
         {
         }
 
+        protected override string GetEntityIdSpecificName()
+        {
+            return "tipId";
+        }
+
         protected override int GetGameId(Tip entity)
         {
             return entity.Task.Game.Id;

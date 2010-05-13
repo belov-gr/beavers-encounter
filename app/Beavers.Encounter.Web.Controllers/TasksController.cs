@@ -104,6 +104,8 @@ namespace Beavers.Encounter.Web.Controllers
             taskToUpdate.TaskType = taskFromForm.TaskType;
             taskToUpdate.Priority = taskFromForm.Priority;
             taskToUpdate.GroupTag = taskFromForm.GroupTag;
+            taskToUpdate.AfterTask = taskFromForm.AfterTask;
+            taskToUpdate.GiveTaskAfter = taskFromForm.GiveTaskAfter;
         }
 
         [ValidateAntiForgeryToken]

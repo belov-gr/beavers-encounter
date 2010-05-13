@@ -17,18 +17,27 @@
     
         <h2>Задание №: <%= Model.TeamGameState.AcceptedTasks.Count %></h2>
 
+        <ul>
         <% 
         // Выводим текст полученного задания и подсказок
         int indx = 0;
         foreach (AcceptedTip tip in Model.ActiveTaskState.AcceptedTips)
         { %>
-            <ul><li><div style="font-weight:bold; padding-bottom: 0px; margin-bottom 0px;">
-                    <%= tip.Tip.SuspendTime == 0 ? "Задание" : String.Format("Подсказка №{0}", indx)%></div></li></ul>
-            <div><%= BBCode.ConvertToHtml(tip.Tip.Name)%></div>
-            <div class="note">[Получено: <%= tip.AcceptTime %>]</div>
+            <li>
+            <div style="font-weight:bold">
+                <%= tip.Tip.SuspendTime == 0 ? "Задание" : String.Format("Подсказка №{0}", indx)%> 
+                <span class="note">[Получено: <%= tip.AcceptTime %>]</span>
+            </div>
+            <div>
+            <%= BBCode.ConvertToHtml(tip.Tip.Name)%>
+            </div>
+            </li>
+            <p />
+            <p />
         <%
             indx++;
         } %>
+        </ul>
 
         <%
         // Кнопка для "ускорения" задания. Доступна только для капитана команды.
@@ -36,13 +45,17 @@
             Model.TeamGameState.ActiveTaskState.Task.TaskType == TaskTypes.NeedForSpeed &&
             Model.TeamGameState.ActiveTaskState.AccelerationTaskStartTime == null) 
         { %>
-            <p></p>
+            <p/>
             <% 
             using (Html.BeginForm<TeamGameboardController>(c => c.AccelerateTask(Model.ActiveTaskState.Id), FormMethod.Post)) 
             { %>
                 <%= Html.AntiForgeryToken() %>
-                <div style="color:Yellow">Внимание! После нажатия кнопки, на выполнение задания останется <%= Model.TeamGameState.Game.TimePerTask - Model.ActiveTaskState.Task.Tips.Last(tip => tip.SuspendTime > 0).SuspendTime%> минут. Вы уверены, что всё готово?</div>
-                <div><%= Html.SubmitButton("btnAccelerateTask", "Всё готово!", new Dictionary<string, object> { { "onclick", "return confirm('Вы уверены, что готовы к ускорению?');" } })%></div>
+                <div style="color:Yellow">
+                Внимание! После нажатия кнопки, на выполнение задания останется <%= Model.TeamGameState.Game.TimePerTask - Model.ActiveTaskState.Task.Tips.Last(tip => tip.SuspendTime > 0).SuspendTime%> минут. Вы уверены, что всё готово?
+                </div>
+                <div>
+                    <%= Html.SubmitButton("btnAccelerateTask", "Всё готово!", new Dictionary<string, object> { { "onclick", "return confirm('Are you sure?');" } })%>
+                </div>
             <% 
             } 
         } %>
@@ -52,7 +65,7 @@
         // Кнопки для выбора подсказки.
         if (Model.SuggestTips != null) 
         { %>
-            <p></p>
+            <p/>
             <div style="color:Yellow"><%= Model.SuggestMessage %></div>
             <%
             foreach(Tip tip in Model.SuggestTips)
@@ -82,7 +95,7 @@
         } %>
 
 
-        <p>КО: 
+        <p> КО: 
         <% 
         
         // Выводим коды опасности основных кодов
@@ -122,7 +135,7 @@
         // Выводим принятые коды 
         if (Model.ActiveTaskState.AcceptedCodes.Count > 0)
         { %>
-            <p>Принятые коды:  
+            <p> Принятые коды:  
             <% 
             foreach (AcceptedCode acceptedCode in Model.ActiveTaskState.AcceptedCodes)
             { %>
@@ -160,7 +173,7 @@
                 <%= Html.Encode(Model.ErrorMessage) %>
             </div>
             <div style="color:Red">
-                Осталось попыток: <%= Game.BadCodesLimit - Model.ActiveTaskState.AcceptedBadCodes.Count %>
+                Осталось попыток: <%= GameConsnt.BadCodesLimit - Model.ActiveTaskState.AcceptedBadCodes.Count %>
             </div>
             <div class="note">При исчерпании попыток будет заблокирован ввод кодов, а задание в момент первой подсказки будет дисквалифицировано!</div>
         <% 
@@ -169,7 +182,7 @@
 
         <% 
         // Запрещаем вводить коды, если все попытки исчерпаны
-        if (Model.ActiveTaskState.AcceptedBadCodes.Count < Game.BadCodesLimit)
+        if (Model.ActiveTaskState.AcceptedBadCodes.Count < GameConsnt.BadCodesLimit)
         {
             // Поле отправки кодов
             using (Html.BeginForm<TeamGameboardController>(c => c.SubmitCodes(Model.ActiveTaskState.Id, null), FormMethod.Post))
@@ -220,9 +233,13 @@
                 <li>
                     <div style="font-weight:bold">
                         <b>Задание</b>
-                        <span class="note">[Получено: <%= task.StartTime %>, действительно до: <%= task.FinishTime %>]</span>
+                        <span class="note">
+                        [Получено: <%= task.StartTime %>, действительно до: <%= task.FinishTime %>]
+                        </span>
                     </div>
-                    <div><%= BBCode.ConvertToHtml(task.TaskText)%></div>
+                    <div>
+                    <%= BBCode.ConvertToHtml(task.TaskText)%>
+                    </div>
                 </li>
                 <%
                 } %>
@@ -237,28 +254,29 @@
             <li>Выполнено: <%= Html.Encode(Model.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Success)) %></li>
             <li>Невыполнено: <%= Html.Encode(Model.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Overtime)) %></li>
             <li>Слито: <%= Html.Encode(Model.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Canceled)) %></li>
-            <li>Дисквалифицировано: <%= Html.Encode(Model.TeamGameState.AcceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Cheat)) %></li>
-            <p></p>
             <li>Бонусные коды: <%= Html.Encode(Model.TeamGameState.AcceptedTasks.BonusCodesCount())%></li>
         </ul>
 
 
-        <p></p>
+        <p> </p>
         <h2>Слив задания</h2>
         <%
         // Кнопка для слива задания. Доступна только для капитана команды, после первой подсказки
         if (((User)User).Role.IsTeamLeader && Model.TeamGameState.ActiveTaskState.AcceptedTips.Count > 1 &&
             Model.ActiveTaskState.AcceptedCodes.Count(x => !x.Code.IsBonus) != Model.ActiveTaskState.Task.Codes.Count(x => !x.IsBonus)) 
         { %>
+            
             <% 
             using (Html.BeginForm<TeamGameboardController>(c => c.SkipTask(Model.ActiveTaskState.Id), FormMethod.Post)) 
             { %>
                 <%= Html.AntiForgeryToken() %>
-                <div><%= Html.SubmitButton("btnSkipTask", "Слить задание", new Dictionary<string, object> {{"onclick", "return confirm('Вы уверены что хотите слить задание?');"}})%></div>
+                <div>
+                    <%= Html.SubmitButton("btnSkipTask", "Слить задание", new Dictionary<string, object> {{"onclick", "return confirm('Are you sure?');"}})%>
+                </div>
             <% 
             } 
         }  else { %>
-            <div>Слить задание можно только капитану команды и только после первой подсказки и только если не начат ввод кодов.</div>
+            <div>Слить задание можно только капитану команды после первой подсказки.</div>
         <% 
         } %>
     <% 

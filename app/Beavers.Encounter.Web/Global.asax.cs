@@ -76,7 +76,7 @@ namespace Beavers.Encounter.Web
             if (!hasInitBeenCalledOnce)
             {
                 hasInitBeenCalledOnce = true;
-                //return;
+                return;
             }
 
             // Only allow the NHibernate session to be initialized once

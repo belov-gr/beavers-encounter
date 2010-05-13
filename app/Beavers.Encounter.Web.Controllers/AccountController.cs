@@ -129,6 +129,7 @@ namespace Beavers.Encounter.Web.Controllers
         }
 
         [Authorize]
+        [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Exceptions result in password not being changed.")]
@@ -371,6 +372,17 @@ namespace Beavers.Encounter.Web.Controllers
 
         public bool ChangePassword(string userName, string oldPassword, string newPassword)
         {
+            User user = ((IUserRepository)_provider).GetByLogin(userName);
+            if (user == null)
+            {
+                return false;
+            }
+            if (user.Password == FormsAuthentication.HashPasswordForStoringInConfigFile(oldPassword, "SHA1"))
+            {
+                user.Password = FormsAuthentication.HashPasswordForStoringInConfigFile(newPassword, "SHA1");
+                _provider.SaveOrUpdate(user);
+                return true;
+            }
             return false;
         }
     }

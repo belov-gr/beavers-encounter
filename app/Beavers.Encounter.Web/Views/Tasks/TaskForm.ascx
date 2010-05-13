@@ -22,6 +22,12 @@
     <%= Model.Task.RenderEditable<Task>(Html, x => x.Locked)%>
     <%= Model.Task.RenderEditable<Task>(Html, x => x.GroupTag)%>
 <% if (Model.Task != null) { %>    
+    <fieldset class="property">
+        <legend>Связка с предыдущим заданием</legend>
+        <%= Model.Task.RenderEditableSingle<Task, Task>(Html, x => x.AfterTask, Model.Task.Game.Tasks, new Task { Name = "<Не указано>" })%>
+        <%= Model.Task.RenderEditable<Task>(Html, x => x.GiveTaskAfter)%>
+    </fieldset>
+
     <%= Model.Task.RenderEditable(Html, x => x.NotAfterTasks, Model.Task.Game.Tasks, new Task { Name = "<Не указано>" })%>
     <%= Model.Task.RenderEditable(Html, x => x.NotOneTimeTasks, Model.Task.Game.Tasks, new Task { Name = "<Не указано>" })%>
     <%= Model.Task.RenderEditableMultiCombo(Html, x => x.NotForTeams, Model.Task.Game.Teams, new Team { Name = "<Не указано>" })%>

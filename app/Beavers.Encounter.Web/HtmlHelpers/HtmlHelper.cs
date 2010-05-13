@@ -22,7 +22,8 @@ namespace Beavers.Encounter.Web.HtmlHelpers
         /// </summary>
         /// <typeparam name="T">Класс объекта модели.</typeparam>
         /// <typeparam name="TV">Тип свойства модели.</typeparam>
-        private class PropertyInfo<T, TV> where T : Entity
+        private class PropertyInfo<T, TV>
+            where T : Entity
         {
             public string TagId { get; private set; }
             public string TagName { get; private set; }
@@ -151,9 +152,13 @@ namespace Beavers.Encounter.Web.HtmlHelpers
                 sb.Append(html.ValidationMessage(pi.TagName));
 
                 sb.Append("<div class=\"property-value\">");
-                
+
+                if (pi.ReturnType.BaseType == typeof(Entity))
+                {
+
+                }
                 // Вылетающий список для перечислений 
-                if (pi.ReturnType.BaseType == typeof(Enum))
+                else if (pi.ReturnType.BaseType == typeof(Enum))
                 {
                     Dictionary<int, string> list = new Dictionary<int, string>();
 
@@ -191,6 +196,52 @@ namespace Beavers.Encounter.Web.HtmlHelpers
             }
 
             // Описание поля ввода
+            if (!String.IsNullOrEmpty(pi.Description))
+            {
+                sb.AppendFormat("<div class=\"note\">{0}</div>", pi.Description);
+            }
+
+            sb.Append("</div>");
+
+            return sb.ToString();
+        }
+
+        /// <summary>
+        /// Визуализация свойства модели для редактирования.
+        /// </summary>
+        /// <typeparam name="T">Класс объекта модели.</typeparam>
+        /// <typeparam name="TV">Тип значения свойства.</typeparam>
+        /// <param name="entity">Объект модели.</param>
+        /// <param name="html">Объект для визуализации HTML контролов.</param>
+        /// <param name="expr">Выражение для получения значения свойства.</param>
+        /// <param name="emptyObject">Значение по умолчанию, если объект модели равен null.</param>
+        public static string RenderEditableSingle<T, TV>(this T entity, HtmlHelper html, Expression<Func<T, TV>> expr, IList<TV> allObjects, TV emptyObject) 
+            where T : Entity
+            where TV : Entity
+        {
+            var pi = new PropertyInfo<T, TV>(entity, expr, null);
+
+            var sb = new StringBuilder();
+
+            sb.Append("<div class=\"property\">");
+
+            sb.AppendFormat("<label class=\"property-label\" for=\"{0}\">{1}</label>", pi.TagId, pi.Caption);
+
+            sb.Append("<span class=\"property-value\">");
+
+            TV selectedValue = pi.Value != null
+                ? (TV)pi.Value
+                : emptyObject;
+            var list = new SelectList(
+                    new List<TV> { selectedValue } 
+                    .Union(allObjects.Where(x => x.Id != entity.Id).Except(new List<TV> { (TV)pi.Value }))
+                    .Union(new List<TV> { emptyObject }),
+                "Id", "Name", pi.Value);
+
+            sb.Append(html.DropDownList(pi.TagName, list));
+
+            sb.Append("</span>");
+
             if (!String.IsNullOrEmpty(pi.Description))
             {
                 sb.AppendFormat("<div class=\"note\">{0}</div>", pi.Description);
@@ -323,16 +374,14 @@ namespace Beavers.Encounter.Web.HtmlHelpers
         }
 
         private static string BBCodeNote =
-            "<div class=\"note\">" +
-            "В этом поле можно использовать BBCode:<br />" +
-            "[b]<strong>Жирный</strong>[/b]<br />" +
-            "[i]<em>Курсив</em>[/i]<br />" +
-            "[u]<span style=\"text-decoration:underline\">Подчеркнутый</span>[/u]<br />" +
-            "[del]<span style=\"text-decoration:line-through\">Зачеркнутый</span>[/del]<br />" +
-            "[color=Red]<span style=\"color:Red\">Красный (можно любой цвет в формате CSS)</span>[/color]<br />" +
-            "[url]<span><a href=\"http://example.com/sample/page\">http://example.com/sample/page</a></span>[/url]<br />" +
-            "[url=http://example.com/sample/page]<span><a href=\"http://example.com/sample/page\">Пример</a></span>[/url]<br />" +
-            "[img]<span><a href=\"http://example.com/sample/image.jpg\">http://example.com/sample/image.jpg</a></span>[/img]" +
-            "</div>";
+            "<div class=\"note\">В этом поле можно использовать BBCode:</div>" +
+            "<div class=\"note\">[b]<strong>Жирный</strong>[/b]</div>" +
+            "<div class=\"note\">[i]<em>Курсив</em>[/i]</div>" +
+            "<div class=\"note\">[u]<span style=\"text-decoration:underline\">Подчеркнутый</span>[/u]</div>" +
+            "<div class=\"note\">[del]<span style=\"text-decoration:line-through\">Зачеркнутый</span>[/del]</div>" +
+            "<div class=\"note\">[color=Red]<span style=\"color:Red\">Красный</span>[/color]</div>" +
+            "<div class=\"note\">[url]<span><a href=\"http://example.com/sample/page\">http://example.com/sample/page</a></span>[/url]</div>" +
+            "<div class=\"note\">[url=http://example.com/sample/page]<span><a href=\"http://example.com/sample/page\">Пример</a></span>[/url]</div>" +
+            "<div class=\"note\">[img]<span><a href=\"http://example.com/sample/page\">http://example.com/sample/page</a></span>[/img]</div>";
     }
 }

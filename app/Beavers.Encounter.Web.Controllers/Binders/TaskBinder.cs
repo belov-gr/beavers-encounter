@@ -55,6 +55,10 @@ namespace Beavers.Encounter.Web.Controllers.Binders
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             NameValueCollection values = controllerContext.HttpContext.Request.Form;
+            
+            if (values.AllKeys.Contains("id"))
+                return BindCooliteModel(controllerContext, bindingContext);
+
             Task task = fetch ? taskRepository.Get(Convert.ToInt32(values["Task.Id"])) : new Task();
 
             task.Name = values["Task.Name"];
@@ -63,6 +67,10 @@ namespace Beavers.Encounter.Web.Controllers.Binders
             task.Locked = Convert.ToBoolean(values["Task.Locked"].Split(new char[] { ',' })[0]);
             task.TaskType = (TaskTypes)Convert.ToInt32(values["Task.TaskType"]);
             task.Priority = Convert.ToInt32(values["Task.Priority"]);
+            task.GiveTaskAfter = (GiveTaskAfter)Convert.ToInt32(values["Task.GiveTaskAfter"]);
+
+            int afterTaskId = Convert.ToInt32(values["Task.AfterTask"]);
+            task.AfterTask = taskRepository.Get(afterTaskId);
 
             // ----------------------------------
             // Не после
@@ -168,6 +176,47 @@ namespace Beavers.Encounter.Web.Controllers.Binders
             {
                 //task.Game = taskRepository.Get(Convert.ToInt32(values["taskId"]));
             }
+            return task;
+        }
+        public object BindCooliteModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        {
+            NameValueCollection values = controllerContext.HttpContext.Request.Form;
+            fetch = !String.IsNullOrEmpty(values["id"]);
+            Task task = fetch ? taskRepository.Get(Convert.ToInt32(values["Task_Id"])) : new Task();
+
+            task.Name = values["Task_Name"];
+            task.StreetChallendge = values["Task_StreetChallendge"] != null;
+            task.Agents = values["Task_Agents"] != null;
+            task.Locked = values["Task_Locked"] != null;
+            task.TaskType = (TaskTypes)Enum.Parse(typeof(TaskTypes), values["Task_TaskType_Value"]);
+            task.Priority = Convert.ToInt32(values["Task_Priority"]);
+
+            // ----------------------------------
+            // Не после
+            string[] notAfterTasksIds = values["Task_NotAfterTasks"].Split(new char[] { ',' });
+            task.NotAfterTasks.Clear();
+            foreach (string strId in notAfterTasksIds)
+            {
+                if (String.IsNullOrEmpty(strId))
+                    continue;
+                var t = taskRepository.Get(Convert.ToInt32(strId));
+                if (!task.NotAfterTasks.Contains(t))
+                    task.NotAfterTasks.Add(t);
+            }
+
+            // ----------------------------------
+            // Не вместе
+            string[] notOneTimeTasksIds = values["Task_NotOneTimeTasks"].Split(new char[] { ',' });
+            task.NotOneTimeTasks.Clear();
+            foreach (string strId in notOneTimeTasksIds)
+            {
+                if (String.IsNullOrEmpty(strId))
+                    continue;
+                var t = taskRepository.Get(Convert.ToInt32(strId));
+                if (!task.NotOneTimeTasks.Contains(t))
+                    task.NotOneTimeTasks.Add(t);
+            }
+
             return task;
         }
     }

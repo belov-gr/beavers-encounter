@@ -3,6 +3,9 @@
 
 <asp:Content ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
+<h1 style="color:Red">Тестируем <% = Html.ActionLink<GameboardController>(x => x.Show(Model.Game.Id), "новый редактор")%>!</h1>
+<p>Жду пожеланий и отзывов о новом редакторе.</p>
+<br />
     <div class="columnsContainer">
 	    
         <div class="leftColumn">

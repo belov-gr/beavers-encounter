@@ -1,0 +1,118 @@
+﻿.x-panel, .x-panel-noborder {
+	background-color: #000;
+}
+
+.x-panel-body {
+	background: #000 url(/Content/Images/bgMainContent.png) 0 0 repeat-x;
+	background-color: #000;
+}
+
+/* Menu */
+.x-menu a.x-menu-item  {
+	color:Gray;
+}
+.x-menu-item-active a.x-menu-item  {
+	color: #233D6D;
+}
+
+/* Tree */
+.x-tree .x-panel-body { background-color: #000; }
+
+.x-tree-node a span { color: White; }
+
+.x-tree-node .x-tree-node-over a span,
+.x-tree-node .x-tree-selected a span {
+	color: Black;
+}
+
+/* Accordion */
+.x-accordion-hd {
+	color:#15428B;
+	font-weight:bold;
+}
+.x-accordion-hd div.x-tool{
+	float:left;
+	margin-right: 4px;
+	margin-left:0px;
+}
+
+/* Form controls */        
+.x-form-item { color: White; }
+
+textarea.x-form-field, .x-form-field
+{
+	color: White;
+	background: transparent url(/Content/Images/bg.png) 0 0 repeat-x; 
+}
+
+.x-combo-list-inner { background: transparent url(/Content/Images/bg.png) 0 0 repeat-x; }
+
+.x-combo-list-item
+{
+	color: White;
+	border: 0px
+}
+.x-combo-selected
+{
+	color: Black;
+	border: 0px
+}
+.ux-mselect { background: transparent url(/Content/Images/bg.png) 0 0 repeat-x; }
+.ux-mselect-item { border:1px solid #000; }
+
+.editable {
+	color: White;
+	font: 14px Tahoma;
+	padding: 3px 5px;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+.editable-over {
+	background-color: #ffc;
+}
+.x-form-field-editor {
+	font: 12px Tahoma;
+	color: White;
+}
+
+.tip-label{
+	color: White; 
+	font: 12px Verdana; 
+	font-weight: bold;
+	margin-left: 4px;
+}
+
+/* Grid */
+.x-grid3
+{
+    background: transparent url(/Content/Images/bg.png) 0 0 repeat-x;
+    color: White;
+}
+.x-grid3-row 
+{
+    border-style:none;
+    cursor:default;
+}
+
+/* Tips Grid */
+.x-grid3-td-Title {
+    font-family:tahoma, verdana;
+    display:block;
+}
+
+/* Codes Grid */
+.x-grid3-hd-inner {
+    color: Black;
+}
+
+/* Game state RadioGroup */
+#x-form-el-rgGameState div.x-form-radio-wrap
+{
+	padding: 0 0 0 0;
+	line-height: 16px;
+}
+
+#x-form-el-rgGameState div.x-form-item
+{
+	margin-bottom:0px;
+}

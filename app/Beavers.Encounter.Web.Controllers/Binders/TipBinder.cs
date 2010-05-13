@@ -55,11 +55,31 @@ namespace Beavers.Encounter.Web.Controllers.Binders
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             NameValueCollection values = controllerContext.HttpContext.Request.Form;
+            
+            if (values.AllKeys.Contains("id"))
+                return BindCooliteModel(controllerContext, bindingContext);
+
             Tip tip = fetch ? tipRepository.Get(Convert.ToInt32(values["tip.Id"])) : new Tip();
             
             tip.Name = values["tip.Name"];
             tip.SuspendTime = Convert.ToInt32(values["tip.SuspendTime"]);
             
+            if (!fetch)
+            {
+                tip.Task = taskRepository.Get(Convert.ToInt32(values["taskId"]));
+            }
+            return tip;
+        }
+
+        public object BindCooliteModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        {
+            NameValueCollection values = controllerContext.HttpContext.Request.Form;
+            fetch = Convert.ToInt32(values["id"]) != 0;
+            Tip tip = fetch ? tipRepository.Get(Convert.ToInt32(values["tip.Id"])) : new Tip();
+
+            tip.Name = values["tip.Name"];
+            tip.SuspendTime = Convert.ToInt32(values["Tip_SuspendTime_Value"]);
+
             if (!fetch)
             {
                 tip.Task = taskRepository.Get(Convert.ToInt32(values["taskId"]));

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{0270E8A8-2781-4F36-9062-F5FA3D596D70}</ProjectGuid>
     <ProjectTypeGuids>{603c0e0b-db56-11dc-be95-000d561079b0};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,6 +46,14 @@
     <Reference Include="CommonServiceLocator.WindsorAdapter, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\CommonServiceLocator.WindsorAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="Coolite.Ext.Web, Version=0.8.2.2648, Culture=neutral, PublicKeyToken=f58c952e9aa5b80a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Coolite.Ext.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Coolite.Utilities, Version=1.0.0.2622, Culture=neutral, PublicKeyToken=f06596a209371c29, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Coolite.Utilities.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -73,6 +82,10 @@
     <Reference Include="MvcContrib.FluentHtml, Version=0.0.1.960, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\MvcContrib.FluentHtml.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate, Version=2.1.0.3001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -162,14 +175,48 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Gameboard.css" />
+    <Content Include="Content\Help\bbCode.html" />
     <Content Include="Content\Images\bg.png" />
     <Content Include="Content\Images\bgMainContent.png" />
+    <Content Include="Content\Images\logo_aspnetmvc2.png">
+    </Content>
+    <Content Include="Content\Images\logo_coolite.gif">
+    </Content>
+    <Content Include="Content\Images\logo_coolitestudio2.gif">
+    </Content>
+    <Content Include="Content\Images\logo_extJS.png">
+    </Content>
+    <Content Include="Content\Images\logo_fluent.png">
+    </Content>
+    <Content Include="Content\Images\logo_googlecode.png">
+    </Content>
+    <Content Include="Content\Images\logo_mvc-logo-landing-page.png">
+    </Content>
+    <Content Include="Content\Images\logo_nhibernate.gif">
+    </Content>
+    <Content Include="Content\Images\logo_nunit.gif">
+    </Content>
+    <Content Include="Content\Images\logo_rhinomocks.png">
+    </Content>
+    <Content Include="Content\Images\logo_sharparch-large.png">
+    </Content>
     <Content Include="Content\Images\sharp_arch.jpg" />
     <Content Include="Content\Images\sharp_arch_small.gif" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="NHibernate.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\bbcode.js" />
+    <Content Include="Scripts\Gameboard\Bonus.js" />
+    <Content Include="Scripts\Gameboard\Game.js" />
+    <Content Include="Scripts\Gameboard\GameState.js" />
+    <Content Include="Scripts\Gameboard\GameTree.js" />
+    <Content Include="Scripts\Gameboard\Task.js" />
+    <Content Include="Scripts\Gameboard\Tips.js" />
+    <Content Include="Scripts\Gameboard\Utils.js" />
+    <Content Include="Scripts\vswd-ext_2.2.js">
     </Content>
     <Content Include="Views\Account\ChangePassword.aspx" />
     <Content Include="Views\Account\ChangePasswordSuccess.aspx" />
@@ -182,6 +229,15 @@
     <Content Include="Views\Codes\CodeForm.ascx" />
     <Content Include="Views\Codes\Create.aspx" />
     <Content Include="Views\Codes\Edit.aspx" />
+    <Content Include="Views\Gameboard\BonusPanel.ascx" />
+    <Content Include="Views\Gameboard\CodesPanel.ascx" />
+    <Content Include="Views\Gameboard\GameControlWindow.ascx" />
+    <Content Include="Views\Gameboard\GameEditorWindow.ascx" />
+    <Content Include="Views\Gameboard\GamePanel.ascx" />
+    <Content Include="Views\Gameboard\Show.aspx" />
+    <Content Include="Views\Gameboard\TaskPanel.ascx" />
+    <Content Include="Views\Gameboard\TipEditorWindow.ascx" />
+    <Content Include="Views\Gameboard\TipsPanel.ascx" />
     <Content Include="Views\GameService\CalcState.aspx" />
     <Content Include="Views\GameService\Results.aspx" />
     <Content Include="Views\Games\BonusTasks.ascx" />
@@ -267,11 +323,14 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4935</DevelopmentServerPort>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>4860</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://fm4/Beavers.Encounter</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

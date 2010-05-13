@@ -32,6 +32,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Coolite.Ext.Web, Version=0.8.2.35466, Culture=neutral, PublicKeyToken=f58c952e9aa5b80a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Coolite.Ext.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Coolite.Utilities, Version=1.0.0.35073, Culture=neutral, PublicKeyToken=f06596a209371c29, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Coolite.Utilities.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\log4net.dll</HintPath>
@@ -51,6 +59,14 @@
     <Reference Include="MvcContrib.Castle, Version=0.0.1.913, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\MvcContrib.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=3.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.0.3001, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate.Validator, Version=1.0.0.4000, Culture=neutral, PublicKeyToken=70154e18752585bd, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -90,6 +106,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountController.cs" />
+    <Compile Include="Ajax\AjaxFormResult.cs" />
+    <Compile Include="Ajax\AjaxResult.cs" />
+    <Compile Include="Ajax\AjaxStoreResult.cs" />
     <Compile Include="Binders\CodeBinder.cs" />
     <Compile Include="Binders\BonusTaskBinder.cs" />
     <Compile Include="Binders\TaskBinder.cs" />
@@ -102,12 +121,14 @@
     <Compile Include="Filters\CodeOwnerFilter.cs" />
     <Compile Include="Filters\CompressionFilter.cs" />
     <Compile Include="Filters\EntityOwnerFilter.cs" />
+    <Compile Include="Filters\GameboardOwnerFilter.cs" />
     <Compile Include="Filters\GameOwnerFilter.cs.cs" />
     <Compile Include="Filters\LockIfGameStartFilter.cs" />
     <Compile Include="Filters\TaskOwnerFilter.cs" />
     <Compile Include="Filters\TeamGameboardFilter.cs" />
     <Compile Include="Filters\TeamLeadersOnlyAttribute.cs" />
     <Compile Include="Filters\TipOwnerFilter.cs" />
+    <Compile Include="GameboardController.cs" />
     <Compile Include="GameServiceController.cs" />
     <Compile Include="TeamGameboardController.cs" />
     <Compile Include="Filters\AuthenticateFilter.cs" />
@@ -123,6 +144,8 @@
     <Compile Include="TeamsController.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="TipsController.cs" />
+    <Compile Include="Utils\JsonUtils.cs" />
+    <Compile Include="Utils\NHibernateContractResolver.cs" />
     <Compile Include="ViewData\EncounterViewData.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -160,7 +183,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2656</DevelopmentServerPort>
+          <DevelopmentServerPort>3069</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

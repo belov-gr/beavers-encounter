@@ -29,6 +29,10 @@
                     <%= Model.Render<Task>(Html, x => x.GroupTag)%>
 		        </li>
 		        <li>
+                    <%= Model.Render<Task>(Html, x => x.AfterTask)%>
+                    <%= Model.Render<Task>(Html, x => x.GiveTaskAfter)%>
+		        </li>
+		        <li>
 			        <label for="Task_NotAfterTasks">Не после:</label>
                     <span id="Task_NotAfterTasks">
                     <% foreach (Task task in Model.NotAfterTasks) { %>

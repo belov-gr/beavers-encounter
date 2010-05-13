@@ -37,13 +37,6 @@
                         %>
                                 <li><%= Html.ActionLinkForAreas<TeamsController>(c => c.Index(), "Команды")%></li>
                                 <li><%= Html.ActionLinkForAreas<GamesController>(c => c.Index(), "Игры")%></li>
-                                <li><%= Html.ActionLink("Выход", "LogOff", "Account")%></li>
-                        <%
-                            }
-                            else
-                            {
-                        %>
-                                <li><%= Html.ActionLink("Вход", "LogOn", "Account")%></li>                        
                         <%
                             }
                         %>

@@ -30,6 +30,7 @@ namespace Beavers.Encounter.Web.CastleWindsor
                 Component.For<GameStateFilter>().LifeStyle.Transient,
                 Component.For<TeamGameboardFilter>().LifeStyle.Transient,
                 Component.For<GameOwnerFilter>().LifeStyle.Transient,
+                Component.For<GameboardOwnerFilter>().LifeStyle.Transient,
                 Component.For<TaskOwnerFilter>().LifeStyle.Transient,
                 Component.For<TipOwnerFilter>().LifeStyle.Transient,
                 Component.For<CodeOwnerFilter>().LifeStyle.Transient,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Web.Mvc;
 using Beavers.Encounter.Core;
 using Microsoft.Practices.ServiceLocation;
@@ -41,6 +42,10 @@ namespace Beavers.Encounter.Web.Controllers.Binders
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             NameValueCollection values = controllerContext.HttpContext.Request.Form;
+
+            if (values.AllKeys.Contains("id"))
+                return BindCooliteModel(controllerContext, bindingContext);
+
             BonusTask task = fetch ? taskRepository.Get(Convert.ToInt32(values["BonusTask.Id"])) : new BonusTask();
 
             task.Name = values["BonusTask.Name"];
@@ -48,6 +53,21 @@ namespace Beavers.Encounter.Web.Controllers.Binders
             task.StartTime = Convert.ToDateTime(values["BonusTask.StartTime"]);
             task.FinishTime = Convert.ToDateTime(values["BonusTask.FinishTime"]);
             task.IsIndividual = Convert.ToBoolean(values["BonusTask.IsIndividual"].Split(new char[] { ',' })[0]);
+
+            return task;
+        }
+
+        public object BindCooliteModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        {
+            NameValueCollection values = controllerContext.HttpContext.Request.Form;
+            fetch = !String.IsNullOrEmpty(values["id"]);
+            BonusTask task = fetch ? taskRepository.Get(Convert.ToInt32(values["BonusTask.Id"])) : new BonusTask();
+
+            task.Name = values["BonusTask.Name"];
+            task.TaskText = values["BonusTask.TaskText"];
+            task.StartTime = Convert.ToDateTime(values["BonusTask.StartTime"]);
+            task.FinishTime = Convert.ToDateTime(values["BonusTask.FinishTime"]);
+            task.IsIndividual = values["BonusTask.IsIndividual"] != null;
 
             return task;
         }

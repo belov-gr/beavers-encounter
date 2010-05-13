@@ -10,19 +10,26 @@
 
     <% using (Html.BeginForm())
        { %>
-        <p></p>
         <div>
 		    <div>
                 <label for="username">Логин:</label>
-		        <div><%= Html.TextBox("username")%>&nbsp;<%= Html.ValidationMessage("username")%></div>
+		        <div>
+                <%= Html.TextBox("username")%>
+                <%= Html.ValidationMessage("username")%>
+		        </div>
             </div>
+
 		    <div>
                 <label for="password">Пароль:</label>
-		        <div><%= Html.Password("password")%>&nbsp;<%= Html.ValidationMessage("password")%></div>
+		        <div>
+                <%= Html.Password("password")%>
+                <%= Html.ValidationMessage("password")%>
+		        </div>
             </div>
-            <p></p>            
-		    <div><%= Html.CheckBox("rememberMe")%><label for="rememberMe">I'll be back! Запомните меня!</label></div>
-            <p></p>
+
+		    <div>
+            <%= Html.CheckBox("rememberMe")%> <label class="inline" for="rememberMe">Запомнить меня.</label>
+            </div>
             <input type="submit" value="Войти" />
         </div>
     <% } %>

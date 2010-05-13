@@ -1,8 +1,11 @@
-﻿using NHibernate.Validator.Constraints;
+﻿using System;
+using Newtonsoft.Json;
+using NHibernate.Validator.Constraints;
 using SharpArch.Core.DomainModel;
 
 namespace Beavers.Encounter.Core
 {
+    [Serializable]
     public class Role : Entity
     {
         public Role()
@@ -22,6 +25,7 @@ namespace Beavers.Encounter.Core
 
         [DomainSignature]
         [NotNullNotEmpty]
+        [JsonProperty]
         public virtual string Name { get; set; }
 
         public const int AdministratorId = 1;

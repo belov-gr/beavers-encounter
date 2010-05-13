@@ -38,6 +38,8 @@ namespace Beavers.Encounter.Web.Controllers.Filters
         /// <returns></returns>
         protected abstract int GetGameId(TEntity entity);
 
+        protected abstract string GetEntityIdSpecificName();
+
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
         }
@@ -51,6 +53,11 @@ namespace Beavers.Encounter.Web.Controllers.Filters
                 if (filterContext.ActionParameters.ContainsKey("id"))
                 {
                     entityId = Convert.ToInt32(filterContext.ActionParameters["id"]);
+                }
+
+                if (filterContext.ActionParameters.ContainsKey(GetEntityIdSpecificName()))
+                {
+                    entityId = Convert.ToInt32(filterContext.ActionParameters[GetEntityIdSpecificName()]);
                 }
 
                 // Пытаемся получить id объекта из формы

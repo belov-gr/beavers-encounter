@@ -9,6 +9,7 @@ namespace Beavers.Encounter.Web.Controllers
         public static void RegisterRoutesTo(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{exclude}/{coolite}/coolite.axd");
             routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
 
             // The areas below must be registered from greater subareas to fewer;

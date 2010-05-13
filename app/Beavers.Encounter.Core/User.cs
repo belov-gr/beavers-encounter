@@ -1,4 +1,5 @@
 using System.Security.Principal;
+using Newtonsoft.Json;
 using NHibernate.Validator.Constraints;
 using SharpArch.Core.DomainModel;
 using System;
@@ -11,18 +12,23 @@ namespace Beavers.Encounter.Core
 		
 		[DomainSignature]
 		[NotNull, NotEmpty]
-		public virtual string Login { get; set; }
+        [JsonProperty]
+        public virtual string Login { get; set; }
 
 		[NotNull, NotEmpty]
 		public virtual string Password { get; set; }
 
-		public virtual string Nick { get; set; }
+        [JsonProperty]
+        public virtual string Nick { get; set; }
 
-		public virtual string Phone { get; set; }
+        [JsonProperty]
+        public virtual string Phone { get; set; }
 
-		public virtual string Icq { get; set; }
+        [JsonProperty]
+        public virtual string Icq { get; set; }
 
         private Team team;
+        [JsonProperty(IsReference = true, ReferenceLoopHandling = ReferenceLoopHandling.Serialize)]
         public virtual Team Team
         {
             get { return team; }
@@ -53,9 +59,11 @@ namespace Beavers.Encounter.Core
             }
         }
 
+        [JsonProperty]
         public virtual bool IsEnabled { get; set; }
 
         private Role role;
+        [JsonProperty]
         public virtual Role Role
         {
             get
@@ -104,6 +112,11 @@ namespace Beavers.Encounter.Core
         public virtual bool IsInRole(string role)
         {
             return Role.Name.Equals(role);
+        }
+
+        public virtual void SetId(int id)
+        {
+            Id = id;
         }
     }
 

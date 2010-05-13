@@ -19,7 +19,7 @@ using MvcContrib.Filters;
 
 namespace Beavers.Encounter.Web.Controllers
 {
-    [CompressionFilter(Order = 1)]
+
     [Rescue("Default"), Authenticate/*, CopyMessageFromTempDataToViewData*/]
     public class BaseController : Controller
     {

@@ -61,20 +61,17 @@
         <%
         foreach (var taskState in ViewData.Model.TeamGameState.AcceptedTasks)
         { %>
-            <li style="line-height: 1.1em;">
-                <div style="font-weight: bold;">Задание &quot;<%= Html.Encode(taskState.Task.Name) %>&quot;</div> 
-                <div>Получено&nbsp;в</div>
-                <div><%= Html.Encode(taskState.TaskStartTime) %></div>
+            <li>
+                <div>Задание &quot;<%= Html.Encode(taskState.Task.Name) %>&quot;</div> 
+                <div><%= Html.Encode(taskState.TaskStartTime) %> получено</div>
                 <div> 
+                    <%= Html.Encode(taskState.TaskFinishTime) %>
                     <%= taskState.State == (int) TeamTaskStateFlag.Success ? "выполнено" : String.Empty %>
                     <%= taskState.State == (int) TeamTaskStateFlag.Canceled ? "слито" : String.Empty %>
                     <%= taskState.State == (int) TeamTaskStateFlag.Overtime ? "не выполнено" : String.Empty %>
                     <%= taskState.State == (int) TeamTaskStateFlag.Cheat ? "дисквалифицировано" : String.Empty%>
-                &nbsp;в</div>
-                <div><%= Html.Encode(taskState.TaskFinishTime) %></div>
-                <div>за<span class="attention">&nbsp;<%= Html.Encode(taskState.TaskFinishTime - taskState.TaskStartTime)%>.</span><div>
+                </div>
             </li>
-            <p></p>
         <%
         } %>
         </ul>

@@ -3,19 +3,18 @@
 <%
     if (Request.IsAuthenticated) {
 %>
-        <div>Здравствуйте, <b><%= Html.Encode(Page.User.Identity.Name) %></b>!</div>
-        <div>Вы - <b>
-        <%= Html.Encode(Page.User.IsInRole("Administrator") ? "админ" : String.Empty)%>
-        <%= Html.Encode(Page.User.IsInRole("Author") ? "автор" : String.Empty) %>
-        <%= Html.Encode(Page.User.IsInRole("Player") ? "игрок" : String.Empty)%>
-        <%= Html.Encode(Page.User.IsInRole("Guest") ? "гость" : String.Empty)%>
-        <%= Html.Encode(Page.User.IsInRole("TeamLeader") ? "капитан" : String.Empty)%></b>.
-        </div>
+        Здравствуйте, <b><%= Html.Encode(Page.User.Identity.Name) %></b>!
+        <%= Html.Encode(Page.User.IsInRole("Administrator") ? "[Админ]" : String.Empty)%>
+        <%= Html.Encode(Page.User.IsInRole("Author") ? "[Автор]" : String.Empty) %>
+        <%= Html.Encode(Page.User.IsInRole("Player") ? "[Игрок]" : String.Empty)%>
+        <%= Html.Encode(Page.User.IsInRole("Guest") ? "[Гость]" : String.Empty)%>
+        <%= Html.Encode(Page.User.IsInRole("TeamLeader") ? "[Капитан]" : String.Empty)%>
+        <%= Html.ActionLink("Выйти", "LogOff", "Account") %>
 <%
     }
     else {
 %> 
-        <div>Мы знакомы? <%= Html.ActionLink("Войдите", "LogOn", "Account") %></div>
+        <%= Html.ActionLink("Войти", "LogOn", "Account") %>
 <%
     }
 %>

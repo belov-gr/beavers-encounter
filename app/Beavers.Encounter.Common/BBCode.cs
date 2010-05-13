@@ -28,7 +28,7 @@ namespace Beavers.Encounter.Common
             content = MatchReplace(@"\[b\]([^\]]+)\[\/b\]", "<strong>$1</strong>", content);
             content = MatchReplace(@"\[i\]([^\]]+)\[\/i\]", "<em>$1</em>", content);
             content = MatchReplace(@"\[u\]([^\]]+)\[\/u\]", @"<span style=""text-decoration:underline"">$1</span>", content);
-            content = MatchReplace(@"\[del\]([^\]]+)\[\/del\]", @"<span style=""text-decoration:line-through"">$1</span>", content);   
+            content = MatchReplace(@"\[s\]([^\]]+)\[\/s\]", @"<span style=""text-decoration:line-through"">$1</span>", content);   
 
             //// Colors and sizes
             content = MatchReplace(@"\[color=(#[0-9a-fA-F]{6}|[a-z-]+)]([^\]]+)\[\/color\]", @"<span style=""color:$1;"">$2</span>", content);
@@ -80,16 +80,6 @@ namespace Beavers.Encounter.Common
             // Clean up a few potential markup problems
             content = content.Replace("\t", "    ")
                 .Replace("\r\n", "<br />")
-                //.Replace("<br />", "")
-                //.Replace("<p><br />", "</p><p>")
-                //.Replace("</p><p><blockquote>", "<blockquote>")
-                //.Replace("</blockquote></blockquote></p>", "")
-                //.Replace("<p></p>", "")
-                //.Replace("<p><ul></ul></p>", "<ul>")
-                //.Replace("<p></p></ul>", "")
-                //.Replace("<p><ol></ol></p>", "<ol>")
-                //.Replace("<p></p></ol>", "")
-                //.Replace("<p><li>", "</li><li><p>")
                 .Replace("</p></li></p>", "");   
 
             return content;

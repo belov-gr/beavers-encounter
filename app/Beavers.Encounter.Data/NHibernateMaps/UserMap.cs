@@ -12,6 +12,7 @@ namespace Beavers.Encounter.Data
     {
         public void Override(AutoMap<User> mapping)
         {
+            //mapping.Map(x => x.Password).ColumnName("PWD"); /* FireBird */
             mapping.IgnoreProperty(x => x.Identity);
             mapping.IgnoreProperty(x => x.IsAdministrator);
             mapping.IgnoreProperty(x => x.IsAuthor);

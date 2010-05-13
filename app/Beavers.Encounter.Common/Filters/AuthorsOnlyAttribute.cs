@@ -14,7 +14,7 @@ namespace Beavers.Encounter.Common.Filters
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             if (filterContext.RequestContext.HttpContext.Request.UserHostAddress == "127.0.0.1" ||
-                filterContext.RequestContext.HttpContext.Request.UserHostAddress == "195.128.121.92")
+                filterContext.RequestContext.HttpContext.Request.UserHostAddress == "::1")
             {
                 filterContext.Result = null;
             }
