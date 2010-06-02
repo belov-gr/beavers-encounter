@@ -18,8 +18,10 @@
                 <ext:RecordField Name="Canceled"/>
                 <ext:RecordField Name="Cheat"/>
                 <ext:RecordField Name="Tips"/>
-                <ext:RecordField Name="CodesTotal"/>
+                <ext:RecordField Name="CodesMainCount"/>
+                <ext:RecordField Name="CodesBonusCount"/>
                 <ext:RecordField Name="CodesAccpt"/>
+                <ext:RecordField Name="CodesBonusAccpt"/>
             </Fields>
         </ext:JsonReader>        
     </Reader>
@@ -94,15 +96,15 @@
                 </ext:Panel>
             </North>
             <Center>
-                <ext:GridPanel ID="gdTeamsState" runat="server" StoreID="dsTeamsState" DisableSelection="true" Border="false" Title="Панель состояния команд">
+                <ext:GridPanel ID="gdTeamsState" runat="server" StoreID="dsTeamsState" Border="false" Title="Панель состояния команд">
                     <ColumnModel>
                         <Columns>
                             <ext:Column ColumnID="Name" DataIndex="Name" Header="Название<br/>команды">
                                 <Renderer Handler="return '<b>'+record.data['Name']" /> 
                             </ext:Column>
-                            <ext:Column ColumnID="Task" DataIndex="Task" Header="Выполняемое<br/>задание" Sortable="false"></ext:Column>
+                            <ext:Column ColumnID="Task" DataIndex="Task" Header="Выполняемое<br/>задание"></ext:Column>
                             <ext:Column ColumnID="Time" DataIndex="Time" Header="Время<br/>выполнения" Width="75">
-                                <Renderer Format="Substr" FormatArgs="3,8" />
+                                <Renderer Format="Substr" FormatArgs="1,8" />
                             </ext:Column>
                             <ext:Column ColumnID="Accpt" DataIndex="Accpt" Header="Заданий<br/>получено" Width="60"></ext:Column>
                             <ext:Column ColumnID="Success" DataIndex="Success" Header="Заданий<br/>выполнено" Width="60"></ext:Column>
@@ -110,10 +112,15 @@
                             <ext:Column ColumnID="Canceled" DataIndex="Canceled" Header="Заданий<br/>слито" Width="60"></ext:Column>
                             <ext:Column ColumnID="Cheat" DataIndex="Cheat" Header="Заданий<br/>забанено" Width="60"></ext:Column>
                             <ext:Column ColumnID="Tips" DataIndex="Tips" Header="Выдано<br/>подсказок" Width="60" Sortable="false"></ext:Column>
-                            <ext:Column ColumnID="CodesTotal" DataIndex="CodesTotal" Header="Кодов<br/>необходимо" Width="60" Sortable="false"></ext:Column>
+                            <ext:Column ColumnID="CodesMainCount" DataIndex="CodesMainCount" Header="Кодов<br/>необходимо" Width="60" Sortable="false"></ext:Column>
+                            <ext:Column ColumnID="CodesBonusCount" DataIndex="CodesBonusCount" Header="Кодов<br/>бонусных<br/>необходимо" Width="60" Sortable="false"></ext:Column>
                             <ext:Column ColumnID="CodesAccpt" DataIndex="CodesAccpt" Header="Кодов<br/>получено" Width="60" Sortable="false"></ext:Column>
+                            <ext:Column ColumnID="CodesBonusAccpt" DataIndex="CodesBonusAccpt" Header="Кодов<br/>бонусных<br/>получено" Width="60" Sortable="false"></ext:Column>
                         </Columns>
                     </ColumnModel>
+                    <SelectionModel>
+                        <ext:RowSelectionModel runat="server" />
+                    </SelectionModel>
                     <TopBar>
                         <ext:Toolbar>
                             <Items>

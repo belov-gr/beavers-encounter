@@ -491,8 +491,10 @@ namespace Beavers.Encounter.Web.Controllers
                     teamState.Cheat = acceptedTasks.Count(x => x.State == (int)TeamTaskStateFlag.Cheat);
 
                     teamState.Tips = team.TeamGameState.ActiveTaskState.AcceptedTips.Count - 1;
-                    teamState.CodesTotal = team.TeamGameState.ActiveTaskState.Task.Codes.Count;
-                    teamState.CodesAccpt = team.TeamGameState.ActiveTaskState.AcceptedCodes.Count;
+                    teamState.CodesMainCount = team.TeamGameState.ActiveTaskState.Task.Codes.Count(c => c.IsBonus == false);
+                    teamState.CodesBonusCount = team.TeamGameState.ActiveTaskState.Task.Codes.Count(c => c.IsBonus == true);
+                    teamState.CodesAccpt = team.TeamGameState.ActiveTaskState.AcceptedCodes.Count(c => c.Code.IsBonus == false);
+                    teamState.CodesBonusAccpt = team.TeamGameState.ActiveTaskState.AcceptedCodes.Count(c => c.Code.IsBonus == true);
                 }
                 list.Add(teamState);
             }
@@ -580,9 +582,15 @@ namespace Beavers.Encounter.Web.Controllers
         public int Tips { get; set; }
 
         [JsonProperty]
-        public int CodesTotal { get; set; }
+        public int CodesMainCount { get; set; }
+
+        [JsonProperty]
+        public int CodesBonusCount { get; set; }
 
         [JsonProperty]
         public int CodesAccpt { get; set; }
+
+        [JsonProperty]
+        public int CodesBonusAccpt { get; set; }
     }
 }
