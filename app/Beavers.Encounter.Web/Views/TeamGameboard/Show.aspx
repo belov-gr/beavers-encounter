@@ -37,7 +37,30 @@
         <%
             indx++;
         } %>
-        </ul>
+
+        <%
+        // Выводим подсказки от всех введенных кодов           
+        if (Model.ActiveTaskState.AcceptedCodes.Count > 0) {
+           foreach (AcceptedCode acceptedCode in Model.ActiveTaskState.AcceptedCodes)
+        { %>
+            <li>
+            <div style="font-weight:bold">
+                <%String.Format("Подсказка от кода {0}:", acceptedCode.Code.Name)%> 
+                <span class="note">[Получено: <%= acceptedCode.AcceptTime %>]</span>
+            </div>
+            <div>
+            <% if (acceptedCode.Code.AfterInfo != "") {
+                   BBCode.ConvertToHtml(acceptedCode.Code.AfterInfo);
+            }%>
+            </div>
+            </li>
+            <p />
+            <p />
+        <%
+        }
+        } %>
+
+        </ul>     
 
         <%
         // Кнопка для "ускорения" задания. Доступна только для капитана команды.

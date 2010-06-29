@@ -26,6 +26,12 @@ namespace Beavers.Encounter.Core
         [Meta.Description("Строковое поле. Определяет КО кода. Например, 2, +4 или +500.")]
         public virtual string Danger { get; set; }
 
+        [JsonProperty]
+        [Meta.Caption("Подсказка после кода")]
+        [Meta.Description("После того, как код будет введен, этот текст появится сразу за текстом задания (или последней пришедшей подсказки) и будет оформлен как дополнительная подсказка. В тексте можно использовать BBCode.")]
+        [Meta.TextArea(80, 10)]
+        public virtual string AfterInfo { get; set; }
+
 		[NotNull]
 		public virtual Task Task { get; set; }
     }
