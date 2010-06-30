@@ -27,7 +27,7 @@ namespace Beavers.Encounter.Web.Controllers
         public ActionResult Create(int taskId)
         {
             CodeFormViewModel viewModel = CodeFormViewModel.CreateCodeFormViewModel();
-            viewModel.Code = new Code { Name = "НовыйКод", Danger = "1", AfterInfo = ""};
+            viewModel.Code = new Code { Name = "НовыйКод", Danger = "1", codeAfterTip = ""};
             viewModel.TaskId = taskId;
             return View(viewModel);
         }
@@ -85,7 +85,7 @@ namespace Beavers.Encounter.Web.Controllers
 			codeToUpdate.Name = codeFromForm.Name;
 			codeToUpdate.Danger = codeFromForm.Danger;
             codeToUpdate.IsBonus = codeFromForm.IsBonus;
-            codeToUpdate.AfterInfo = codeFromForm.AfterInfo;
+            codeToUpdate.codeAfterTip = codeFromForm.codeAfterTip;
             codeToUpdate.Task = codeFromForm.Task;
         }
 

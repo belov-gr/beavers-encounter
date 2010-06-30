@@ -39,13 +39,13 @@
         } %>
 
         <%
+        
         // Выводим подсказки от всех введенных кодов           
-        if (Model.ActiveTaskState.AcceptedCodes.Count > 0) {
-           foreach (AcceptedCode acceptedCode in Model.ActiveTaskState.AcceptedCodes)
+        foreach (AcceptedCode acceptedCode in Model.ActiveTaskState.AcceptedCodes)
         { %>
             <li>
             <div style="font-weight:bold">
-                <%String.Format("Подсказка от кода {0}:", acceptedCode.Code.Name)%> 
+                <%=String.Format("Подсказка от кода {0}:", acceptedCode.Code.Name)%> 
                 <span class="note">[Получено: <%= acceptedCode.AcceptTime %>]</span>
             </div>
             <div>
@@ -57,7 +57,6 @@
             <p />
             <p />
         <%
-        }
         } %>
 
         </ul>     

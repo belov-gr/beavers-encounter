@@ -14,7 +14,7 @@
     <%= Model.Code.RenderEditable<Code>(Html, x => x.Name) %>
     <%= Model.Code.RenderEditable<Code>(Html, x => x.Danger)%>
     <%= Model.Code.RenderEditable<Code>(Html, x => x.IsBonus)%>
-    <%= Model.Code.RenderEditable<Code>(Html, x => x.AfterInfo)%>
+    <%= Model.Code.RenderEditable<Code>(Html, x => x.codeAfterTip)%>
 
     <div>
         <%= Html.SubmitButton("btnSave", "Сохранить") %>
