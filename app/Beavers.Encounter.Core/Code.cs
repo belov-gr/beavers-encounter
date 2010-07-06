@@ -30,7 +30,7 @@ namespace Beavers.Encounter.Core
         [Meta.Caption("Подсказка после кода")]
         [Meta.Description("После того, как код будет введен, этот текст появится сразу за текстом задания (или последней пришедшей подсказки) и будет оформлен как дополнительная подсказка. В тексте можно использовать BBCode.")]
         [Meta.TextArea(80, 10)]
-        public virtual string codeAfterTip { get; set; }
+        public virtual string TipAfterCode { get; set; }
 
 		[NotNull]
 		public virtual Task Task { get; set; }
