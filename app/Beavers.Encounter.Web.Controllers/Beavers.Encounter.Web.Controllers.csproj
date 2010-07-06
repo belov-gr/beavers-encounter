@@ -144,8 +144,6 @@
     <Compile Include="TeamsController.cs" />
     <Compile Include="BaseController.cs" />
     <Compile Include="TipsController.cs" />
-    <Compile Include="Utils\JsonUtils.cs" />
-    <Compile Include="Utils\NHibernateContractResolver.cs" />
     <Compile Include="ViewData\EncounterViewData.cs" />
   </ItemGroup>
   <ItemGroup>
