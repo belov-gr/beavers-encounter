@@ -49,8 +49,8 @@
                 <span class="note">[Получено: <%= acceptedCode.AcceptTime %>]</span>
             </div>
             <div>
-            <% if (acceptedCode.Code.AfterInfo != "") {
-                   BBCode.ConvertToHtml(acceptedCode.Code.AfterInfo);
+            <% if (!String.IsNullOrEmpty(acceptedCode.Code.TipAfterCode)) {
+                   BBCode.ConvertToHtml(acceptedCode.Code.TipAfterCode);
             }%>
             </div>
             </li>

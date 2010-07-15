@@ -280,31 +280,38 @@ namespace Beavers.Encounter.ApplicationServices
             int taskPoints = 1000;
 
             //--------------------------------------------------------------------
-            // Если задание связано с предыдущим выданным, то +10000 )))
-            if (task.AfterTask != null && task.AfterTask == oldTask)
+            // Если задание связано с предыдущим выданным, то +MaxPoints )))
+            if (task.AfterTask != null)
             {
-                var oldTeamTaskState = teamGameState.AcceptedTasks.Single(x => x.Task == oldTask);
-                if (task.GiveTaskAfter == GiveTaskAfter.Strictly)
-                {
-                    if (oldTeamTaskState.State == (int)TeamTaskStateFlag.Success)
-                    {
-                        return MaxPoints; // Выдать незамедлительно
-                    }
+                if (oldTask == null)
                     return MinPoints; // Не выдавать
-                }
-                if (task.GiveTaskAfter == GiveTaskAfter.StrictlyOrFinaly)
+
+                if (task.AfterTask == oldTask)
                 {
-                    if (oldTeamTaskState.State == (int)TeamTaskStateFlag.Success)
+                    var oldTeamTaskState = teamGameState.AcceptedTasks.First(x => x.Task == oldTask);
+                    if (task.GiveTaskAfter == GiveTaskAfter.Strictly)
+                    {
+                        if (oldTeamTaskState.State == (int)TeamTaskStateFlag.Success)
+                        {
+                            return MaxPoints; // Выдать незамедлительно
+                        }
+                        return MinPoints; // Не выдавать
+                    }
+                    if (task.GiveTaskAfter == GiveTaskAfter.StrictlyOrFinaly)
+                    {
+                        if (oldTeamTaskState.State == (int)TeamTaskStateFlag.Success)
+                        {
+                            return MaxPoints; // Выдать незамедлительно
+                        }
+                        return -1000; // Выдать с наименьшим приоритетом
+
+                    }
+                    if (task.GiveTaskAfter == GiveTaskAfter.InAnyCase)
                     {
                         return MaxPoints; // Выдать незамедлительно
                     }
-                    return -1000; // Выдать с наименьшим приоритетом
-
                 }
-                if (task.GiveTaskAfter == GiveTaskAfter.InAnyCase)
-                {
-                    return MaxPoints; // Выдать незамедлительно
-                }
+                return MinPoints;
             }
 
             //--------------------------------------------------------------------

@@ -137,7 +137,12 @@ namespace Beavers.Encounter.ApplicationServices
                             }
 
                             //Указываем количество потраченных минут.
-                            rows[3][taskState.Task.Name] = Math.Round(((DateTime)taskState.TaskFinishTime - (DateTime)taskState.TaskStartTime).TotalMinutes);
+                            if (taskState.TaskFinishTime != null)
+                            {
+                                rows[3][taskState.Task.Name] =
+                                    Math.Round(((DateTime) taskState.TaskFinishTime - 
+                                         taskState.TaskStartTime).TotalMinutes);
+                            }
 
                             //Указываем итог задания.
                             if (taskState.TaskFinishTime != null)
