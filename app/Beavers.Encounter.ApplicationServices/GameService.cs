@@ -133,7 +133,7 @@ namespace Beavers.Encounter.ApplicationServices
                             //Выписываем все коды
                             foreach (AcceptedCode code in taskState.AcceptedCodes)
                             {
-                                rows[2][taskState.Task.Name] = String.Format("{0} {1}({2})", rows[3][taskState.Task.Name], code.Code.Name, code.AcceptTime.TimeOfDay);
+                                rows[2][taskState.Task.Name] = String.Format("{0} {1}({2})", rows[2][taskState.Task.Name], code.Code.Name, code.AcceptTime.TimeOfDay);
                             }
 
                             //Указываем количество потраченных минут.
