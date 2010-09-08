@@ -50,7 +50,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             RedirectToRouteResult redirectResult = controller.Create(codeFromForm)
                 .AssertActionRedirect().ToAction("Edit");
             controller.TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()].ToString()
-				.ShouldContain("was successfully created");
+                .ShouldContain("успешно создан");
         }
 
         [Test]
@@ -60,7 +60,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             RedirectToRouteResult redirectResult = controller.Edit(codeFromForm)
                 .AssertActionRedirect().ToAction("Edit");
             controller.TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()].ToString()
-				.ShouldContain("was successfully updated");
+                .ShouldContain("успешно изменен");
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
                 .AssertActionRedirect().ToAction("Edit");
             
             controller.TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()].ToString()
-				.ShouldContain("was successfully deleted");
+                .ShouldContain("успешно удален");
         }
 
 		#region Create Mock Code Repository

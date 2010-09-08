@@ -38,10 +38,16 @@ namespace Beavers.Encounter.Web.Controllers
             //);
             
             // Routing config for the root area
-            routes.CreateArea("Root", "Beavers.Encounter.Web.Controllers",
-                routes.MapRoute(null, "{controller}/{action}", new { controller = "Home", action = "Index" }),
-                routes.MapRoute(null, "{controller}/{action}/{id}")
+            routes.MapRoute(
+                "Default",                                              // Route name
+                "{controller}/{action}/{id}",                           // URL with parameters
+                new { controller = "Home", action = "Index", id = UrlParameter.Optional }  // Parameter defaults
             );
+
+            //routes.CreateArea("Root", "Beavers.Encounter.Web.Controllers",
+            //    routes.MapRoute(null, "{controller}/{action}", new { controller = "Home", action = "Index" }),
+            //    routes.MapRoute(null, "{controller}/{action}/{id}")
+            //);
         }
     }
 }

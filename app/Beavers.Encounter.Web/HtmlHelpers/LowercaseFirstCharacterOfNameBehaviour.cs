@@ -3,11 +3,11 @@ using MvcContrib.FluentHtml.Elements;
 
 namespace Beavers.Encounter.Web.HtmlHelpers
 {
-    public class LowercaseFirstCharacterOfNameBehaviour : IMemberBehavior
+    public class LowercaseFirstCharacterOfNameBehaviour : IBehavior<IMemberElement>
     {
         public void Execute(IMemberElement element)
         {
-            string name = null;
+            string name;
             if (element.Builder.Attributes.TryGetValue("name", out name) && !string.IsNullOrEmpty(name))
             {
                 name = name[0].ToString().ToLower() + name.Substring(1);

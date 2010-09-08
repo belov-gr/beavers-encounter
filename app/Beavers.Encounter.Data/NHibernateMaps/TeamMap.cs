@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Beavers.Encounter.Core;
-using FluentNHibernate.AutoMap;
-using FluentNHibernate.AutoMap.Alterations;
+﻿using Beavers.Encounter.Core;
+using FluentNHibernate.Automapping;
+using FluentNHibernate.Automapping.Alterations;
 
 namespace Beavers.Encounter.Data.NHibernateMaps
 {
     public class TeamMap : IAutoMappingOverride<Team>
     {
-        public void Override(AutoMap<Team> mapping)
+        public void Override(AutoMapping<Team> mapping)
         {
             mapping.References(x => x.Game, "Id")
-                .WithForeignKey();
+                .ForeignKey();
 
             mapping.References(x => x.TeamLeader);
 
@@ -21,9 +17,9 @@ namespace Beavers.Encounter.Data.NHibernateMaps
             mapping.HasMany(x => x.Users);
 
             mapping.HasManyToMany(x => x.PreventTasksAfterTeams)
-                .WithTableName("PreventTeams")
-                .WithChildKeyColumn("TeamFk")
-                .WithParentKeyColumn("TeamRefFk");
+                .Table("PreventTeams")
+                .ChildKeyColumn("TeamFk")
+                .ParentKeyColumn("TeamRefFk");
         }
     }
 }

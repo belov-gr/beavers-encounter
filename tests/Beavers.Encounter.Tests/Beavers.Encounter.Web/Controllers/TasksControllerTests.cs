@@ -69,7 +69,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             Task taskFromForm = CreateTransientTask();
             RedirectToRouteResult redirectResult = controller.Create(taskFromForm)
                 .AssertActionRedirect().ToAction("Edit");
-            controller.Message.ShouldContain("was successfully created");
+            controller.Message.ShouldContain("успешно создано");
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             EntityIdSetter.SetIdOf<int>(taskFromForm, 1);
             RedirectToRouteResult redirectResult = controller.Edit(taskFromForm)
                 .AssertActionRedirect().ToAction("Edit");
-            controller.Message.ShouldContain("was successfully updated");
+            controller.Message.ShouldContain("успешно изменено");
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             RedirectToRouteResult redirectResult = controller.Delete(1)
                 .AssertActionRedirect().ToAction("Edit");
 
-            controller.Message.ShouldContain("was successfully deleted");
+            controller.Message.ShouldContain("успешно удалено");
         }
 
 		#region Create Mock Task Repository

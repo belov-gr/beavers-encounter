@@ -1,19 +1,13 @@
 ﻿using FluentNHibernate.Conventions;
-using FluentNHibernate.Mapping;
+using FluentNHibernate.Conventions.Instances;
 
 namespace Beavers.Encounter.Data.NHibernateMaps.Conventions
 {
     public class HasManyConvention : IHasManyConvention
     {
-        public bool Accept(IOneToManyPart oneToManyPart)
+        public void Apply(IOneToManyCollectionInstance instance)
         {
-            return true;
-        }
-
-        public void Apply(IOneToManyPart oneToManyPart)
-        {
-            oneToManyPart.KeyColumnNames.Clear();
-            oneToManyPart.KeyColumnNames.Add(oneToManyPart.EntityType.Name + "Fk");
+            instance.Key.Column(instance.EntityType.Name + "Fk");
         }
     }
 }

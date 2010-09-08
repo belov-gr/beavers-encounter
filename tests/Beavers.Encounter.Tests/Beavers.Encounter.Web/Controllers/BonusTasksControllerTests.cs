@@ -21,6 +21,8 @@ namespace Tests.Beavers.Encounter.Web.Controllers
         public void SetUp() {
             ServiceLocatorInitializer.Init();
             controller = new BonusTasksController(CreateMockBonusTaskRepository(), MockRepository.GenerateMock<IUserRepository>());
+            controller.ControllerContext = new MvcFakes.FakeControllerContext(controller, 
+                new User { Login = "Test", Game = new Game()});
         }
 
         [Test]
@@ -54,9 +56,9 @@ namespace Tests.Beavers.Encounter.Web.Controllers
         public void CanCreateBonusTask() {
             BonusTask bonusTaskFromForm = CreateTransientBonusTask();
             RedirectToRouteResult redirectResult = controller.Create(bonusTaskFromForm)
-                .AssertActionRedirect().ToAction("Index");
+                .AssertActionRedirect().ToAction("Edit");
             controller.TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()].ToString()
-				.ShouldContain("was successfully created");
+                .ShouldContain("успешно создано");
         }
 
         [Test]
@@ -64,9 +66,9 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             BonusTask bonusTaskFromForm = CreateTransientBonusTask();
             EntityIdSetter.SetIdOf<int>(bonusTaskFromForm, 1);
             RedirectToRouteResult redirectResult = controller.Edit(bonusTaskFromForm)
-                .AssertActionRedirect().ToAction("Index");
+                .AssertActionRedirect().ToAction("Edit");
             controller.TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()].ToString()
-				.ShouldContain("was successfully updated");
+                .ShouldContain("успешно изменено");
         }
 
         [Test]
@@ -81,10 +83,10 @@ namespace Tests.Beavers.Encounter.Web.Controllers
         [Test]
         public void CanDeleteBonusTask() {
             RedirectToRouteResult redirectResult = controller.Delete(1)
-                .AssertActionRedirect().ToAction("Index");
+                .AssertActionRedirect().ToAction("Edit");
             
             controller.TempData[ControllerEnums.GlobalViewDataProperty.PageMessage.ToString()].ToString()
-				.ShouldContain("was successfully deleted");
+                .ShouldContain("успешно удалено");
         }
 
 		#region Create Mock BonusTask Repository

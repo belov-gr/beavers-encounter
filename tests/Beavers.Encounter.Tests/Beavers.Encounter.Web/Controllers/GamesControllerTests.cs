@@ -85,7 +85,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             Game gameFromForm = CreateTransientGame();
             RedirectToRouteResult redirectResult = controller.Create(gameFromForm)
                 .AssertActionRedirect().ToAction("Index");
-            controller.Message.ShouldContain("was successfully created");
+            controller.Message.ShouldContain("успешно создана");
         }
 
         [Test]
@@ -94,7 +94,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             EntityIdSetter.SetIdOf<int>(gameFromForm, 1);
             RedirectToRouteResult redirectResult = controller.Edit(gameFromForm)
                 .AssertActionRedirect().ToAction("Index");
-            controller.Message.ShouldContain("was successfully updated");
+            controller.Message.ShouldContain("успешно изменена");
         }
 
         [Test]
@@ -111,8 +111,8 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             testContext.TestContext.Context.User = user;
             RedirectToRouteResult redirectResult = controller.Delete(1)
                 .AssertActionRedirect().ToAction("Index");
-            
-            controller.Message.ShouldContain("was successfully deleted");
+
+            controller.Message.ShouldContain("успешно удалена");
         }
 
 		#region Create Mock Game Repository

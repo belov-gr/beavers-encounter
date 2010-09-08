@@ -1,20 +1,15 @@
 ﻿using FluentNHibernate.Conventions;
-using FluentNHibernate.Mapping;
+using FluentNHibernate.Conventions.Instances;
 
 namespace Beavers.Encounter.Data.NHibernateMaps.Conventions
 {
     public class PrimaryKeyConvention : IIdConvention
     {
-        public bool Accept(IIdentityPart id)
+        public void Apply(IIdentityInstance instance)
         {
-            return true;
-        }
-
-        public void Apply(IIdentityPart id)
-        {
-            id.ColumnName("Id")
-                .WithUnsavedValue(0)
-                .GeneratedBy.Identity();
+            instance.Column("Id");
+            instance.UnsavedValue("0");
+            instance.GeneratedBy.Identity();
         }
     }
 }

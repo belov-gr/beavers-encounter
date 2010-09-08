@@ -82,7 +82,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             Team teamFromForm = CreateTransientTeam();
             RedirectToRouteResult redirectResult = controller.Create(teamFromForm)
                 .AssertActionRedirect().ToAction("Index");
-            controller.Message.ShouldContain("was successfully created");
+            controller.Message.ShouldContain("успешно создана");
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             EntityIdSetter.SetIdOf<int>(teamFromForm, 1);
             RedirectToRouteResult redirectResult = controller.Edit(teamFromForm)
                 .AssertActionRedirect().ToAction("Index");
-            controller.Message.ShouldContain("was successfully updated");
+            controller.Message.ShouldContain("успешно изменена");
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             RedirectToRouteResult redirectResult = controller.Delete(1)
                 .AssertActionRedirect().ToAction("Index");
 
-            controller.Message.ShouldContain("was successfully deleted");
+            controller.Message.ShouldContain("успешно удалена");
         }
 
 		#region Create Mock Team Repository

@@ -1,18 +1,12 @@
 ﻿using FluentNHibernate.Conventions;
-using FluentNHibernate.Mapping;
 
 namespace Beavers.Encounter.Data.NHibernateMaps.Conventions
 {
     public class TableNameConvention : IClassConvention
     {
-        public bool Accept(IClassMap classMap)
+        public void Apply(FluentNHibernate.Conventions.Instances.IClassInstance instance)
         {
-            return true;
-        }
-
-        public void Apply(IClassMap classMap)
-        {
-            classMap.WithTable(Inflector.Net.Inflector.Pluralize(classMap.EntityType.Name));
+            instance.Table(Inflector.Net.Inflector.Pluralize(instance.EntityType.Name));
         }
     }
 }

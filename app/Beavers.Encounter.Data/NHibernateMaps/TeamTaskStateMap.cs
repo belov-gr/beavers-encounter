@@ -1,15 +1,15 @@
 ﻿using Beavers.Encounter.Core;
-using FluentNHibernate.AutoMap;
-using FluentNHibernate.AutoMap.Alterations;
+using FluentNHibernate.Automapping;
+using FluentNHibernate.Automapping.Alterations;
 
 namespace Beavers.Encounter.Data.NHibernateMaps
 {
     public class TeamTaskStateMap : IAutoMappingOverride<TeamTaskState>
     {
-        public void Override(AutoMap<TeamTaskState> mapping)
+        public void Override(AutoMapping<TeamTaskState> mapping)
         {
             mapping.References(x => x.NextTask)
-                .WithColumns("NextTaskFk")
+                .Columns("NextTaskFk")
                 .Nullable();
 
             mapping.HasMany(x => x.AcceptedTips).Inverse().Cascade.Delete();

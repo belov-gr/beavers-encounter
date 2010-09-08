@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Web.Mvc;
-using Microsoft.Web.Mvc.Internal;
 
 namespace Beavers.Encounter.Common.MvcContrib
 {
@@ -18,7 +14,7 @@ namespace Beavers.Encounter.Common.MvcContrib
 
         public static RedirectToRouteResult RedirectToAction<T>(this Controller controller, Expression<Action<T>> action) where T : Controller
         {
-            return new RedirectToRouteResult(ExpressionHelper.GetRouteValuesFromExpression<T>(action));
+            return new RedirectToRouteResult(Microsoft.Web.Mvc.Internal.ExpressionHelper.GetRouteValuesFromExpression<T>(action));
         }
 
         public static RedirectToRouteResult RedirectToAction<T>(this T controller, Expression<Action<T>> action) where T : Controller

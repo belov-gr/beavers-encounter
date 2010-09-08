@@ -49,7 +49,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             Tip tipFromForm = CreateTransientTip();
             RedirectToRouteResult redirectResult = controller.Create(tipFromForm)
                 .AssertActionRedirect().ToAction("Edit");
-            controller.Message.ShouldContain("was successfully created");
+            controller.Message.ShouldContain("успешно создана");
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             EntityIdSetter.SetIdOf<int>(tipFromForm, 1);
             RedirectToRouteResult redirectResult = controller.Edit(tipFromForm)
                 .AssertActionRedirect().ToAction("Edit");
-            controller.Message.ShouldContain("was successfully updated");
+            controller.Message.ShouldContain("успешно изменена");
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace Tests.Beavers.Encounter.Web.Controllers
             RedirectToRouteResult redirectResult = controller.Delete(1)
                 .AssertActionRedirect().ToAction("Edit");
 
-            controller.Message.ShouldContain("was successfully deleted");
+            controller.Message.ShouldContain("успешно удалена");
         }
 
 		#region Create Mock Tip Repository

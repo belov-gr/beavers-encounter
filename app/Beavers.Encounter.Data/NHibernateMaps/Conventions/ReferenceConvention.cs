@@ -1,18 +1,13 @@
 ﻿using FluentNHibernate.Conventions;
-using FluentNHibernate.Mapping;
+using FluentNHibernate.Conventions.Instances;
 
 namespace Beavers.Encounter.Data.NHibernateMaps.Conventions
 {
     public class ReferenceConvention : IReferenceConvention
     {
-        public bool Accept(IManyToOnePart manyToOnePart)
+        public void Apply(IManyToOneInstance instance)
         {
-            return true;
-        }
-
-        public void Apply(IManyToOnePart manyToOnePart)
-        {
-            manyToOnePart.ColumnName(manyToOnePart.Property.Name + "Fk");
+            instance.Column(instance.Property.Name + "Fk");
         }
     }
 }

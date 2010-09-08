@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
 using FluentNHibernate;
-using FluentNHibernate.AutoMap;
+using FluentNHibernate.Automapping;
 using FluentNHibernate.Conventions;
-using SharpArch.Core.DomainModel;
-using SharpArch.Data.NHibernate.FluentNHibernate;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Data.NHibernateMaps.Conventions;
+using SharpArch.Core.DomainModel;
+using SharpArch.Data.NHibernate.FluentNHibernate;
 
 namespace Beavers.Encounter.Data.NHibernateMaps
 {
@@ -14,14 +14,13 @@ namespace Beavers.Encounter.Data.NHibernateMaps
     {
         public AutoPersistenceModel Generate()
         {
-            AutoPersistenceModel mappings = AutoPersistenceModel
-                // If you delete the default class, simply point the following line to an entity within the .Core layer
-                .MapEntitiesFromAssemblyOf<User>()
-                .Where(GetAutoMappingFilter)
-                .ConventionDiscovery.Setup(GetConventions())
-                .WithSetup(GetSetup())
-                .UseOverridesFromAssemblyOf<AutoPersistenceModelGenerator>();
-
+            var mappings = new AutoPersistenceModel();
+            mappings.AddEntityAssembly(typeof(User).Assembly).Where(GetAutoMappingFilter);
+            mappings.Conventions.Setup(GetConventions());
+            mappings.Setup(GetSetup());
+            mappings.IgnoreBase<Entity>();
+            mappings.IgnoreBase(typeof(EntityWithTypedId<>));
+            mappings.UseOverridesFromAssemblyOf<AutoPersistenceModelGenerator>();
             return mappings;
         }
 
@@ -30,7 +29,6 @@ namespace Beavers.Encounter.Data.NHibernateMaps
             return c =>
             {
                 c.FindIdentity = type => type.Name == "Id";
-                c.IsBaseType = IsBaseTypeConvention;
             };
         }
 
@@ -52,15 +50,6 @@ namespace Beavers.Encounter.Data.NHibernateMaps
         {
             return t.GetInterfaces().Any(x =>
                  x.IsGenericType && x.GetGenericTypeDefinition() == typeof(IEntityWithTypedId<>));
-        }
-
-        private bool IsBaseTypeConvention(Type arg)
-        {
-            bool derivesFromEntity = arg == typeof(Entity);
-            bool derivesFromEntityWithTypedId = arg.IsGenericType &&
-                (arg.GetGenericTypeDefinition() == typeof(EntityWithTypedId<>));
-
-            return derivesFromEntity || derivesFromEntityWithTypedId;
         }
     }
 }

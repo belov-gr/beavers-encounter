@@ -1,13 +1,12 @@
-﻿using NUnit.Framework;
-using SharpArch.Testing.NHibernate;
-using SharpArch.Testing.NUnit.NHibernate;
-using SharpArch.Data.NHibernate;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NHibernate;
 using NHibernate.Metadata;
-using System;
+using NUnit.Framework;
 using Beavers.Encounter.Data.NHibernateMaps;
+using SharpArch.Data.NHibernate;
+using SharpArch.Testing.NHibernate;
+using NHibernate.Cfg;
+using NHibernate.Tool.hbm2ddl;
 
 namespace Tests.Beavers.Encounter.Data.NHibernateMaps
 {
@@ -26,31 +25,41 @@ namespace Tests.Beavers.Encounter.Data.NHibernateMaps
         public virtual void SetUp()
         {
             string[] mappingAssemblies = RepositoryTestsHelper.GetMappingAssemblies();
-            NHibernateSession.Init(new SimpleSessionStorage(), mappingAssemblies,
-                new AutoPersistenceModelGenerator().Generate(),
-                "../../../../app/Beavers.Encounter.Web/NHibernate.config");
+            configuration = NHibernateSession.Init(new SimpleSessionStorage(), mappingAssemblies,
+                                   new AutoPersistenceModelGenerator().Generate(),
+                                   "../../../../app/Beavers.Encounter.Web/NHibernate.config");
+        }
+
+        [TearDown]
+        public virtual void TearDown()
+        {
+            NHibernateSession.CloseAllSessions();
+            NHibernateSession.Reset();
         }
 
         [Test]
         public void CanConfirmDatabaseMatchesMappings()
         {
             IDictionary<string, IClassMetadata> allClassMetadata =
-                NHibernateSession.SessionFactory.GetAllClassMetadata();
+                NHibernateSession.GetDefaultSessionFactory().GetAllClassMetadata();
 
-            foreach (KeyValuePair<string, IClassMetadata> entry in allClassMetadata)
+            foreach (var entry in allClassMetadata)
             {
                 NHibernateSession.Current.CreateCriteria(entry.Value.GetMappedClass(EntityMode.Poco))
                      .SetMaxResults(0).List();
             }
         }
 
-        [TearDown]
-        public virtual void TearDown()
+        /// <summary>
+        /// Generates and outputs the database schema SQL to the console
+        /// </summary>
+        [Test]
+        public void CanGenerateDatabaseSchema()
         {
-            if (NHibernateSession.Storage.Session != null)
-            {
-                NHibernateSession.Storage.Session.Dispose();
-            }
+            var session = NHibernateSession.GetDefaultSessionFactory().OpenSession();
+            new SchemaExport(configuration).Execute(true, false, false, session.Connection, null);
         }
+
+        private Configuration configuration;
     }
 }

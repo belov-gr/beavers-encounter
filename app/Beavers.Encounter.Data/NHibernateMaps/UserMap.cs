@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Beavers.Encounter.Core;
-using FluentNHibernate.AutoMap;
-using FluentNHibernate.AutoMap.Alterations;
+﻿using Beavers.Encounter.Core;
+using FluentNHibernate.Automapping;
+using FluentNHibernate.Automapping.Alterations;
 
-namespace Beavers.Encounter.Data
+namespace Beavers.Encounter.Data.NHibernateMaps
 {
     public class UserMap : IAutoMappingOverride<User>
     {
-        public void Override(AutoMap<User> mapping)
+        public void Override(AutoMapping<User> mapping)
         {
             //mapping.Map(x => x.Password).ColumnName("PWD"); /* FireBird */
             mapping.IgnoreProperty(x => x.Identity);
