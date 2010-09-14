@@ -67,6 +67,7 @@ namespace Beavers.Encounter.Web.Controllers.Binders
             task.Locked = Convert.ToBoolean(values["Task.Locked"].Split(new char[] { ',' })[0]);
             task.TaskType = (TaskTypes)Convert.ToInt32(values["Task.TaskType"]);
             task.Priority = Convert.ToInt32(values["Task.Priority"]);
+            task.GroupTag = Convert.ToInt32(values["Task.GroupTag"]);
             task.GiveTaskAfter = (GiveTaskAfter)Convert.ToInt32(values["Task.GiveTaskAfter"]);
 
             int afterTaskId = Convert.ToInt32(values["Task.AfterTask"]);

@@ -42,20 +42,21 @@
         
         // Выводим подсказки от всех введенных кодов           
         foreach (AcceptedCode acceptedCode in Model.ActiveTaskState.AcceptedCodes)
-        { %>
-            <li>
-            <div style="font-weight:bold">
-                <%=String.Format("Подсказка от кода {0}:", acceptedCode.Code.Name)%> 
-                <span class="note">[Получено: <%= acceptedCode.AcceptTime %>]</span>
-            </div>
-            <div>
-            <% if (!String.IsNullOrEmpty(acceptedCode.Code.TipAfterCode)) {
-                   BBCode.ConvertToHtml(acceptedCode.Code.TipAfterCode);
-            }%>
-            </div>
-            </li>
-            <p />
-            <p />
+        {
+            if (!String.IsNullOrEmpty(acceptedCode.Code.TipAfterCode))
+            { %>
+                <li>
+                <div style="font-weight:bold">
+                    <%=String.Format("Подсказка от кода {0}:", acceptedCode.Code.Name)%> 
+                    <span class="note">[Получено: <%= acceptedCode.AcceptTime %>]</span>
+                </div>
+                <div>
+                   <%= BBCode.ConvertToHtml(acceptedCode.Code.TipAfterCode) %>
+                </div>
+                </li>
+                <p />
+                <p />
+            <% } %>
         <%
         } %>
 
