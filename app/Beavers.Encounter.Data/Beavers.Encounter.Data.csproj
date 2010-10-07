@@ -102,6 +102,7 @@
     <Compile Include="NHibernateMaps\Conventions\ReferenceConvention.cs" />
     <Compile Include="NHibernateMaps\Conventions\TableNameConvention.cs" />
     <Compile Include="NHibernateMaps\GameMap.cs" />
+    <Compile Include="NHibernateMaps\RoleMap.cs" />
     <Compile Include="NHibernateMaps\TaskMap.cs" />
     <Compile Include="NHibernateMaps\TeamGameStateMap.cs" />
     <Compile Include="NHibernateMaps\TeamMap.cs" />
