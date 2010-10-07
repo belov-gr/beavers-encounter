@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NHibernateMaps\AutoPersistenceModelGenerator.cs" />
+    <Compile Include="NHibernateMaps\BeaversEncounterMappingConfiguration.cs" />
     <Compile Include="NHibernateMaps\Conventions\HasManyConvention.cs" />
     <Compile Include="NHibernateMaps\Conventions\PrimaryKeyConvention.cs" />
     <Compile Include="NHibernateMaps\Conventions\ReferenceConvention.cs" />
