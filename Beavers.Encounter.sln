@@ -20,7 +20,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{11B849C6-F2C4-4B14-A388-B0AED4284A98}"
 	ProjectSection(SolutionItems) = preProject
 		lib\Antlr3.Runtime.dll = lib\Antlr3.Runtime.dll
-		lib\Beavers.Encounter.ServerInterface.dll = lib\Beavers.Encounter.ServerInterface.dll
 		lib\Castle.Core.dll = lib\Castle.Core.dll
 		lib\Castle.DynamicProxy2.dll = lib\Castle.DynamicProxy2.dll
 		lib\Castle.MicroKernel.dll = lib\Castle.MicroKernel.dll
