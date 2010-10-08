@@ -1,22 +1,25 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
-using Beavers.Encounter.Core;
-using Beavers.Encounter.ServerInterface;
-using SharpArch.Core;
-using SharpArch.Core.PersistenceSupport;
-using log4net;
 using System.Threading;
 using System.Web;
-using System.IO;
+using log4net;
+using SharpArch.Core;
+using SharpArch.Core.PersistenceSupport;
+
+using Beavers.Encounter.Core;
 
 namespace Beavers.Encounter.ApplicationServices
 {
     public sealed class GameDemon
     {
-        private int gameId;
+        private readonly int gameId;
         private readonly IGameService gameService;
         private readonly IRepository<Game> gameRepository;
         private Timer timer;
+        
+        private static int Doers;
+        private static DateTime LastUpdate = DateTime.Now;
 
         public GameDemon(int gameId, IRepository<Game> gameRepository, IGameService gameService)
         {
@@ -31,8 +34,9 @@ namespace Beavers.Encounter.ApplicationServices
         public void Start()
         {
             Check.Require(timer == null, "timer must be null");
-
-            timer = new Timer(GameDemonCallback, null, new TimeSpan(0, 0, 0), new TimeSpan(0, 0, 30));
+            
+            // Запускаем пересчет каждые 3 секунды
+            timer = new Timer(GameDemonCallback, null, new TimeSpan(0, 0, 0), new TimeSpan(0, 0, 3));
         }
 
         public void Stop()
@@ -44,14 +48,39 @@ namespace Beavers.Encounter.ApplicationServices
             }
         }
 
-        private void SetDummyHttpContext()
+        public void GameDemonCallback(object o)
         {
-            HttpContext.Current = new HttpContext(
-                new HttpRequest("file", "http://local", "queryString"),
-                new HttpResponse(new StringWriter()));
+            // TODO: Сделать блокировку доступа к полю LastUpdate
+            if ((DateTime.Now - LastUpdate).TotalSeconds < 2)
+            {
+                // Не позволяем производить пересчет состояния чаще 2 секунд
+                return;
+            }
+
+            if (Doers > 0)
+            {
+                LogManager.GetLogger("LogToFile").Warn(String.Format("Ахтунг!!! Doers = {0}", Doers));
+            }
+
+            // TODO: Сделать блокировку доступа к полю Doers
+            try
+            {
+                Doers++;
+
+                RecalcGameState();
+            }
+            catch (Exception e)
+            {
+                LogManager.GetLogger("LogToFile").Warn(String.Format("Ахтунг ошибка!!! Doers = {0}, {1}", Doers, e));
+            }
+            finally
+            {
+                Doers--;
+                LastUpdate = DateTime.Now;
+            }
         }
 
-        public void GameDemonCallback(object o)
+        private void RecalcGameState()
         {
             SetDummyHttpContext();
 
@@ -69,7 +98,14 @@ namespace Beavers.Encounter.ApplicationServices
                     CheckExceededBadCodes(team.TeamGameState);
                     CheckForNextTip(team.TeamGameState);
                 }
-            } 
+            }
+        }
+
+        private static void SetDummyHttpContext()
+        {
+            HttpContext.Current = new HttpContext(
+                new HttpRequest("file", "http://local", "queryString"),
+                new HttpResponse(new StringWriter()));
         }
 
         private void CheckForGameFinish(Game game)
