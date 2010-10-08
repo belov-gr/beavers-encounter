@@ -85,6 +85,8 @@ namespace Beavers.Encounter.Web
         /// </summary>
         private void InitializeNHibernateSession()
         {
+            NHibernateSession.ConfigurationCache = new NHibernateConfigurationFileCache(
+                new string[] { "Beavers.Encounter.Core" });
             NHibernateSession.Init(
                 webSessionStorage,
                 new string[] { Server.MapPath("~/bin/Beavers.Encounter.Data.dll") },

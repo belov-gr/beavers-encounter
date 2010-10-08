@@ -1,14 +1,17 @@
 using System.Data;
 using System.Web.Mvc;
+using System.Collections.Generic;
+
+using SharpArch.Core;
+using SharpArch.Core.PersistenceSupport;
+using SharpArch.Web.NHibernate;
+
+using Beavers.Encounter.Common.Filters;
+using Beavers.Encounter.Common.MvcContrib;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Core.DataInterfaces;
-using Beavers.Encounter.Web.Controllers.Filters;
-using SharpArch.Core.PersistenceSupport;
-using System.Collections.Generic;
-using SharpArch.Web.NHibernate;
-using SharpArch.Core;
-using Beavers.Encounter.Common.MvcContrib;
 using Beavers.Encounter.ApplicationServices;
+using Beavers.Encounter.Web.Controllers.Filters;
 
 namespace Beavers.Encounter.Web.Controllers
 {
@@ -105,12 +108,14 @@ namespace Beavers.Encounter.Web.Controllers
             return View(viewModel);
         }
 
+        [AdministratorsOnly]
         public ActionResult Create()
         {
             GameFormViewModel viewModel = GameFormViewModel.CreateGameFormViewModel();
             return View(viewModel);
         }
 
+        [AdministratorsOnly]
         [ValidateAntiForgeryToken]
         [Transaction]
         [AcceptVerbs(HttpVerbs.Post)]

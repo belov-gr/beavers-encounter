@@ -24,18 +24,6 @@ namespace Beavers.Encounter.Web.Controllers
         }
 
         [AuthorsOnly]
-        [Transaction]
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult CalcState(int id)
-        {
-            gameService.Do(id);
-
-            GameServiceViewModel model = GameServiceViewModel.CreateGameServiceViewModel();
-            model.GameId = id;
-            return View(model);
-        }
-
-        [AuthorsOnly]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult GetState(int id)
         {

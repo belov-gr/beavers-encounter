@@ -5,6 +5,9 @@ using Beavers.Encounter.ServerInterface;
 using SharpArch.Core;
 using SharpArch.Core.PersistenceSupport;
 using log4net;
+using System.Threading;
+using System.Web;
+using System.IO;
 
 namespace Beavers.Encounter.ApplicationServices
 {
@@ -13,6 +16,7 @@ namespace Beavers.Encounter.ApplicationServices
         private int gameId;
         private readonly IGameService gameService;
         private readonly IRepository<Game> gameRepository;
+        private Timer timer;
 
         public GameDemon(int gameId, IRepository<Game> gameRepository, IGameService gameService)
         {
@@ -26,34 +30,31 @@ namespace Beavers.Encounter.ApplicationServices
 
         public void Start()
         {
-            var server = (IServer)Activator.GetObject(typeof(IServer), "tcp://localhost:7999/Beavers.Encounter.Service/Server.rem");
-            try
-            {
-                server.Start(gameId, 3000);
-            }
-            catch (Exception e)
-            {
-                ILog log = LogManager.GetLogger("GameDemon");
-                log.ErrorFormat("Ошибка запуска BEService: {0}", e.Message);
-            }
+            Check.Require(timer == null, "timer must be null");
+
+            timer = new Timer(GameDemonCallback, null, new TimeSpan(0, 0, 0), new TimeSpan(0, 0, 30));
         }
 
         public void Stop()
         {
-            var server = (IServer)Activator.GetObject(typeof(IServer), "tcp://localhost:7999/Beavers.Encounter.Service/Server.rem");
-            try
+            if (timer != null)
             {
-                server.Stop(gameId);
+                timer.Dispose();
+                timer = null;
             }
-            catch (Exception e)
-            {
-                ILog log = LogManager.GetLogger("GameDemon");
-                log.ErrorFormat("Ошибка завершения BEService: {0}", e.Message);
-            }
+        }
+
+        private void SetDummyHttpContext()
+        {
+            HttpContext.Current = new HttpContext(
+                new HttpRequest("file", "http://local", "queryString"),
+                new HttpResponse(new StringWriter()));
         }
 
         public void GameDemonCallback(object o)
         {
+            SetDummyHttpContext();
+
             Game game = gameRepository.Get(gameId);
             if (game.GameState != GameStates.Started)
                 return;

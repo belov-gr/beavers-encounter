@@ -37,6 +37,5 @@
                         "window.location.href = '" + Html.BuildUrlFromExpression<GamesController>(c => c.ResetGame(Model.Id)) + "';")%>
     <% } %>
 
-        <div><%= Html.ActionLink<GameServiceController>(c => c.CalcState(Model.Id), "«апуск пересчета состо€ни€ (если автоматически не пересчитываетс€)")%></div>
         <div><%= Html.ActionLink<GameServiceController>(c => c.GetState(Model.Id), "—качать состо€ние (текущую телеметрию) в архиве.")%></div>
     

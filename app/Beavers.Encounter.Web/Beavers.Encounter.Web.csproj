@@ -227,7 +227,6 @@
     <Content Include="Views\Gameboard\TaskPanel.ascx" />
     <Content Include="Views\Gameboard\TipEditorWindow.ascx" />
     <Content Include="Views\Gameboard\TipsPanel.ascx" />
-    <Content Include="Views\GameService\CalcState.aspx" />
     <Content Include="Views\GameService\Results.aspx" />
     <Content Include="Views\Games\BonusTasks.ascx" />
     <Content Include="Views\Games\Create.aspx" />
