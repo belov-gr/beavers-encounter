@@ -1,4 +1,4 @@
-<%@ Control Language="C#" Inherits="Beavers.Encounter.Web.Views.ViewUserControl<Game>" %>
+<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<Game>" %>
 
 <div class="registeredTeams">
 

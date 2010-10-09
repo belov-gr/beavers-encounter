@@ -8,9 +8,7 @@ namespace Beavers.Encounter.Data.NHibernateMaps
     {
         public void Override(AutoMapping<Team> mapping)
         {
-            mapping.References(x => x.Game, "Id")
-                .ForeignKey();
-
+            mapping.References(x => x.Game);
             mapping.References(x => x.TeamLeader);
 
             mapping.HasMany(x => x.TeamGameStates);
