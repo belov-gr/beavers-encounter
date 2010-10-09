@@ -13,10 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beavers.Encounter.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Beavers.Encounter.Web", "app\Beavers.Encounter.Web\Beavers.Encounter.Web.csproj", "{0270E8A8-2781-4F36-9062-F5FA3D596D70}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code Generation", "Code Generation", "{53144171-91D0-4792-BFCD-9CFB4B15C2AC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrudScaffolding", "tools\CrudScaffolding\CrudScaffolding.csproj", "{66981BBF-C60F-43E3-A2C7-1AC70FA7B30E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{11B849C6-F2C4-4B14-A388-B0AED4284A98}"
 	ProjectSection(SolutionItems) = preProject
 		lib\Antlr3.Runtime.dll = lib\Antlr3.Runtime.dll
@@ -91,8 +87,6 @@ Global
 		{0270E8A8-2781-4F36-9062-F5FA3D596D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0270E8A8-2781-4F36-9062-F5FA3D596D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0270E8A8-2781-4F36-9062-F5FA3D596D70}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66981BBF-C60F-43E3-A2C7-1AC70FA7B30E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66981BBF-C60F-43E3-A2C7-1AC70FA7B30E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{557BD006-CE4C-408A-9C40-9B8452D8472A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{557BD006-CE4C-408A-9C40-9B8452D8472A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{557BD006-CE4C-408A-9C40-9B8452D8472A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -100,8 +94,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{66981BBF-C60F-43E3-A2C7-1AC70FA7B30E} = {53144171-91D0-4792-BFCD-9CFB4B15C2AC}
 	EndGlobalSection
 EndGlobal
