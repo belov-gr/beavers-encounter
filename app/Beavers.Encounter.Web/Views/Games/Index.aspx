@@ -41,7 +41,7 @@
 		<%} %>
     </table>
 
-    <% if (((User)User).Game == null && ((User)User).Team == null && ((User)User).Role.IsPlayer)
+    <% if (((User)User).Role.IsAdministrator)
        { %>
     <p><%= Html.ActionLink<GamesController>(c => c.Create(), "Создать новую игру") %></p>
     <% } %>
