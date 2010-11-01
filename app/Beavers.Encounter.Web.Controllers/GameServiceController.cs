@@ -6,29 +6,31 @@ using Beavers.Encounter.ApplicationServices;
 using Beavers.Encounter.Common.Filters;
 using Beavers.Encounter.Core.DataInterfaces;
 using SharpArch.Core;
-using SharpArch.Web.NHibernate;
 
 namespace Beavers.Encounter.Web.Controllers
 {
     [HandleError]
     public class GameServiceController : BaseController
     {
+        private readonly IGameReportService gameReportService;
         private readonly IGameService gameService;
 
-        public GameServiceController(IUserRepository userRepository, IGameService gameService)
+        public GameServiceController(IUserRepository userRepository, IGameService gameService, IGameReportService gameReportService)
             : base(userRepository)
         {
             Check.Require(gameService != null, "gameService may not be null");
+            Check.Require(gameReportService != null, "gameReportService may not be null");
 
             this.gameService = gameService;
+            this.gameReportService = gameReportService;
         }
 
         [AuthorsOnly]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult GetState(int id)
         {
-            Stream reportStream = gameService.GetReport(User);
-            
+            Stream reportStream = gameReportService.GetReport(User);
+
             return File(reportStream, "application/zip", String.Format("report_{0}.zip", DateTime.Now.TimeOfDay).Replace(":", "-"));
         }
 

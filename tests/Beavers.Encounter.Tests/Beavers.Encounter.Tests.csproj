@@ -138,6 +138,9 @@
     <Compile Include="Beavers.Encounter.Web\Controllers\TasksControllerTests.cs" />
     <Compile Include="Beavers.Encounter.Web\Controllers\TeamsControllerTests.cs" />
     <Compile Include="Beavers.Encounter.Web\Controllers\TipsControllerTests.cs" />
+    <Compile Include="Beavers.Encounter.ApplicationServices\GameDemonTests.cs" />
+    <Compile Include="Beavers.Encounter.ApplicationServices\GameServiceTests.cs" />
+    <Compile Include="Beavers.Encounter.ApplicationServices\RecalcGameStateServiceTests.cs" />
     <Compile Include="MvcFakes\FakeControllerContext.cs" />
     <Compile Include="MvcFakes\FakeHttpContext.cs" />
     <Compile Include="MvcFakes\FakeHttpRequest.cs" />
@@ -150,6 +153,7 @@
     <Compile Include="Services\GameServiceTest.cs" />
     <Compile Include="TestExtensions.cs" />
     <Compile Include="TestHelpers\ControllerTestContext.cs" />
+    <Compile Include="TestHelpers\CoreExtensions.cs" />
     <Compile Include="TestHelpers\HttpContextTestContext.cs" />
     <Compile Include="TestHelpers\MockViewEngine.cs" />
     <Compile Include="TestHelpers\TestController.cs" />

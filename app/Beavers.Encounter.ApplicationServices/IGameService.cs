@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using Beavers.Encounter.Core;
 
 namespace Beavers.Encounter.ApplicationServices
@@ -49,7 +48,6 @@ namespace Beavers.Encounter.ApplicationServices
         /// <summary>
         /// Помечает задание как успешно выполненное.
         /// </summary>
-        /// <param name="teamTaskState"></param>
         void CloseTaskForTeam(TeamTaskState teamTaskState, TeamTaskStateFlag flag);
 
         /// <summary>
@@ -79,9 +77,5 @@ namespace Beavers.Encounter.ApplicationServices
         IEnumerable<Tip> GetSuggestTips(TeamTaskState teamTaskState);
 
         DataTable GetGameResults(int gameId);
-
-        void Do(int gameId);
-
-        Stream GetReport(User user);
     }
 }

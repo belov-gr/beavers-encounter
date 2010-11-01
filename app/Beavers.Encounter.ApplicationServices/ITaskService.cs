@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Beavers.Encounter.Core;
 
 namespace Beavers.Encounter.ApplicationServices
@@ -19,7 +16,6 @@ namespace Beavers.Encounter.ApplicationServices
         /// <summary>
         /// Помечает задание как выполненное, назначает причину завершения.
         /// </summary>
-        /// <param name="teamTaskState"></param>
         void CloseTaskForTeam(TeamTaskState teamTaskState, TeamTaskStateFlag flag);
 
         /// <summary>

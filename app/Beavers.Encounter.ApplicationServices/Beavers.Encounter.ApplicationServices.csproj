@@ -62,12 +62,17 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="GameDemon.cs" />
+    <Compile Include="GameReportService.cs" />
     <Compile Include="GameService.cs" />
     <Compile Include="IFormsAuthentication.cs" />
+    <Compile Include="IGameDemon.cs" />
+    <Compile Include="IGameReportService.cs" />
     <Compile Include="IGameService.cs" />
+    <Compile Include="IRecalcGameStateService.cs" />
     <Compile Include="ITaskService.cs" />
     <Compile Include="IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecalcGameStateService.cs" />
     <Compile Include="TaskService.cs" />
     <Compile Include="Utils\CsvWriter.cs" />
   </ItemGroup>
