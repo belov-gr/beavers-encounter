@@ -1,7 +1,4 @@
 using System;
-using System.Security.Principal;
-using System.Threading;
-using System.Web;
 using Beavers.Encounter.Core.DataInterfaces;
 using MvcContrib.TestHelper;
 using NUnit.Framework;

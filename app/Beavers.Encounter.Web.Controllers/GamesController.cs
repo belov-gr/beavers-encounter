@@ -123,10 +123,6 @@ namespace Beavers.Encounter.Web.Controllers
             if (ViewData.ModelState.IsValid && game.IsValid()) {
                 gameRepository.SaveOrUpdate(game);
 
-                // Делаем текущего пользователя автором созданной игры
-                User.Game = game;
-                UserRepository.SaveOrUpdate(User);
-
                 Message = "Игра успешно создана.";
                 return this.RedirectToAction(c => c.Index());
             }
@@ -184,7 +180,6 @@ namespace Beavers.Encounter.Web.Controllers
             Game gameToDelete = gameRepository.Get(id);
 
             if (gameToDelete != null) {
-                User.Game = null;
                 gameRepository.Delete(gameToDelete);
 
                 try {

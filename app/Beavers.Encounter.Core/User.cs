@@ -1,22 +1,22 @@
+using System;
 using System.Security.Principal;
 using Newtonsoft.Json;
 using NHibernate.Validator.Constraints;
 using SharpArch.Core.DomainModel;
-using System;
 
 namespace Beavers.Encounter.Core
 {
     public class User : Entity, IPrincipal
     {
         public User() { }
-		
-		[DomainSignature]
-		[NotNull, NotEmpty]
+
+        [DomainSignature]
+        [NotNull, NotEmpty]
         [JsonProperty]
         public virtual string Login { get; set; }
 
-		[NotNull, NotEmpty]
-		public virtual string Password { get; set; }
+        [NotNull, NotEmpty]
+        public virtual string Password { get; set; }
 
         [JsonProperty]
         public virtual string Nick { get; set; }
@@ -34,10 +34,9 @@ namespace Beavers.Encounter.Core
             get { return team; }
             set
             {
-                if (value != null && role != null && 
-                    (role.IsAdministrator || role.IsGuest))
+                if (value != null && (IsAdministrator || IsAuthor || Role.IsGuest))
                 {
-                    throw new Exception("Пользователь не может создавать команды.");
+                    throw new Exception("Пользователь не может быть членом команды.");
                 }
                 team = value;
             }
@@ -50,10 +49,13 @@ namespace Beavers.Encounter.Core
             get { return game; }
             set
             {
-                if (value != null && role != null && 
-                    (role.IsAdministrator || role.IsGuest))
+                if (value != null && (IsAdministrator || Role.IsGuest))
                 {
-                    throw new Exception("Пользователь не может создавать игры.");
+                    throw new Exception("Пользователь не может быть автором игры.");
+                }
+                if (value != null && Team != null)
+                {
+                    throw new Exception("Член команды не может быть автором игры.");
                 }
                 game = value;
             }
@@ -68,7 +70,7 @@ namespace Beavers.Encounter.Core
         {
             get
             {
-                if (role.IsAdministrator || role.IsGuest)
+                if (role != null && (role.IsAdministrator || role.IsGuest))
                     return role;
                 if (Game != null)
                     return Role.Author;
