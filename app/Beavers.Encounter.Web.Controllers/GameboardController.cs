@@ -6,6 +6,7 @@ using Beavers.Encounter.Web.Controllers.Filters;
 using Coolite.Ext.Web;
 using SharpArch.Core.PersistenceSupport;
 using System.Collections.Generic;
+using SharpArch.Testing;
 using SharpArch.Web.NHibernate;
 using SharpArch.Core;
 using Beavers.Encounter.ApplicationServices;
@@ -141,7 +142,8 @@ namespace Beavers.Encounter.Web.Controllers
                GameState = game.GameState
 
             };
-            bagGame.SetId(game.Id);
+
+            bagGame.SetIdTo(game.Id);
             return bagGame;
         }
 

@@ -85,11 +85,6 @@ namespace Beavers.Encounter.Core
         {
             return Name;
         }
-
-        public virtual void SetId(int id)
-        {
-            Id = id;
-        }
     }
 
     public static class GameConsnt

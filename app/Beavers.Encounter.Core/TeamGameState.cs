@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using SharpArch.Core.DomainModel;
 using NHibernate.Validator.Constraints;
 
@@ -50,7 +51,10 @@ namespace Beavers.Encounter.Core
 
         public override string ToString()
         {
-            return String.Format("{0} - {1}", Team.Name, Game.Name) ;
+            return new StringBuilder(Team.Name)
+                .Append(" - ")
+                .Append(Game.Name)
+                .ToString();
         }
     }
 }
