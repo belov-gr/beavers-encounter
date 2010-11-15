@@ -17,21 +17,23 @@ namespace Beavers.Encounter.Web.Controllers
     [HandleError]
     public class AccountController : Controller
     {
+        private readonly IUserRepository userRepository;
         // For generating random numbers.
         private Random random = new Random();
 
         // This constructor is used by the MVC framework to instantiate the controller using
         // the default forms authentication and membership providers.
-        public AccountController()
-            : this(null, null)
+        public AccountController(IUserRepository userRepository)
+            : this(null, null, userRepository)
         {
         }
 
         // This constructor is not used by the MVC framework but is instead provided for ease
         // of unit testing this type. See the comments at the end of this file for more
         // information.
-        public AccountController(IFormsAuthentication formsAuth, IMembershipService service)
+        public AccountController(IFormsAuthentication formsAuth, IMembershipService service, IUserRepository userRepository)
         {
+            this.userRepository = userRepository;
             FormsAuth = formsAuth ?? new FormsAuthenticationWrapper();
             MembershipService = service ?? new AccountMembershipService();
         }
@@ -99,7 +101,7 @@ namespace Beavers.Encounter.Web.Controllers
         {
             ViewData["PasswordLength"] = MembershipService.MinPasswordLength;
 
-            if (ValidateRegistration(userName, /*email, */password, confirmPassword))
+            if (ValidateRegistration(userName, password, confirmPassword, ModelState, MembershipService, userRepository))
             {
                 // Attempt to register the user
                 MembershipCreateStatus createStatus = MembershipService.CreateUser(userName, password/*, email*/);
@@ -219,49 +221,50 @@ namespace Beavers.Encounter.Web.Controllers
             return ModelState.IsValid;
         }
 
-        private bool ValidateRegistration(string userName, /*string email, */string password, string confirmPassword)
+        public static bool ValidateRegistration(string userName, string password, string confirmPassword, 
+            ModelStateDictionary modelState, IMembershipService membershipService, 
+            IUserRepository userRepository)
         {
-            IUserRepository ur = ServiceLocator.Current.GetInstance<IUserRepository>();
-            if (ur.GetAll().Any(u => u.Login.ToUpper() == userName.ToUpper()))
+            if (userRepository.GetAll().Any(u => u.Login.ToUpper() == userName.ToUpper()))
             {
-                ModelState.AddModelError("username", "Пользователь с таким именем уже присутствует.");
+                modelState.AddModelError("username", "Пользователь с таким именем уже присутствует.");
             }
 
             if (String.IsNullOrEmpty(userName))
             {
-                ModelState.AddModelError("username", "Нужно указать имя пользователя.");
+                modelState.AddModelError("username", "Нужно указать имя пользователя.");
             }
 
             if (userName.Length < 2 || userName.Length > 25)
             {
-                ModelState.AddModelError("username", "Имя должно быть не короче 2 и не длиннее 25 символов.");
+                modelState.AddModelError("username", "Имя должно быть не короче 2 и не длиннее 25 символов.");
             }
 
             if (userName.StartsWith(" ") || userName.EndsWith(" "))
             {
-                ModelState.AddModelError("username", "Имя не может быть пустым, а также начинаться или заканчиваться пробелами.");
+                modelState.AddModelError("username", "Имя не может быть пустым, а также начинаться или заканчиваться пробелами.");
             }
 
             /*if (String.IsNullOrEmpty(email))
             {
                 ModelState.AddModelError("email", "You must specify an email address.");
             }*/
-            
-            if (String.IsNullOrEmpty(password) || password.Length < MembershipService.MinPasswordLength)
+
+            if (String.IsNullOrEmpty(password) || password.Length < membershipService.MinPasswordLength)
             {
-                ModelState.AddModelError("password",
+                modelState.AddModelError("password",
                     String.Format(CultureInfo.CurrentCulture,
                          "Новый пароль должен содержать не менее {0} символов.",
-                         MembershipService.MinPasswordLength));
+                         membershipService.MinPasswordLength));
             }
             if (!String.Equals(password, confirmPassword, StringComparison.Ordinal))
             {
-                ModelState.AddModelError("_FORM", "Новый пароль не совпадает с подтверждением пароля.");
+                modelState.AddModelError("_FORM", "Новый пароль не совпадает с подтверждением пароля.");
             }
-            return ModelState.IsValid;
+            return modelState.IsValid;
         }
 
-        private static string ErrorCodeToString(MembershipCreateStatus createStatus)
+        public static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
             // See http://msdn.microsoft.com/en-us/library/system.web.security.membershipcreatestatus.aspx for
             // a full list of status codes.

@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="AcceptedCode.cs" />
     <Compile Include="AcceptedTip.cs" />
+    <Compile Include="AppConfig.cs" />
     <Compile Include="BonusTask.cs" />
     <Compile Include="Code.cs" />
     <Compile Include="AcceptedBadCode.cs" />

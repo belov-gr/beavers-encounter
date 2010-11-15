@@ -3,7 +3,7 @@ using Beavers.Encounter.Web.Controllers;
 using MvcContrib.TestHelper;
 using System.Web.Routing;
 
-namespace Tests.Beavers.Encounter.Controllers
+namespace Tests.Beavers.Encounter.Web.Controllers
 {
     [TestFixture]
     public class RouteRegistrarTests

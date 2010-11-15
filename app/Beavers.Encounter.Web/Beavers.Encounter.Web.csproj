@@ -151,6 +151,7 @@
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="HtmlHelpers\HtmlBreadcrumbHelper.cs" />
     <Compile Include="HtmlHelpers\HtmlHelper.cs" />
     <Compile Include="HtmlHelpers\LowercaseFirstCharacterOfNameBehaviour.cs" />
     <Compile Include="HtmlHelpers\MenuItemHelper.cs" />
@@ -289,6 +290,22 @@
       <Project>{63372057-C24D-4F11-BFDC-68B57B55B984}</Project>
       <Name>Beavers.Encounter.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdminAppConfig\Edit.aspx" />
+    <Content Include="Views\AdminGames\Create.aspx" />
+    <Content Include="Views\AdminGames\Edit.aspx" />
+    <Content Include="Views\AdminGames\Index.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\Admin\Index.aspx" />
+    <Content Include="Views\AdminUsers\Create.aspx" />
+    <Content Include="Views\AdminUsers\Edit.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\AdminUsers\Index.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

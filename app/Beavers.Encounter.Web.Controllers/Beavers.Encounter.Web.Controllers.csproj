@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup> 
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -104,6 +104,10 @@
     <Compile Include="Ajax\AjaxFormResult.cs" />
     <Compile Include="Ajax\AjaxResult.cs" />
     <Compile Include="Ajax\AjaxStoreResult.cs" />
+    <Compile Include="AdminAppConfigController.cs" />
+    <Compile Include="AdminGamesController.cs" />
+    <Compile Include="AdminController.cs" />
+    <Compile Include="AdminUsersController.cs" />
     <Compile Include="Binders\CodeBinder.cs" />
     <Compile Include="Binders\BonusTaskBinder.cs" />
     <Compile Include="Binders\TaskBinder.cs" />

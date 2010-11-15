@@ -15,6 +15,7 @@ using System.Reflection;
 using Beavers.Encounter.Web.Controllers;
 using Beavers.Encounter.Data.NHibernateMaps;
 using Beavers.Encounter.Web.CastleWindsor;
+using Beavers.Encounter.Core;
 
 namespace Beavers.Encounter.Web
 {
@@ -26,9 +27,6 @@ namespace Beavers.Encounter.Web
         protected void Application_Start()
         {
             log4net.Config.XmlConfigurator.Configure();
-
-            ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new AreaViewEngine());
 
             DataAnnotationsModelValidatorProvider.AddImplicitRequiredAttributeForValueTypes = false;
             //Server side validation provider
@@ -77,6 +75,10 @@ namespace Beavers.Encounter.Web
         {
             NHibernateInitializer.Instance().InitializeNHibernateOnce(
                 () => InitializeNHibernateSession());
+
+            Repository<AppConfig> appConfigRepository = new Repository<AppConfig>();
+            AppConfig appConfig = appConfigRepository.Get(1);
+            Application["AppTitle"] = appConfig.Title;
         }
 
         /// <summary>

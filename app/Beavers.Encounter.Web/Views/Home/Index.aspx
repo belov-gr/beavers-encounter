@@ -4,7 +4,7 @@
 <%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
 
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <h2>ДВИГАТЕЛЬ ДОЗОРА</h2>
+    <h2><%= Convert.ToString(Application["AppTitle"]) %></h2>
     <h3>Что дальше?</h3>
     <%
     if (!((User) User).Identity.IsAuthenticated) 

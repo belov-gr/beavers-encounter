@@ -118,6 +118,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Beavers.Encounter.Common\BreadcrumbManagerTests.cs" />
     <Compile Include="Beavers.Encounter.Core\BonusTaskTests.cs" />
     <Compile Include="Beavers.Encounter.Core\CodeTests.cs" />
     <Compile Include="Beavers.Encounter.Core\GameTests.cs" />
@@ -126,15 +127,18 @@
     <Compile Include="Beavers.Encounter.Core\TeamTests.cs" />
     <Compile Include="Beavers.Encounter.Core\TipTests.cs" />
     <Compile Include="Beavers.Encounter.Core\UserTests.cs" />
+    <Compile Include="Beavers.Encounter.Web\Controllers\Admin\AdminControllerTests.cs" />
+    <Compile Include="Beavers.Encounter.Web\Controllers\Admin\AdminUsersControllerTests.cs" />
     <Compile Include="Beavers.Encounter.Web\Controllers\BonusTasksControllerTests.cs" />
     <Compile Include="Beavers.Encounter.Web\Controllers\CodesControllerTests.cs" />
     <Compile Include="Beavers.Encounter.Web\Controllers\GamesControllerTests.cs" />
-    <Compile Include="Beavers.Encounter.Web\Controllers\RouteRegistrarTests.cs" />
+    <Compile Include="Beavers.Encounter.Web\Controllers\Admin\RouteRegistrarTests.cs" />
     <Compile Include="Beavers.Encounter.Data\NHibernateMaps\MappingIntegrationTests.cs" />
     <Compile Include="Beavers.Encounter.Data\TestDoubles\EntityDuplicateCheckerStub.cs" />
     <Compile Include="..\..\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Beavers.Encounter.Web\Controllers\RouteRegistrarTests.cs" />
     <Compile Include="Beavers.Encounter.Web\Controllers\TasksControllerTests.cs" />
     <Compile Include="Beavers.Encounter.Web\Controllers\TeamsControllerTests.cs" />
     <Compile Include="Beavers.Encounter.Web\Controllers\TipsControllerTests.cs" />
@@ -152,11 +156,13 @@
     <Compile Include="ServiceLocatorInitializer.cs" />
     <Compile Include="Services\GameServiceTest.cs" />
     <Compile Include="TestExtensions.cs" />
+    <Compile Include="TestHelpers\AreaRegistrationTest.cs" />
     <Compile Include="TestHelpers\ControllerTestContext.cs" />
     <Compile Include="TestHelpers\CoreExtensions.cs" />
     <Compile Include="TestHelpers\HttpContextTestContext.cs" />
     <Compile Include="TestHelpers\MockViewEngine.cs" />
     <Compile Include="TestHelpers\TestController.cs" />
+    <Compile Include="TestHelpers\TestHttpContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -181,6 +187,10 @@
     <ProjectReference Include="..\..\app\Beavers.Encounter.Common\Beavers.Encounter.Common.csproj">
       <Project>{557BD006-CE4C-408A-9C40-9B8452D8472A}</Project>
       <Name>Beavers.Encounter.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\app\Beavers.Encounter.Web\Beavers.Encounter.Web.csproj">
+      <Project>{0270E8A8-2781-4F36-9062-F5FA3D596D70}</Project>
+      <Name>Beavers.Encounter.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
