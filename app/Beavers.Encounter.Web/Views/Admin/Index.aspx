@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage" %>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
 
@@ -7,7 +6,7 @@
 	
 	<ul>
 	    <li>
-	        <%= Html.ActionLink<AdminAppConfigController>(c => c.Edit(), "Настрийки сайта")%>
+	        <%= Html.ActionLink<AdminAppConfigController>(c => c.Edit(), "Настройки сайта")%>
 	    </li>
 	    <li>
 	        <%= Html.ActionLink<AdminUsersController>(c => c.Index(), "Список пользователей")%>

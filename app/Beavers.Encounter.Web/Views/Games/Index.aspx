@@ -43,7 +43,7 @@
 
     <% if (((User)User).Role.IsAdministrator)
        { %>
-    <p><%= Html.ActionLink<GamesController>(c => c.Create(), "Создать новую игру") %></p>
+    <p><%= Html.ActionLink<AdminGamesController>(c => c.Create(), "Создать новую игру") %></p>
     <% } %>
 
 </asp:Content>

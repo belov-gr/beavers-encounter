@@ -1,7 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/Views/Shared/Site.Master" AutoEventWireup="true" 
     Inherits="System.Web.Mvc.ViewPage" %>
-<%@ Import Namespace="Beavers.Encounter.Core"%>
-<%@ Import Namespace="Beavers.Encounter.Web.Controllers" %>
 
 <asp:Content ID="indexContent" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
     <h2><%= Convert.ToString(Application["AppTitle"]) %></h2>
@@ -10,10 +8,10 @@
     if (!((User) User).Identity.IsAuthenticated) 
     { %>
     <p>
-        Для входа в систему перейдите по ссылке <%= Html.ActionLink("Войти", "LogOn", "Account") %> в верхнем правом углу страницы.
+        Для входа в систему перейдите по ссылке <%= Html.ActionLink<AccountController>(c => c.LogOn(), "Войти") %> в верхнем правом углу страницы.
     </p>
     <p>
-        Если вы еще не зарегистрированны, то зарегистрируйтесь здесь <%= Html.ActionLink("Регистрация", "Register", "Account")%>.
+        Если вы еще не зарегистрированны, то зарегистрируйтесь здесь <%= Html.ActionLink<AccountController>(c => c.Register(), "Регистрация")%>.
     </p>
     <%
     }
