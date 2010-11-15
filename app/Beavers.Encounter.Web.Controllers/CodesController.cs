@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Beavers.Encounter.Common;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Core.DataInterfaces;
 using Beavers.Encounter.Web.Controllers.Binders;
@@ -24,6 +25,7 @@ namespace Beavers.Encounter.Web.Controllers
             this.taskRepository = taskRepository;
         }
 
+        [Breadcrumb("Новый код", 5)]
         public ActionResult Create(int taskId)
         {
             CodeFormViewModel viewModel = CodeFormViewModel.CreateCodeFormViewModel();
@@ -52,11 +54,12 @@ namespace Beavers.Encounter.Web.Controllers
             return View(viewModel);
         }
 
-        [Transaction]
+        [Breadcrumb("Код \"{0}\"", 5)]
         public ActionResult Edit(int id) {
             CodeFormViewModel viewModel = CodeFormViewModel.CreateCodeFormViewModel();
             viewModel.Code = codeRepository.Get(id);
             viewModel.TaskId = viewModel.Code.Task.Id;
+            this.SetBreadcrumbText(viewModel.Code.Name);
             return View(viewModel);
         }
 

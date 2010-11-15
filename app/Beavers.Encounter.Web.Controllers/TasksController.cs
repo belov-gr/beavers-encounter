@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Beavers.Encounter.Common;
 using Beavers.Encounter.Web.Controllers.Binders;
 using Beavers.Encounter.Web.Controllers.Filters;
 using SharpArch.Core;
@@ -28,13 +29,17 @@ namespace Beavers.Encounter.Web.Controllers
             this.codesRepository = codesRepository;
         }
 
-        [Transaction]
-        public ActionResult Show(int id) {
+        [Breadcrumb("Задание \"{0}\"", 4)]
+        public ActionResult Show(int id)
+        {
             Task task = taskRepository.Get(id);
+            this.SetBreadcrumbText(task.Name);
             return View(task);
         }
 
-        public ActionResult Create() {
+        [Breadcrumb("Новое задание", 4)]
+        public ActionResult Create()
+        {
             TaskFormViewModel viewModel = TaskFormViewModel.CreateTaskFormViewModel();
             return View(viewModel);
         }
@@ -60,7 +65,7 @@ namespace Beavers.Encounter.Web.Controllers
 
                 Message = "Задание успешно создано.";
 
-                return this.RedirectToAction<GamesController>(c => c.Edit(task.Game.Id));
+                return this.RedirectToAction(c => c.Edit(task.Id));
             }
 
             TaskFormViewModel viewModel = TaskFormViewModel.CreateTaskFormViewModel();
@@ -68,10 +73,12 @@ namespace Beavers.Encounter.Web.Controllers
             return View(viewModel);
         }
 
-        [Transaction]
-        public ActionResult Edit(int id) {
+        [Breadcrumb("Задание \"{0}\"", 4)]
+        public ActionResult Edit(int id)
+        {
             TaskFormViewModel viewModel = TaskFormViewModel.CreateTaskFormViewModel();
             viewModel.Task = taskRepository.Get(id);
+            this.SetBreadcrumbText(viewModel.Task.Name);
             return View(viewModel);
         }
 

@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Beavers.Encounter.Common;
 using Beavers.Encounter.Web.Controllers.Binders;
 using Beavers.Encounter.Web.Controllers.Filters;
 using SharpArch.Core.PersistenceSupport;
@@ -25,13 +26,16 @@ namespace Beavers.Encounter.Web.Controllers
             this.bonusTaskRepository = bonusTaskRepository;
         }
 
-        [Transaction]
+        [Breadcrumb("Бонус \"{0}\"", 4)]
         public ActionResult Show(int id) {
             BonusTask bonusTask = bonusTaskRepository.Get(id);
+            this.SetBreadcrumbText(bonusTask.Name);
             return View(bonusTask);
         }
 
-        public ActionResult Create() {
+        [Breadcrumb("Новое бонусное задание", 4)]
+        public ActionResult Create()
+        {
             BonusTaskFormViewModel viewModel = BonusTaskFormViewModel.CreateBonusTaskFormViewModel();
 
             if (User != null)
@@ -63,10 +67,11 @@ namespace Beavers.Encounter.Web.Controllers
             return View(viewModel);
         }
 
-        [Transaction]
+        [Breadcrumb("Бонус \"{0}\"", 4)]
         public ActionResult Edit(int id) {
             BonusTaskFormViewModel viewModel = BonusTaskFormViewModel.CreateBonusTaskFormViewModel();
             viewModel.BonusTask = bonusTaskRepository.Get(id);
+            this.SetBreadcrumbText(viewModel.BonusTask.Name);
             return View(viewModel);
         }
 

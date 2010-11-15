@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using Beavers.Encounter.Common;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Web.Controllers.Binders;
 using Beavers.Encounter.Web.Controllers.Filters;
@@ -24,6 +25,7 @@ namespace Beavers.Encounter.Web.Controllers
             this.taskRepository = taskRepository;
         }
 
+        [Breadcrumb("Новая подсказка", 5)]
         public ActionResult Create(int taskId)
         {
             TipFormViewModel viewModel = TipFormViewModel.CreateTipFormViewModel();
@@ -55,8 +57,9 @@ namespace Beavers.Encounter.Web.Controllers
             return View(viewModel);
         }
 
-        [Transaction]
-        public ActionResult Edit(int id) {
+        [Breadcrumb("Подсказка", 5)]
+        public ActionResult Edit(int id)
+        {
             TipFormViewModel viewModel = TipFormViewModel.CreateTipFormViewModel();
             viewModel.Tip = tipRepository.Get(id);
             viewModel.TaskId = viewModel.Tip.Task.Id;

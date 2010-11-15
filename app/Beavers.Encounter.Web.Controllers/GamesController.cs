@@ -1,7 +1,7 @@
 using System.Data;
 using System.Web.Mvc;
 using System.Collections.Generic;
-
+using Beavers.Encounter.Common;
 using SharpArch.Core;
 using SharpArch.Core.PersistenceSupport;
 using SharpArch.Web.NHibernate;
@@ -33,16 +33,18 @@ namespace Beavers.Encounter.Web.Controllers
             this.gameService = gameService;
         }
 
-        [Transaction]
+        [Breadcrumb("Игры", 2)]
         public ActionResult Index() {
             IList<Game> games = gameRepository.GetAll();
 
 			return View(games);
         }
 
-        [Transaction]
-        public ActionResult Show(int id) {
+        [Breadcrumb("Игра \"{0}\"", 3)]
+        public ActionResult Show(int id)
+        {
             Game game = gameRepository.Get(id);
+            this.SetBreadcrumbText(game.Name);
             return View(game);
         }
 
@@ -91,6 +93,7 @@ namespace Beavers.Encounter.Web.Controllers
             return this.RedirectToAction(c => c.Edit(id));
         }
 
+        [Breadcrumb("Состояние игры", 4)]
         [GameOwner]
         public ActionResult CurrentState(int id)
         {
@@ -132,11 +135,13 @@ namespace Beavers.Encounter.Web.Controllers
             return View(viewModel);
         }
 
+        [Breadcrumb("Игра \"{0}\"", 3)]
         [GameOwner]
         [Transaction]
         public ActionResult Edit(int id) {
             GameFormViewModel viewModel = GameFormViewModel.CreateGameFormViewModel();
             viewModel.Game = gameRepository.Get(id);
+            this.SetBreadcrumbText(viewModel.Game.Name);
             return View(viewModel);
         }
 

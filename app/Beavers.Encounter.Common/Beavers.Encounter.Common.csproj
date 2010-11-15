@@ -72,6 +72,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BBCode.cs" />
+    <Compile Include="Breadcrumb\Breadcrumb.cs" />
+    <Compile Include="Breadcrumb\BreadcrumbAttribute.cs" />
+    <Compile Include="Breadcrumb\BreadcrumbManager.cs" />
+    <Compile Include="Breadcrumb\BreadcrumbHelper.cs" />
+    <Compile Include="Breadcrumb\BreadcrumbTitleAttribute.cs" />
+    <Compile Include="Breadcrumb\IBreadcrumbManager.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="Filters\AdministratorsOnlyAttribute.cs" />

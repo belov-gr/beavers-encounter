@@ -3,6 +3,7 @@ using System.Data;
 using System.IO;
 using System.Web.Mvc;
 using Beavers.Encounter.ApplicationServices;
+using Beavers.Encounter.Common;
 using Beavers.Encounter.Common.Filters;
 using Beavers.Encounter.Core.DataInterfaces;
 using SharpArch.Core;
@@ -34,6 +35,7 @@ namespace Beavers.Encounter.Web.Controllers
             return File(reportStream, "application/zip", String.Format("report_{0}.zip", DateTime.Now.TimeOfDay).Replace(":", "-"));
         }
 
+        [Breadcrumb("Результаты", 4)]
         [AuthorsOnly]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Results(int id)

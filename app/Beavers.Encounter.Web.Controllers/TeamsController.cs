@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using Beavers.Encounter.Common.Filters;
 using Microsoft.Practices.ServiceLocation;
 
 using SharpArch.Core;
 using SharpArch.Core.PersistenceSupport;
 using SharpArch.Web.NHibernate;
 
+using Beavers.Encounter.Common;
+using Beavers.Encounter.Common.Filters;
 using Beavers.Encounter.Common.MvcContrib;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Core.DataInterfaces;
@@ -34,21 +35,23 @@ namespace Beavers.Encounter.Web.Controllers
             this.gameRepository = gameRepository;
         }
 
+        [Breadcrumb("Список команд", 2)]
         [GameState]
-        [Transaction]
         public ActionResult Index() {
             IList<Team> teams = teamRepository.GetAll();
 
             return View(teams);
         }
 
+        [Breadcrumb("Команда \"{0}\"", 3)]
         [GameState]
-        [Transaction]
         public ActionResult Show(int id) {
             Team team = teamRepository.Get(id);
+            this.SetBreadcrumbText(team.Name);
             return View(team);
         }
 
+        [Breadcrumb("Новая команда", 3)]
         [AuthorsOnly]
         [GameState]
         public ActionResult Create()
@@ -88,12 +91,13 @@ namespace Beavers.Encounter.Web.Controllers
             return View(viewModel);
         }
 
+        [Breadcrumb("Команда \"{0}\"", 3)]
         [AuthorsOnly]
         [GameState]
-        [Transaction]
         public ActionResult Edit(int id) {
             TeamFormViewModel viewModel = TeamFormViewModel.CreateTeamFormViewModel();
             viewModel.Team = teamRepository.Get(id);
+            this.SetBreadcrumbText(viewModel.Team.Name);
             return View(viewModel);
         }
 
@@ -156,7 +160,6 @@ namespace Beavers.Encounter.Web.Controllers
         }
 
         [GameState]
-        [Transaction]
         public ActionResult SingIn(int id)
         {
             TeamFormViewModel1 model = TeamFormViewModel1.CreateTeamFormViewModel1();
@@ -187,14 +190,11 @@ namespace Beavers.Encounter.Web.Controllers
 
                 userRepository.SaveOrUpdate(user);
                 teamRepository.SaveOrUpdate(team);
+                
+                return this.RedirectToAction(c => c.Show(id));
             }
-            else
-            {
-                Message = "Неверный код доступа! Уточните его у вашего капитана.";
-                return this.RedirectToAction<TeamsController>(c => c.SingIn(id));
-            }
-
-            return View("Index", teamRepository.GetAll());
+            Message = "Неверный код доступа! Уточните его у вашего капитана.";
+            return this.RedirectToAction(c => c.SingIn(id));
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace Beavers.Encounter.Web.Controllers
 
             teamRepository.SaveOrUpdate(team);
 
-            return View("Index", teamRepository.GetAll());
+            return this.RedirectToAction(c => c.Show(team.Id));
         }
 
         /// <summary>
@@ -248,19 +248,19 @@ namespace Beavers.Encounter.Web.Controllers
 
             Team team = user.Team;
 
-            if (this.User.Team.Id != team.Id)
+            if (User.Team.Id != team.Id)
             {
                 Message = "Недопустимое действие!";
-                return this.RedirectToAction<TeamsController>(c => c.Show(this.User.Team.Id));
+                return this.RedirectToAction(c => c.Show(User.Team.Id));
             }
 
-            this.User.Team.Users.Remove(user);
+            User.Team.Users.Remove(user);
             user.Team = null;
 
             userRepository.SaveOrUpdate(user);
             teamRepository.SaveOrUpdate(team);
 
-            return this.RedirectToAction<TeamsController>(c => c.Show(this.User.Team.Id));
+            return this.RedirectToAction(c => c.Show(User.Team.Id));
         }
 
         [AuthorsOnly]
@@ -273,7 +273,7 @@ namespace Beavers.Encounter.Web.Controllers
             game.Teams.Add(team);
             gameRepository.DbContext.CommitChanges();
 
-            return this.RedirectToAction<TeamsController>(c => c.Index());
+            return this.RedirectToAction(c => c.Index());
         }
 
         [AuthorsOnly]
