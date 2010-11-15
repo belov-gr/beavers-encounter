@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Beavers.Encounter.Core;
 using Beavers.Encounter.Core.DataInterfaces;
 using Beavers.Encounter.Web.Controllers;
-using Beavers.Encounter.Web.Controllers;
 using MvcContrib.TestHelper;
 using NUnit.Framework;
 using Rhino.Mocks;
